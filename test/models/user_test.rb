@@ -69,4 +69,35 @@ class UserTest < ActiveSupport::TestCase
 
     assert_not user.voted_for?(post)
   end
+
+  test "has_password? returns true when password is set" do
+    user = create(:user, :with_password)
+    assert user.has_password?
+  end
+
+  test "has_password? returns false when password is not set" do
+    user = create(:user)
+    assert_not user.has_password?
+  end
+
+  test "generate_username_from_email extracts username from email" do
+    username = User.generate_username_from_email("john-doe@example.com")
+    assert_equal "john-doe", username
+  end
+
+  test "generate_username_from_email handles short usernames" do
+    username = User.generate_username_from_email("ab@example.com")
+    assert_equal "user", username
+  end
+
+  test "generate_username_from_email appends number for duplicates" do
+    create(:user, username: "john")
+    username = User.generate_username_from_email("john@example.com")
+    assert_equal "john1", username
+  end
+
+  test "generate_username_from_email removes invalid characters" do
+    username = User.generate_username_from_email("john+test@example.com")
+    assert_equal "johntest", username
+  end
 end

@@ -20,6 +20,22 @@ class User < ApplicationRecord
 
   before_validation :normalize_email
 
+  def self.generate_username_from_email(email)
+    base = email.to_s.split("@").first.gsub(/[^a-zA-Z0-9_-]/, "")
+    base = "user" if base.blank? || base.length < 3
+    base = base[0..25]
+
+    username = base
+    counter = 1
+
+    while exists?(username: username)
+      username = "#{base}#{counter}"
+      counter += 1
+    end
+
+    username
+  end
+
   def bot?
     username == "tabdevs-bot"
   end

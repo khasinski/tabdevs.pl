@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
     end
 
     user = User.find_or_create_by!(email: email) do |u|
-      u.username = generate_username(email)
+      u.username = User.generate_username_from_email(email)
     end
 
     magic_link = user.magic_links.create!
@@ -29,12 +29,10 @@ class SessionsController < ApplicationController
   end
 
   def callback
-    token = params[:token]
-    magic_link = MagicLink.find_and_use(token)
+    magic_link = MagicLink.find_and_use(params[:token])
 
     if magic_link
-      session[:user_id] = magic_link.user_id
-      redirect_to root_path, notice: t("flash.auth.login_success")
+      login_user(magic_link.user)
     else
       redirect_to login_path, alert: t("flash.auth.invalid_token")
     end
@@ -47,14 +45,10 @@ class SessionsController < ApplicationController
   end
 
   def password_auth
-    email = params[:email].to_s.downcase.strip
-    password = params[:password].to_s
+    user = User.find_by(email: params[:email].to_s.downcase.strip)
 
-    user = User.find_by(email: email)
-
-    if user&.has_password? && user.authenticate(password)
-      session[:user_id] = user.id
-      redirect_to root_path, notice: t("flash.auth.login_success")
+    if user&.has_password? && user.authenticate(params[:password].to_s)
+      login_user(user)
     else
       flash.now[:error] = t("flash.auth.invalid_credentials")
       render :password, status: :unprocessable_entity
@@ -72,28 +66,15 @@ class SessionsController < ApplicationController
     redirect_to root_path if current_user
   end
 
-  def rate_limited?(email)
-    # Simple rate limiting - max 5 attempts per hour per email
-    count = MagicLink.joins(:user)
-                     .where(users: { email: email })
-                     .where("magic_links.created_at > ?", 1.hour.ago)
-                     .count
-    count >= 5
+  def login_user(user)
+    session[:user_id] = user.id
+    redirect_to root_path, notice: t("flash.auth.login_success")
   end
 
-  def generate_username(email)
-    base = email.split("@").first.gsub(/[^a-zA-Z0-9_-]/, "")
-    base = "user" if base.blank? || base.length < 3
-    base = base[0..25]
-
-    username = base
-    counter = 1
-
-    while User.exists?(username: username)
-      username = "#{base}#{counter}"
-      counter += 1
-    end
-
-    username
+  def rate_limited?(email)
+    MagicLink.joins(:user)
+             .where(users: { email: email })
+             .where("magic_links.created_at > ?", 1.hour.ago)
+             .count >= 5
   end
 end

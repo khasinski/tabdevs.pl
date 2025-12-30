@@ -77,4 +77,48 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_equal I18n.t("flash.auth.logout_success"), flash[:notice]
   end
+
+  # Password login tests
+  test "shows password login page" do
+    get password_login_path
+    assert_response :success
+    assert_includes response.body, I18n.t("views.auth.password_login_title")
+  end
+
+  test "logs in user with valid password" do
+    user = create(:user, :with_password)
+
+    post password_login_path, params: { email: user.email, password: "password123" }
+    assert_redirected_to root_path
+    assert_equal I18n.t("flash.auth.login_success"), flash[:notice]
+  end
+
+  test "rejects invalid password" do
+    user = create(:user, :with_password)
+
+    post password_login_path, params: { email: user.email, password: "wrongpassword" }
+    assert_response :unprocessable_entity
+    assert_includes response.body, I18n.t("flash.auth.invalid_credentials")
+  end
+
+  test "rejects login for user without password" do
+    user = create(:user)
+
+    post password_login_path, params: { email: user.email, password: "anypassword" }
+    assert_response :unprocessable_entity
+  end
+
+  test "rejects login for non-existent user" do
+    post password_login_path, params: { email: "nonexistent@example.com", password: "password123" }
+    assert_response :unprocessable_entity
+  end
+
+  test "redirects logged in users from password login page" do
+    user = create(:user)
+    magic_link = user.magic_links.create!(token: SecureRandom.urlsafe_base64(32), expires_at: 1.hour.from_now)
+    get auth_callback_path(token: magic_link.token)
+
+    get password_login_path
+    assert_redirected_to root_path
+  end
 end

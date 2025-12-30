@@ -29,5 +29,9 @@ FactoryBot.define do
     trait :banned do
       status { :banned }
     end
+
+    trait :with_password do
+      password { "password123" }
+    end
   end
 end
