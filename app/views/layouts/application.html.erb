@@ -38,7 +38,7 @@
 
           <div class="header-right">
             <% if logged_in? %>
-              <%= link_to current_user.username, user_path(current_user) %>
+              <%= link_to current_user.username, user_path(current_user.username) %>
               <span class="header-karma">(<%= current_user.karma %>)</span>
               <span class="nav-separator">|</span>
               <%= link_to t("views.header.settings"), settings_path %>
