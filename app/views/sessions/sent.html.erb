@@ -1,0 +1,13 @@
+<div class="auth-form">
+  <h2><%= t("views.auth.check_email") %></h2>
+
+  <div class="auth-message success">
+    <%= flash[:notice] %>
+  </div>
+
+  <p><%= t("views.auth.link_expires") %></p>
+
+  <p class="auth-footer">
+    <%= t("views.auth.no_email") %> <%= link_to t("views.auth.try_again"), login_path %>.
+  </p>
+</div>

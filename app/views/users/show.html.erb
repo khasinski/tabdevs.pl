@@ -1,0 +1,46 @@
+<div class="user-profile">
+  <h2 style="font-size: 13px; font-weight: bold; margin-bottom: 10px;"><%= @user.username %></h2>
+
+  <div style="font-size: 11px; color: var(--text-light); margin-bottom: 15px;">
+    <p><%= t("views.users.karma") %>: <strong><%= @user.karma %></strong></p>
+    <p><%= t("views.users.joined") %>: <%= @user.created_at.strftime("%d.%m.%Y") %></p>
+    <% if @user.bot? %>
+      <p><span class="feed-bot">bot</span></p>
+    <% end %>
+  </div>
+
+  <% if @posts.any? %>
+    <h3 style="font-size: 11px; font-weight: bold; margin: 20px 0 10px; border-top: 1px solid var(--border); padding-top: 15px;">
+      <%= t("views.users.recent_posts") %>
+    </h3>
+    <ul style="list-style: none;">
+      <% @posts.each do |post| %>
+        <li style="padding: 4px 0; font-size: 11px;">
+          <%= link_to post.title, post_path(post) %>
+          <span style="color: var(--text-light); font-size: 9px;">
+            (<%= pluralize_points(post.score) %>, <%= time_ago_in_words_pl(post.created_at) %>)
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @comments.any? %>
+    <h3 style="font-size: 11px; font-weight: bold; margin: 20px 0 10px; border-top: 1px solid var(--border); padding-top: 15px;">
+      <%= t("views.users.recent_comments") %>
+    </h3>
+    <ul style="list-style: none;">
+      <% @comments.each do |comment| %>
+        <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+          <div style="font-size: 9px; color: var(--text-light); margin-bottom: 4px;">
+            w <%= link_to comment.post&.title || t("views.common.deleted_post"), comment.post ? post_path(comment.post, anchor: dom_id(comment)) : "#" %>
+            &middot; <%= time_ago_in_words_pl(comment.created_at) %>
+          </div>
+          <div style="font-size: 11px;">
+            <%= truncate(comment.body, length: 200) %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "tabdevs.pl" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="tabdevs.pl">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header-inner">
+          <%= link_to root_path, class: "logo" do %>
+            <span class="logo-icon">T</span>
+            <span>tabdevs.pl</span>
+          <% end %>
+
+          <nav class="nav">
+            <%= link_to t("views.header.top"), root_path %>
+            <span class="nav-separator">|</span>
+            <%= link_to t("views.header.new"), new_posts_path %>
+            <span class="nav-separator">|</span>
+            <%= link_to t("views.header.add"), new_post_path %>
+          </nav>
+
+          <div class="header-right">
+            <% if logged_in? %>
+              <%= link_to current_user.username, user_path(current_user) %>
+              <span class="header-karma">(<%= current_user.karma %>)</span>
+              <span class="nav-separator">|</span>
+              <%= link_to t("views.header.settings"), settings_path %>
+              <span class="nav-separator">|</span>
+              <% if unread_notifications_count > 0 %>
+                <%= link_to notifications_path do %>
+                  <span class="notification-badge"><%= unread_notifications_count %></span>
+                <% end %>
+                <span class="nav-separator">|</span>
+              <% end %>
+              <%= link_to t("views.header.logout"), logout_path, data: { turbo_method: :delete } %>
+            <% else %>
+              <%= link_to t("views.header.login"), login_path %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <div class="content">
+          <% if flash[:notice] %>
+            <div class="flash flash-notice"><%= flash[:notice] %></div>
+          <% end %>
+          <% if flash[:alert] %>
+            <div class="flash flash-alert"><%= flash[:alert] %></div>
+          <% end %>
+
+          <%= yield %>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-links">
+          <%= link_to t("views.footer.faq"), "#" %> |
+          <%= link_to t("views.footer.terms"), "#" %> |
+          <%= link_to t("views.footer.privacy"), "#" %> |
+          <%= link_to t("views.footer.contact"), "#" %>
+        </div>
+        <div>tabdevs.pl &copy; <%= Time.current.year %></div>
+      </div>
+    </footer>
+  </body>
+</html>

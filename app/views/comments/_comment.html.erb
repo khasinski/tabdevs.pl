@@ -1,0 +1,60 @@
+<div class="comment" id="<%= dom_id(comment) %>">
+  <div class="comment-meta">
+    <%= turbo_frame_tag "vote_#{dom_id(comment)}" do %>
+      <% if logged_in? %>
+        <% if current_user.voted_for?(comment) %>
+          <span class="vote-btn active">&#9650;</span>
+        <% else %>
+          <%= button_to upvote_comment_path(comment), method: :post, class: "vote-btn", form: { data: { turbo_frame: "vote_#{dom_id(comment)}" } } do %>
+            &#9650;
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= link_to "&#9650;".html_safe, login_path, class: "vote-btn" %>
+      <% end %>
+    <% end %>
+
+    <%= link_to comment.author&.username || t("views.common.deleted_user"), comment.author ? user_path(comment.author) : "#", class: "comment-author" %>
+    <%= time_ago_in_words_pl(comment.created_at) %>
+    <% if comment.edited? %>
+      <span class="edited"><%= t("views.posts.edited") %></span>
+    <% end %>
+  </div>
+
+  <div class="comment-body">
+    <%= markdown(comment.body) %>
+  </div>
+
+  <div class="comment-actions">
+    <% if logged_in? %>
+      <% if comment.depth < 3 %>
+        <%= link_to t("views.comments.reply"), "#", data: { action: "click->comment-reply#toggle" } %>
+      <% end %>
+      <% if comment.can_be_edited_by?(current_user) %>
+        <%= link_to t("views.common.edit"), edit_post_comment_path(comment.post, comment) %>
+      <% end %>
+      <% if current_user == comment.author || current_user.admin? || current_user.moderator? %>
+        <%= link_to t("views.common.delete"), post_comment_path(comment.post, comment), data: { turbo_method: :delete, turbo_confirm: t("views.comments.confirm_delete") } %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if comment.depth < 3 && logged_in? %>
+    <div class="comment-reply-form" style="display: none; margin-top: 10px;">
+      <%= form_with model: [comment.post, Comment.new] do |f| %>
+        <%= f.hidden_field :parent_id, value: comment.id %>
+        <%= f.text_area :body, placeholder: t("views.comments.reply_placeholder"), rows: 3, style: "width: 100%; max-width: 500px;" %>
+        <div style="margin-top: 5px;">
+          <%= f.submit t("views.comments.reply_submit"), style: "padding: 4px 12px; font-size: 11px; background: var(--bg); border: 1px solid var(--border); cursor: pointer;" %>
+          <%= link_to t("views.common.cancel"), "#", data: { action: "click->comment-reply#toggle" }, style: "margin-left: 8px; font-size: 11px;" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if comment.replies.visible.any? %>
+    <div class="comment-replies">
+      <%= render partial: "comments/comment", collection: comment.replies.visible.includes(:author).order(created_at: :asc), as: :comment %>
+    </div>
+  <% end %>
+</div>

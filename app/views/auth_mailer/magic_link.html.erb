@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+    .button { display: inline-block; background: #611f69; color: #fff !important; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
+    .footer { margin-top: 30px; font-size: 12px; color: #666; }
+  </style>
+</head>
+<body>
+  <h2>Cześć<%= @user.username.present? ? ", #{@user.username}" : "" %>!</h2>
+
+  <p>Kliknij poniższy przycisk, aby zalogować się na tabdevs.pl:</p>
+
+  <a href="<%= @login_url %>" class="button">Zaloguj się</a>
+
+  <p>Lub skopiuj ten link do przeglądarki:</p>
+  <p><code><%= @login_url %></code></p>
+
+  <p><strong>Link wygasa za 15 minut.</strong></p>
+
+  <div class="footer">
+    <p>Jeśli nie prosiłeś o ten email, możesz go zignorować.</p>
+    <p>— Zespół tabdevs.pl</p>
+  </div>
+</body>
+</html>

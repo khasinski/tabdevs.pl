@@ -1,0 +1,78 @@
+<article class="post-header">
+  <div class="post-title-row">
+    <div class="post-vote">
+      <%= turbo_frame_tag "vote_#{dom_id(@post)}" do %>
+        <% if logged_in? %>
+          <% if current_user.voted_for?(@post) %>
+            <span class="vote-btn active">&#9650;</span>
+          <% else %>
+            <%= button_to upvote_post_path(@post), method: :post, class: "vote-btn", form: { data: { turbo_frame: "vote_#{dom_id(@post)}" } } do %>
+              &#9650;
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= link_to "&#9650;".html_safe, login_path, class: "vote-btn" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <h1 class="post-title">
+      <% if @post.link? && @post.url.present? %>
+        <%= link_to @post.title, @post.url, target: "_blank", rel: "noopener noreferrer" %>
+        <span class="feed-domain">(<%= @post.domain %>)</span>
+      <% else %>
+        <%= @post.title %>
+      <% end %>
+
+      <% if @post.tag.present? %>
+        <span class="feed-tag"><%= @post.tag %></span>
+      <% end %>
+
+      <% if @post.author&.bot? %>
+        <span class="feed-bot">bot</span>
+      <% end %>
+    </h1>
+  </div>
+
+  <div class="post-meta">
+    <%= pluralize_points(@post.score) %>
+    <%= t("views.posts.by") %> <%= link_to @post.author&.username || t("views.common.deleted_user"), @post.author ? user_path(@post.author) : "#" %>
+    <%= time_ago_in_words_pl(@post.created_at) %>
+    <% if @post.edited? %>
+      <span class="edited"><%= t("views.posts.edited") %></span>
+    <% end %>
+    <% if logged_in? && @post.can_be_edited_by?(current_user) %>
+      | <%= link_to t("views.common.edit"), edit_post_path(@post) %>
+    <% end %>
+    <% if logged_in? && (current_user == @post.author || current_user.admin? || current_user.moderator?) %>
+      | <%= link_to t("views.common.delete"), post_path(@post), data: { turbo_method: :delete, turbo_confirm: t("views.posts.confirm_delete") } %>
+    <% end %>
+  </div>
+</article>
+
+<% if @post.text? && @post.body.present? %>
+  <div class="post-body">
+    <%= markdown(@post.body) %>
+  </div>
+<% end %>
+
+<div class="comments-header">
+  <%= pluralize_comments(@post.comments_count) %>
+</div>
+
+<% if logged_in? %>
+  <div class="comment-form">
+    <%= form_with model: [@post, Comment.new], id: "new_comment" do |f| %>
+      <%= f.text_area :body, placeholder: t("views.comments.placeholder") %>
+      <%= f.submit t("views.comments.submit") %>
+    <% end %>
+  </div>
+<% else %>
+  <p style="font-size: 11px; color: var(--text-light); padding: 10px 0;">
+    <%= link_to t("views.posts.login_to_comment"), login_path %><%= t("views.posts.login_to_comment_suffix") %>
+  </p>
+<% end %>
+
+<div class="comments-list" id="comments_list">
+  <%= render partial: "comments/comment", collection: @comments, as: :comment %>
+</div>

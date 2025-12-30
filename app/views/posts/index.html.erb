@@ -1,0 +1,17 @@
+<ol class="feed">
+  <% @posts.each_with_index do |post, index| %>
+    <%= render partial: "posts/feed_item", locals: { post: post, rank: @pagy.offset + index + 1 } %>
+  <% end %>
+</ol>
+
+<% if @posts.empty? %>
+  <p style="color: var(--text-light); padding: 20px 0;"><%= t("views.posts.no_posts") %></p>
+<% end %>
+
+<% if @pagy.pages > 1 %>
+  <div class="pagination">
+    <% if @pagy.next %>
+      <%= link_to t("views.common.more"), url_for(page: @pagy.next) %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask: Jak organizujecie dokumentację? | tabdevs.pl</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">T</span>
+          tabdevs
+        </a>
+        <nav class="nav">
+          <a href="index.html">top</a>
+          <span class="nav-separator">|</span>
+          <a href="new.html">new</a>
+          <span class="nav-separator">|</span>
+          <a href="submit.html">submit</a>
+        </nav>
+        <div class="header-right">
+          <a href="notifications.html">powiadomienia <span class="notification-badge">3</span></a>
+          <span class="nav-separator">|</span>
+          <a href="#">janek</a> <span class="header-karma">(42)</span>
+          <span class="nav-separator">|</span>
+          <a href="#">wyloguj</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="content">
+        <div class="post-header">
+          <div class="post-title-row">
+            <div class="post-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <h1 class="post-title">
+              Ask: Jak organizujecie dokumentację w zespole?
+              <span class="feed-tag">[ask]</span>
+            </h1>
+          </div>
+          <div class="post-meta">
+            67 punktów | <a href="#">devops_anna</a> | 6 godzin temu | <a href="#comments">45 komentarzy</a> | <span class="edited">(edytowano)</span>
+          </div>
+        </div>
+
+        <div class="post-body">
+          <p>Pracuję w zespole 12 osób i mamy wieczny problem z dokumentacją. Próbowaliśmy:</p>
+          <ul style="margin-left: 20px; margin-bottom: 8px;">
+            <li>Confluence - za wolny, za skomplikowany</li>
+            <li>Notion - fajny, ale drogi przy większych zespołach</li>
+            <li>Markdown w repo - trudno szukać, brak struktury</li>
+          </ul>
+          <p>Obecnie rozważamy:</p>
+          <ul style="margin-left: 20px; margin-bottom: 8px;">
+            <li>GitBook</li>
+            <li>Docusaurus</li>
+            <li>Własne rozwiązanie na bazie MDX</li>
+          </ul>
+          <p>Jak to wygląda u was? Co działa, co nie? Szczególnie interesuje mnie jak radzicie sobie z:</p>
+          <ol style="margin-left: 20px; margin-bottom: 8px;">
+            <li>Aktualizacją dokumentacji przy zmianach w kodzie</li>
+            <li>Onboardingiem nowych osób</li>
+            <li>Dokumentacją architektury vs. dokumentacją API</li>
+          </ol>
+          <p>Dzięki za wszelkie sugestie!</p>
+        </div>
+
+        <section id="comments">
+          <div class="comments-header">45 komentarzy</div>
+
+          <div class="comment-form">
+            <form>
+              <textarea placeholder="Napisz komentarz..."></textarea>
+              <button type="submit">dodaj komentarz</button>
+            </form>
+          </div>
+
+          <div class="comments-list">
+            <div class="comment">
+              <div class="comment-meta">
+                <button class="vote-btn upvote active" title="głosuj za"></button>
+                <a href="#" class="comment-author">senior_arch</a>
+                <span>| 5 godzin temu</span>
+              </div>
+              <div class="comment-body">
+                <p>U nas sprawdza się podział:</p>
+                <p>1. <strong>ADR (Architecture Decision Records)</strong> - w repo, obok kodu. Każda ważna decyzja architektoniczna ma swój plik MD.</p>
+                <p>2. <strong>API docs</strong> - generowane automatycznie z kodu (OpenAPI/Swagger)</p>
+                <p>3. <strong>Runbooki</strong> - Notion, bo łatwo edytować w stresie podczas incydentu</p>
+                <p>4. <strong>Onboarding</strong> - README.md w każdym repo + osobny repo "handbook"</p>
+              </div>
+              <div class="comment-actions">
+                <a href="#">odpowiedz</a>
+                <a href="#">zgłoś</a>
+              </div>
+
+              <div class="comment-replies">
+                <div class="comment">
+                  <div class="comment-meta">
+                    <button class="vote-btn upvote" title="głosuj za"></button>
+                    <a href="#" class="comment-author">devops_anna</a>
+                    <span>| 4 godziny temu</span>
+                  </div>
+                  <div class="comment-body">
+                    <p>ADR to świetny pomysł, dzięki! Nie znałam tego podejścia. Czy macie jakiś template?</p>
+                  </div>
+                  <div class="comment-actions">
+                    <a href="#">odpowiedz</a>
+                    <a href="#">zgłoś</a>
+                  </div>
+
+                  <div class="comment-replies">
+                    <div class="comment">
+                      <div class="comment-meta">
+                        <button class="vote-btn upvote" title="głosuj za"></button>
+                        <a href="#" class="comment-author">senior_arch</a>
+                        <span>| 3 godziny temu</span>
+                      </div>
+                      <div class="comment-body">
+                        <p>Tak, używamy standardowego formatu: Title, Status, Context, Decision, Consequences. Jest dobry artykuł na ten temat na cognitect.com.</p>
+                      </div>
+                      <div class="comment-actions">
+                        <a href="#">odpowiedz</a>
+                        <a href="#">zgłoś</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-meta">
+                <button class="vote-btn upvote" title="głosuj za"></button>
+                <a href="#" class="comment-author">pragmatic_coder</a>
+                <span>| 4 godziny temu</span>
+              </div>
+              <div class="comment-body">
+                <p>Szczera odpowiedź: dokumentacja i tak się przeterminowuje. Zamiast walczyć z wiatrakami, skupiliśmy się na:</p>
+                <p>- Dobrym nazewnictwie w kodzie</p>
+                <p>- Testach jako "żywej dokumentacji"</p>
+                <p>- Code review gdzie wymagamy zrozumiałości</p>
+                <p>Dokumentujemy tylko to, co naprawdę trzeba (architektura, zewnętrzne API).</p>
+              </div>
+              <div class="comment-actions">
+                <a href="#">odpowiedz</a>
+                <a href="#">zgłoś</a>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-meta">
+                <button class="vote-btn upvote" title="głosuj za"></button>
+                <a href="#" class="comment-author">docs_lover</a>
+                <span>| 3 godziny temu</span>
+              </div>
+              <div class="comment-body">
+                <p>Docusaurus + GitHub Actions. Przy każdym PR sprawdzamy czy docs są aktualne (lint na broken links, etc.). Nieidealny, ale działa.</p>
+              </div>
+              <div class="comment-actions">
+                <a href="#">odpowiedz</a>
+                <a href="#">zgłoś</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">o nas</a>
+        <a href="#">zasady</a>
+        <a href="#">api</a>
+        <a href="#">kontakt</a>
+      </div>
+      <div>tabdevs.pl - treści dla polskich developerów</div>
+    </div>
+  </footer>
+</body>
+</html>

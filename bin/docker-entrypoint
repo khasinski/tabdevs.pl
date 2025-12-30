@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+# If running the rails server then create or migrate existing database
+if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+  echo "==> Running database migrations..."
+  ./bin/rails db:prepare
+
+  # Load schemas for secondary databases (cache, queue, cable) if tables don't exist
+  # This handles first-time deployment where these tables need to be created
+  ./bin/rails runner "
+    require 'active_record'
+
+    # Create solid_cache_entries if missing
+    unless ActiveRecord::Base.connection.table_exists?('solid_cache_entries')
+      puts '==> Creating solid_cache_entries table...'
+      ActiveRecord::Base.connection.execute(<<-SQL)
+        CREATE TABLE solid_cache_entries (
+          id BIGSERIAL PRIMARY KEY,
+          key BYTEA NOT NULL,
+          value BYTEA NOT NULL,
+          created_at TIMESTAMP(6) NOT NULL,
+          key_hash BIGINT NOT NULL,
+          byte_size INTEGER NOT NULL
+        );
+        CREATE INDEX index_solid_cache_entries_on_byte_size ON solid_cache_entries (byte_size);
+        CREATE INDEX index_solid_cache_entries_on_key_hash_and_byte_size ON solid_cache_entries (key_hash, byte_size);
+        CREATE UNIQUE INDEX index_solid_cache_entries_on_key_hash ON solid_cache_entries (key_hash);
+      SQL
+    end
+  "
+
+  echo "==> Database ready!"
+
+  echo "==> Starting SolidQueue worker in background..."
+  ./bin/rails solid_queue:start &
+fi
+
+exec "${@}"

@@ -1,0 +1,19 @@
+<h2 style="font-size: 13px; font-weight: bold; margin-bottom: 15px;"><%= t("views.comments.edit_title") %></h2>
+
+<%= form_with model: [@post, @comment], class: "comment-form" do |f| %>
+  <% if @comment.errors.any? %>
+    <div class="flash flash-alert" style="margin-bottom: 15px;">
+      <ul style="margin: 0; padding-left: 15px;">
+        <% @comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_area :body %>
+  <div style="margin-top: 8px;">
+    <%= f.submit t("views.common.save") %>
+    <%= link_to t("views.common.cancel"), post_path(@post), style: "margin-left: 10px;" %>
+  </div>
+<% end %>

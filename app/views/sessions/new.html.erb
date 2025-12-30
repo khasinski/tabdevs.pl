@@ -1,0 +1,26 @@
+<div class="auth-form">
+  <h2><%= t("views.auth.login_title") %></h2>
+
+  <p class="auth-hint">
+    <%= t("views.auth.login_hint") %>
+  </p>
+
+  <%= form_with url: login_path, method: :post, local: true do |f| %>
+    <div class="form-group">
+      <%= f.label :email, t("views.auth.email_label") %>
+      <%= f.email_field :email, required: true, placeholder: t("views.auth.email_placeholder"), autofocus: true %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit t("views.auth.send_link") %>
+    </div>
+  <% end %>
+
+  <p class="auth-footer">
+    <%= t("views.auth.no_account") %>
+  </p>
+
+  <p class="auth-footer">
+    <%= link_to t("views.auth.use_password"), password_login_path %>
+  </p>
+</div>

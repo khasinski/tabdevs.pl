@@ -1,0 +1,37 @@
+<%= form_with model: post, class: "submit-form" do |f| %>
+  <% if post.errors.any? %>
+    <div class="flash flash-alert" style="margin-bottom: 15px;">
+      <ul style="margin: 0; padding-left: 15px;">
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title, t("views.posts.title") %>
+    <%= f.text_field :title, maxlength: 200 %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :url, t("views.posts.url") %>
+    <%= f.url_field :url, placeholder: "https://..." %>
+    <small><%= t("views.posts.url_hint") %></small>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body, t("views.posts.body") %>
+    <%= f.text_area :body, placeholder: t("views.posts.body_placeholder") %>
+    <small><%= t("views.posts.body_hint") %></small>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :tag, t("views.posts.tag") %>
+    <%= f.select :tag, Post.tags.keys.map { |t| [t, t] }, include_blank: t("views.posts.tag_placeholder") %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit post.persisted? ? t("views.posts.submit_edit") : t("views.posts.submit_new") %>
+  </div>
+<% end %>

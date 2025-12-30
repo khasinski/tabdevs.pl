@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rails 8 oficjalnie wydany | tabdevs.pl</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">T</span>
+          tabdevs
+        </a>
+        <nav class="nav">
+          <a href="index.html">top</a>
+          <span class="nav-separator">|</span>
+          <a href="new.html">new</a>
+          <span class="nav-separator">|</span>
+          <a href="submit.html">submit</a>
+        </nav>
+        <div class="header-right">
+          <a href="notifications.html">powiadomienia <span class="notification-badge">3</span></a>
+          <span class="nav-separator">|</span>
+          <a href="#">janek</a> <span class="header-karma">(42)</span>
+          <span class="nav-separator">|</span>
+          <a href="#">wyloguj</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="content">
+        <div class="post-header">
+          <div class="post-title-row">
+            <div class="post-vote">
+              <button class="vote-btn upvote active" title="głosuj za"></button>
+            </div>
+            <h1 class="post-title">
+              <a href="https://rubyonrails.org/2025/rails-8">Rails 8 oficjalnie wydany z nowymi funkcjami</a>
+              <span class="feed-domain">(rubyonrails.org)</span>
+              <span class="feed-tag">[news]</span>
+            </h1>
+          </div>
+          <div class="post-meta">
+            127 punktów | <a href="#">mruby</a> | 3 godziny temu | <a href="#comments">89 komentarzy</a>
+          </div>
+        </div>
+
+        <section id="comments">
+          <div class="comments-header">89 komentarzy</div>
+
+          <div class="comment-form">
+            <form>
+              <textarea placeholder="Napisz komentarz..."></textarea>
+              <button type="submit">dodaj komentarz</button>
+            </form>
+          </div>
+
+          <div class="comments-list">
+            <!-- Komentarz 1 (poziom 0) -->
+            <div class="comment">
+              <div class="comment-meta">
+                <button class="vote-btn upvote" title="głosuj za"></button>
+                <a href="#" class="comment-author">ruby_dev</a>
+                <span>| 2 godziny temu</span>
+              </div>
+              <div class="comment-body">
+                <p>Świetna wiadomość! Solid Queue i Solid Cache to game changer. Nareszcie możemy pozbyć się Redisa w większości projektów. DHH znowu pokazał, że prostota wygrywa.</p>
+              </div>
+              <div class="comment-actions">
+                <a href="#">odpowiedz</a>
+                <a href="#">zgłoś</a>
+              </div>
+
+              <!-- Odpowiedzi (poziom 1) -->
+              <div class="comment-replies">
+                <div class="comment">
+                  <div class="comment-meta">
+                    <button class="vote-btn upvote active" title="głosuj za"></button>
+                    <a href="#" class="comment-author">devops_anna</a>
+                    <span>| 1 godzina temu</span>
+                    <span class="edited">(edytowano)</span>
+                  </div>
+                  <div class="comment-body">
+                    <p>Zgadzam się, ale Redis nadal ma sens przy bardzo dużym ruchu. Solid* to świetne rozwiązanie dla 90% aplikacji.</p>
+                    <p>Edit: Sprawdziłam benchmarki - przy &lt;10k req/s Solid Queue radzi sobie świetnie.</p>
+                  </div>
+                  <div class="comment-actions">
+                    <a href="#">odpowiedz</a>
+                    <a href="#">zgłoś</a>
+                  </div>
+
+                  <!-- Odpowiedź (poziom 2) -->
+                  <div class="comment-replies">
+                    <div class="comment">
+                      <div class="comment-meta">
+                        <button class="vote-btn upvote" title="głosuj za"></button>
+                        <a href="#" class="comment-author">ruby_dev</a>
+                        <span>| 45 minut temu</span>
+                      </div>
+                      <div class="comment-body">
+                        <p>Dokładnie. Dla większości startupów i średnich firm to wystarczy. A uproszczenie infrastruktury to mniejsze koszty i mniej punktów awarii.</p>
+                      </div>
+                      <div class="comment-actions">
+                        <a href="#">odpowiedz</a>
+                        <a href="#">zgłoś</a>
+                      </div>
+
+                      <!-- Poziom 3 - ostatni -->
+                      <div class="comment-replies">
+                        <div class="comment">
+                          <div class="comment-meta">
+                            <button class="vote-btn upvote" title="głosuj za"></button>
+                            <a href="#" class="comment-author">k8s_piotr</a>
+                            <span>| 30 minut temu</span>
+                          </div>
+                          <div class="comment-body">
+                            <p>Z perspektywy DevOps - jeden serwis mniej do monitorowania to błogosławieństwo. Testuję już na staging.</p>
+                          </div>
+                          <div class="comment-actions">
+                            <a href="#">zgłoś</a>
+                          </div>
+                          <!-- Brak więcej zagnieżdżeń - max 3 poziomy -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="comment">
+                  <div class="comment-meta">
+                    <button class="vote-btn upvote" title="głosuj za"></button>
+                    <a href="#" class="comment-author">postgres_fan</a>
+                    <span>| 1 godzina temu</span>
+                  </div>
+                  <div class="comment-body">
+                    <p>PostgreSQL jako jedyna baza + Solid* = marzenie minimalisty. Mniej ruchomych części, mniej problemów.</p>
+                  </div>
+                  <div class="comment-actions">
+                    <a href="#">odpowiedz</a>
+                    <a href="#">zgłoś</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Komentarz 2 (poziom 0) -->
+            <div class="comment">
+              <div class="comment-meta">
+                <button class="vote-btn upvote" title="głosuj za"></button>
+                <a href="#" class="comment-author">frontend_fan</a>
+                <span>| 2 godziny temu</span>
+              </div>
+              <div class="comment-body">
+                <p>Co z Hotwire? Jakieś znaczące zmiany? Ostatnio miałem problemy z Turbo Frames przy skomplikowanych formularzach.</p>
+              </div>
+              <div class="comment-actions">
+                <a href="#">odpowiedz</a>
+                <a href="#">zgłoś</a>
+              </div>
+
+              <div class="comment-replies">
+                <div class="comment">
+                  <div class="comment-meta">
+                    <button class="vote-btn upvote" title="głosuj za"></button>
+                    <a href="#" class="comment-author">mruby</a>
+                    <span>| 1.5 godziny temu</span>
+                  </div>
+                  <div class="comment-body">
+                    <p>Turbo 8 ma lepszą obsługę formularzy i morph mode. Sprawdź docs: <code>data-turbo-method</code> działa teraz bardziej przewidywalnie.</p>
+                  </div>
+                  <div class="comment-actions">
+                    <a href="#">odpowiedz</a>
+                    <a href="#">zgłoś</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Komentarz 3 (poziom 0) -->
+            <div class="comment">
+              <div class="comment-meta">
+                <button class="vote-btn upvote" title="głosuj za"></button>
+                <button class="vote-btn downvote" title="głosuj przeciw"></button>
+                <a href="#" class="comment-author">skeptic_dev</a>
+                <span>| 3 godziny temu</span>
+              </div>
+              <div class="comment-body">
+                <p>Znowu marketing od 37signals. Solid* to po prostu wrapper na bazę danych, nic rewolucyjnego.</p>
+              </div>
+              <div class="comment-actions">
+                <a href="#">odpowiedz</a>
+                <a href="#">zgłoś</a>
+              </div>
+
+              <div class="comment-replies">
+                <div class="comment">
+                  <div class="comment-meta">
+                    <button class="vote-btn upvote" title="głosuj za"></button>
+                    <a href="#" class="comment-author">pragmatic_coder</a>
+                    <span>| 2.5 godziny temu</span>
+                  </div>
+                  <div class="comment-body">
+                    <p>Właśnie o to chodzi - prostota. Nie każdy potrzebuje "rewolucji". Czasem wystarczy dobrze zrobiony wrapper z sensownymi domyślnymi ustawieniami.</p>
+                  </div>
+                  <div class="comment-actions">
+                    <a href="#">odpowiedz</a>
+                    <a href="#">zgłoś</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">o nas</a>
+        <a href="#">zasady</a>
+        <a href="#">api</a>
+        <a href="#">kontakt</a>
+      </div>
+      <div>tabdevs.pl - treści dla polskich developerów</div>
+    </div>
+  </footer>
+</body>
+</html>

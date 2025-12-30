@@ -1,0 +1,62 @@
+<div class="settings-page">
+  <h2><%= t("views.settings.title") %></h2>
+
+  <% if @user.errors.any? %>
+    <div class="error-messages">
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <section class="settings-section">
+    <h3><%= t("views.settings.profile") %></h3>
+
+    <%= form_with model: @user, url: settings_path, method: :patch, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :username %>
+        <%= f.text_field :username, required: true %>
+        <p class="form-hint"><%= t("views.settings.username_hint") %></p>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, disabled: true %>
+        <p class="form-hint"><%= t("views.settings.email_hint") %></p>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit t("views.common.save") %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="settings-section">
+    <h3><%= t("views.settings.password_section") %></h3>
+
+    <% if @user.has_password? %>
+      <p class="settings-info"><%= t("views.settings.has_password") %></p>
+    <% else %>
+      <p class="settings-info"><%= t("views.settings.no_password") %></p>
+    <% end %>
+
+    <%= form_with url: settings_password_path, method: :patch, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :password, t("views.settings.new_password") %>
+        <%= f.password_field :password, required: true, minlength: 8 %>
+        <p class="form-hint"><%= t("views.settings.password_hint") %></p>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, t("views.settings.password_confirmation") %>
+        <%= f.password_field :password_confirmation, required: true %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit t("views.settings.set_password") %>
+      </div>
+    <% end %>
+  </section>
+</div>

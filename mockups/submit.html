@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dodaj post | tabdevs.pl</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">T</span>
+          tabdevs
+        </a>
+        <nav class="nav">
+          <a href="index.html">top</a>
+          <span class="nav-separator">|</span>
+          <a href="new.html">new</a>
+          <span class="nav-separator">|</span>
+          <a href="submit.html"><b>submit</b></a>
+        </nav>
+        <div class="header-right">
+          <a href="notifications.html">powiadomienia</a>
+          <span class="nav-separator">|</span>
+          <a href="#">janek</a> <span class="header-karma">(42)</span>
+          <span class="nav-separator">|</span>
+          <a href="#">wyloguj</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="content">
+        <h2 style="font-size: 13px; margin-bottom: 15px;">Dodaj post</h2>
+
+        <div class="form-hint">
+          <strong>Wskazówki:</strong><br>
+          • Dla linków: podaj URL i tytuł<br>
+          • Dla pytań/dyskusji: zostaw URL pusty i napisz treść<br>
+          • Tag jest opcjonalny, ale pomaga w kategoryzacji
+        </div>
+
+        <form class="submit-form">
+          <div class="form-group">
+            <label for="title">Tytuł</label>
+            <input type="text" id="title" name="title" maxlength="120" required>
+            <small>Max 120 znaków. Dla pytań zacznij od "Ask:", dla projektów "Show:"</small>
+          </div>
+
+          <div class="form-group">
+            <label for="url">URL (opcjonalny)</label>
+            <input type="url" id="url" name="url" placeholder="https://...">
+            <small>Zostaw puste jeśli chcesz napisać tekst/pytanie</small>
+          </div>
+
+          <div class="form-group">
+            <label for="body">Treść (opcjonalna)</label>
+            <textarea id="body" name="body" placeholder="Treść posta... (markdown)"></textarea>
+            <small>Max 10000 znaków. Obsługiwane formatowanie: **bold**, *italic*, `code`, [link](url)</small>
+          </div>
+
+          <div class="form-group">
+            <label for="tag">Tag (opcjonalny)</label>
+            <select id="tag" name="tag">
+              <option value="">-- bez tagu --</option>
+              <option value="ask">ask - pytanie do społeczności</option>
+              <option value="show">show - własny projekt</option>
+              <option value="case">case - case study, historia</option>
+              <option value="news">news - nowości, ogłoszenia</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit">Dodaj post</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">o nas</a>
+        <a href="#">zasady</a>
+        <a href="#">api</a>
+        <a href="#">kontakt</a>
+      </div>
+      <div>tabdevs.pl - treści dla polskich developerów</div>
+    </div>
+  </footer>
+</body>
+</html>

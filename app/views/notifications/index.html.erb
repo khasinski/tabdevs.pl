@@ -1,0 +1,55 @@
+<h2 style="font-size: 13px; font-weight: bold; margin-bottom: 15px;"><%= t("views.notifications.title") %></h2>
+
+<% if @notifications.any? %>
+  <div style="margin-bottom: 15px;">
+    <%= link_to t("views.notifications.mark_all_read"), mark_all_read_notifications_path, data: { turbo_method: :post }, style: "font-size: 10px;" %>
+  </div>
+
+  <ul class="notifications-list">
+    <% @notifications.each do |notification| %>
+      <li class="notification-item <%= 'unread' unless notification.read? %>">
+        <% case notification.notification_type %>
+        <% when "comment_reply" %>
+          <%= link_to notification.actor&.username || t("views.common.deleted_user"), notification.actor ? user_path(notification.actor) : "#" %>
+          <%= t("views.notifications.replied_to_comment") %>
+          <% if notification.notifiable.is_a?(Comment) && notification.notifiable.post %>
+            <%= link_to notification.notifiable.post.title, post_path(notification.notifiable.post, anchor: dom_id(notification.notifiable)) %>
+          <% else %>
+            <%= t("views.common.deleted_post") %>
+          <% end %>
+        <% when "post_comment" %>
+          <%= link_to notification.actor&.username || t("views.common.deleted_user"), notification.actor ? user_path(notification.actor) : "#" %>
+          <%= t("views.notifications.commented_on_post") %>
+          <% if notification.notifiable.is_a?(Comment) && notification.notifiable.post %>
+            <%= link_to notification.notifiable.post.title, post_path(notification.notifiable.post, anchor: dom_id(notification.notifiable)) %>
+          <% else %>
+            <%= t("views.common.deleted_post") %>
+          <% end %>
+        <% when "mention" %>
+          <%= link_to notification.actor&.username || t("views.common.deleted_user"), notification.actor ? user_path(notification.actor) : "#" %>
+          <%= t("views.notifications.mentioned") %>
+        <% else %>
+          <%= t("views.notifications.new_notification") %>
+        <% end %>
+
+        <span class="notification-time">
+          &middot; <%= time_ago_in_words_pl(notification.created_at) %>
+        </span>
+
+        <% unless notification.read? %>
+          <%= link_to t("views.notifications.mark_read"), mark_read_notification_path(notification), data: { turbo_method: :post }, style: "font-size: 9px; margin-left: 8px;" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <% if @pagy.pages > 1 %>
+    <div class="pagination">
+      <% if @pagy.next %>
+        <%= link_to t("views.common.more"), url_for(page: @pagy.next) %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p class="notifications-empty"><%= t("views.notifications.empty") %></p>
+<% end %>

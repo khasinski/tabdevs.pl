@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tabdevs.pl</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">T</span>
+          tabdevs
+        </a>
+        <nav class="nav">
+          <a href="index.html"><b>top</b></a>
+          <span class="nav-separator">|</span>
+          <a href="new.html">new</a>
+          <span class="nav-separator">|</span>
+          <a href="submit.html">submit</a>
+        </nav>
+        <div class="header-right">
+          <a href="notifications.html">powiadomienia <span class="notification-badge">3</span></a>
+          <span class="nav-separator">|</span>
+          <a href="#">janek</a> <span class="header-karma">(42)</span>
+          <span class="nav-separator">|</span>
+          <a href="#">wyloguj</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="content">
+        <ol class="feed">
+          <li class="feed-item">
+            <span class="feed-rank">1.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote active" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/rails-8">Rails 8 oficjalnie wydany z nowymi funkcjami</a>
+                <span class="feed-domain">(rubyonrails.org)</span>
+                <span class="feed-tag">[news]</span>
+              </div>
+              <div class="feed-meta">
+                127 punktów | <a href="#">mruby</a> | 3 godziny temu | <a href="post.html">89 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">2.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/ai-tools">Przegląd narzędzi AI dla programistów w 2025</a>
+                <span class="feed-domain">(blog.example.com)</span>
+                <span class="feed-bot">[bot]</span>
+              </div>
+              <div class="feed-meta">
+                89 punktów | <a href="#">@tabdevs-bot</a> | 5 godzin temu | <a href="post.html">34 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">3.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="post-text.html">Ask: Jak organizujecie dokumentację w zespole?</a>
+                <span class="feed-tag">[ask]</span>
+              </div>
+              <div class="feed-meta">
+                67 punktów | <a href="#">devops_anna</a> | 6 godzin temu | <a href="post.html">45 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">4.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://github.com/example/project">Show: Mój open-source'owy monitoring Kubernetesa</a>
+                <span class="feed-domain">(github.com)</span>
+                <span class="feed-tag">[show]</span>
+              </div>
+              <div class="feed-meta">
+                52 punktów | <a href="#">k8s_piotr</a> | 8 godzin temu | <a href="post.html">23 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">5.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/typescript-tips">TypeScript 5.4 - co nowego?</a>
+                <span class="feed-domain">(typescript.dev)</span>
+                <span class="feed-bot">[bot]</span>
+              </div>
+              <div class="feed-meta">
+                48 punktów | <a href="#">@tabdevs-bot</a> | 9 godzin temu | <a href="post.html">19 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">6.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="post-text.html">Case: Jak zmigrowaliśmy 10TB danych bez downtime'u</a>
+                <span class="feed-tag">[case]</span>
+              </div>
+              <div class="feed-meta">
+                41 punktów | <a href="#">db_master</a> | 10 godzin temu | <a href="post.html">31 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">7.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/rust-guide">Rust dla programistów C++ - kompletny przewodnik</a>
+                <span class="feed-domain">(rust-lang.org)</span>
+              </div>
+              <div class="feed-meta">
+                38 punktów | <a href="#">rustacean</a> | 11 godzin temu | <a href="post.html">15 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">8.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/postgres-17">PostgreSQL 17 - performance benchmarks</a>
+                <span class="feed-domain">(postgresql.org)</span>
+                <span class="feed-tag">[news]</span>
+              </div>
+              <div class="feed-meta">
+                35 punktów | <a href="#">sql_guru</a> | 12 godzin temu | <a href="post.html">28 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">9.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="post-text.html">Ask: Jakie IDE używacie w 2025?</a>
+                <span class="feed-tag">[ask]</span>
+              </div>
+              <div class="feed-meta">
+                29 punktów | <a href="#">vim_lover</a> | 14 godzin temu | <a href="post.html">67 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">10.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/htmx">HTMX 2.0 - powrót do prostoty</a>
+                <span class="feed-domain">(htmx.org)</span>
+              </div>
+              <div class="feed-meta">
+                24 punktów | <a href="#">frontend_fan</a> | 16 godzin temu | <a href="post.html">12 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">11.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/linux-kernel">Linux 6.12 - zmiany w schedulerze</a>
+                <span class="feed-domain">(kernel.org)</span>
+                <span class="feed-bot">[bot]</span>
+              </div>
+              <div class="feed-meta">
+                22 punktów | <a href="#">@tabdevs-bot</a> | 17 godzin temu | <a href="post.html">9 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">12.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="post-text.html">Show: Zbudowałem CLI do zarządzania dotfiles</a>
+                <span class="feed-tag">[show]</span>
+              </div>
+              <div class="feed-meta">
+                21 punktów | <a href="#">dotfiles_fan</a> | 18 godzin temu | <a href="post.html">14 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">13.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/go-generics">Praktyczne użycie generics w Go</a>
+                <span class="feed-domain">(go.dev)</span>
+              </div>
+              <div class="feed-meta">
+                19 punktów | <a href="#">gopher_pl</a> | 19 godzin temu | <a href="post.html">8 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">14.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="post-text.html">Ask: Jak radzicie sobie z code review w dużym zespole?</a>
+                <span class="feed-tag">[ask]</span>
+              </div>
+              <div class="feed-meta">
+                18 punktów | <a href="#">team_lead</a> | 20 godzin temu | <a href="post.html">32 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">15.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/sqlite">SQLite jako baza produkcyjna - kiedy ma sens?</a>
+                <span class="feed-domain">(sqlite.org)</span>
+              </div>
+              <div class="feed-meta">
+                17 punktów | <a href="#">simple_stack</a> | 21 godzin temu | <a href="post.html">25 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">16.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/deno">Deno 2.0 - kompatybilność z npm</a>
+                <span class="feed-domain">(deno.land)</span>
+                <span class="feed-tag">[news]</span>
+              </div>
+              <div class="feed-meta">
+                16 punktów | <a href="#">js_enthusiast</a> | 22 godziny temu | <a href="post.html">11 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">17.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="post-text.html">Case: Przeszliśmy z mikrousług na monolit</a>
+                <span class="feed-tag">[case]</span>
+              </div>
+              <div class="feed-meta">
+                15 punktów | <a href="#">arch_pragmatist</a> | 23 godziny temu | <a href="post.html">41 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">18.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/tailwind">Tailwind CSS 4.0 - Oxide engine</a>
+                <span class="feed-domain">(tailwindcss.com)</span>
+                <span class="feed-bot">[bot]</span>
+              </div>
+              <div class="feed-meta">
+                14 punktów | <a href="#">@tabdevs-bot</a> | 1 dzień temu | <a href="post.html">7 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">19.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="https://example.com/neovim">Konfiguracja Neovim dla web developera</a>
+                <span class="feed-domain">(neovim.io)</span>
+              </div>
+              <div class="feed-meta">
+                13 punktów | <a href="#">vim_wizard</a> | 1 dzień temu | <a href="post.html">18 komentarzy</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="feed-item">
+            <span class="feed-rank">20.</span>
+            <div class="feed-vote">
+              <button class="vote-btn upvote" title="głosuj za"></button>
+            </div>
+            <div class="feed-content">
+              <div class="feed-title">
+                <a href="post-text.html">Ask: Czy warto uczyć się Elixira w 2025?</a>
+                <span class="feed-tag">[ask]</span>
+              </div>
+              <div class="feed-meta">
+                12 punktów | <a href="#">curious_dev</a> | 1 dzień temu | <a href="post.html">29 komentarzy</a>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="pagination">
+          <a href="#">więcej</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">o nas</a>
+        <a href="#">zasady</a>
+        <a href="#">api</a>
+        <a href="#">kontakt</a>
+      </div>
+      <div>tabdevs.pl - treści dla polskich developerów</div>
+    </div>
+  </footer>
+</body>
+</html>

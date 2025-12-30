@@ -1,0 +1,178 @@
+pl:
+  # ActiveRecord
+  activerecord:
+    errors:
+      messages:
+        blank: "nie może być puste"
+        taken: "jest już zajęte"
+        too_short: "jest za krótkie (minimum %{count} znaków)"
+        too_long: "jest za długie (maksimum %{count} znaków)"
+        invalid: "jest nieprawidłowe"
+      models:
+        user:
+          attributes:
+            username:
+              format: "może zawierać tylko litery, cyfry, _ i -"
+        post:
+          attributes:
+            url:
+              required_for_link: "jest wymagany dla postów typu link"
+            base:
+              url_or_body_required: "Post musi mieć URL lub treść"
+        comment:
+          attributes:
+            parent:
+              max_nesting: "Osiągnięto maksymalny poziom zagnieżdżenia"
+
+  # Flash messages
+  flash:
+    auth:
+      login_required: "Musisz być zalogowany"
+      no_permission: "Brak uprawnień"
+      invalid_email: "Podaj poprawny adres email"
+      rate_limited: "Zbyt wiele prób. Spróbuj za chwilę."
+      magic_link_sent: "Link do logowania został wysłany na %{email}"
+      login_success: "Zalogowano pomyślnie"
+      logout_success: "Wylogowano pomyślnie"
+      invalid_token: "Link wygasł lub jest nieprawidłowy. Spróbuj ponownie."
+      invalid_credentials: "Nieprawidłowy email lub hasło"
+    posts:
+      created: "Post został dodany"
+      updated: "Post został zaktualizowany"
+      deleted: "Post został usunięty"
+      duplicate: "Ten link był już dodany - Twój głos został policzony"
+      limit_reached: "Osiągnąłeś limit postów"
+      edit_not_allowed: "Nie możesz edytować tego posta"
+    comments:
+      created: "Komentarz został dodany"
+      updated: "Komentarz został zaktualizowany"
+      deleted: "Komentarz został usunięty"
+      limit_reached: "Osiągnąłeś limit komentarzy"
+      edit_not_allowed: "Nie możesz edytować tego komentarza"
+    votes:
+      downvote_karma: "Nie masz wystarczającej karmy do głosowania przeciw"
+    notifications:
+      marked_all_read: "Wszystkie powiadomienia oznaczono jako przeczytane"
+    settings:
+      updated: "Ustawienia zostały zapisane"
+      password_updated: "Hasło zostało ustawione"
+
+  # Views
+  views:
+    common:
+      deleted_user: "[usunięty]"
+      deleted_post: "[usunięty post]"
+      edit: "edytuj"
+      delete: "usuń"
+      cancel: "anuluj"
+      save: "Zapisz"
+      submit: "Wyślij"
+      more: "Więcej"
+    header:
+      top: "top"
+      new: "nowe"
+      add: "dodaj"
+      login: "zaloguj"
+      logout: "wyloguj"
+      settings: "ustawienia"
+    footer:
+      faq: "FAQ"
+      terms: "Regulamin"
+      privacy: "Polityka prywatności"
+      contact: "Kontakt"
+    auth:
+      login_title: "Zaloguj się"
+      login_hint: "Podaj email - wyślemy Ci link do logowania. Bez hasła."
+      email_label: "Email"
+      email_placeholder: "twoj@email.pl"
+      send_link: "Wyślij link"
+      no_account: "Nie masz konta? Podaj email - utworzymy je automatycznie przy pierwszym logowaniu."
+      check_email: "Sprawdź email"
+      link_expires: "Kliknij link w emailu aby się zalogować. Link wygasa za 15 minut."
+      no_email: "Nie dostałeś emaila? Sprawdź folder spam lub"
+      try_again: "spróbuj ponownie"
+      password_login_title: "Zaloguj się hasłem"
+      password_login_hint: "Zaloguj się używając adresu email i hasła."
+      password_label: "Hasło"
+      login_button: "Zaloguj"
+      use_magic_link: "Zaloguj się przez email (bez hasła)"
+      use_password: "Masz hasło? Zaloguj się hasłem"
+    posts:
+      new_post: "Dodaj nowy post"
+      edit_post: "Edytuj post"
+      form_hint: "Możesz dodać link lub tekst (nie oba naraz). Jeśli dodajesz link, pole tekstowe zostanie zignorowane."
+      title: "Tytuł"
+      url: "URL (opcjonalne)"
+      url_hint: "Zostaw puste, aby dodać post tekstowy."
+      body: "Treść (opcjonalne)"
+      body_placeholder: "Treść posta (markdown wspierany)..."
+      body_hint: "Używane tylko gdy nie podasz URL. Możesz używać Markdown."
+      tag: "Tag (opcjonalne)"
+      tag_placeholder: "-- wybierz --"
+      submit_new: "Dodaj post"
+      submit_edit: "Zapisz zmiany"
+      no_posts: "Brak postów do wyświetlenia."
+      by: "przez"
+      edited: "(edytowano)"
+      confirm_delete: "Na pewno chcesz usunąć ten post?"
+      login_to_comment: "Zaloguj się"
+      login_to_comment_suffix: ", aby dodać komentarz."
+    comments:
+      count_zero: "brak komentarzy"
+      count_one: "%{count} komentarz"
+      count_few: "%{count} komentarze"
+      count_many: "%{count} komentarzy"
+      placeholder: "Napisz komentarz..."
+      submit: "Dodaj komentarz"
+      reply: "odpowiedź"
+      reply_placeholder: "Napisz odpowiedź..."
+      reply_submit: "Odpowiedź"
+      confirm_delete: "Na pewno chcesz usunąć ten komentarz?"
+      edit_title: "Edytuj komentarz"
+    users:
+      karma: "Karma"
+      joined: "Dołączył"
+      recent_posts: "Ostatnie posty"
+      recent_comments: "Ostatnie komentarze"
+    settings:
+      title: "Ustawienia"
+      profile: "Profil"
+      username_hint: "3-30 znaków. Litery, cyfry, _ i -"
+      email_hint: "Email nie może być zmieniony"
+      password_section: "Hasło"
+      has_password: "Masz ustawione hasło. Możesz je zmienić poniżej."
+      no_password: "Nie masz jeszcze ustawionego hasła. Ustaw je, aby móc logować się hasłem."
+      new_password: "Nowe hasło"
+      password_hint: "Minimum 8 znaków"
+      password_confirmation: "Powtórz hasło"
+      set_password: "Ustaw hasło"
+    notifications:
+      title: "Powiadomienia"
+      mark_all_read: "Oznacz wszystkie jako przeczytane"
+      mark_read: "oznacz jako przeczytane"
+      empty: "Brak powiadomień."
+      replied_to_comment: "odpowiedział na Twój komentarz w"
+      commented_on_post: "skomentował Twój post"
+      mentioned: "wspomniał o Tobie"
+      new_notification: "Nowe powiadomienie"
+    points:
+      one: "%{count} punkt"
+      few: "%{count} punkty"
+      many: "%{count} punktów"
+
+  # Time ago
+  time_ago:
+    just_now: "przed chwilą"
+    minutes:
+      one: "%{count} minutę temu"
+      few: "%{count} minuty temu"
+      many: "%{count} minut temu"
+    hours:
+      one: "%{count} godzinę temu"
+      few: "%{count} godziny temu"
+      many: "%{count} godzin temu"
+    yesterday: "wczoraj"
+    days:
+      one: "%{count} dzień temu"
+      few: "%{count} dni temu"
+      many: "%{count} dni temu"

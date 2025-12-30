@@ -1,0 +1,16 @@
+<% if @comment.parent_id.present? %>
+  <%= turbo_stream.append "comment_#{@comment.parent_id}_replies" do %>
+    <%= render partial: "comments/comment", locals: { comment: @comment } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.prepend "comments_list" do %>
+    <%= render partial: "comments/comment", locals: { comment: @comment } %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace "new_comment" do %>
+  <%= form_with model: [@comment.post, Comment.new], id: "new_comment" do |f| %>
+    <%= f.text_area :body, placeholder: "Napisz komentarz..." %>
+    <%= f.submit "Dodaj komentarz" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zaloguj się | tabdevs.pl</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">T</span>
+          tabdevs
+        </a>
+        <nav class="nav">
+          <a href="index.html">top</a>
+          <span class="nav-separator">|</span>
+          <a href="new.html">new</a>
+        </nav>
+        <div class="header-right">
+          <a href="login.html"><b>zaloguj</b></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="content">
+        <div class="auth-form">
+          <h2>Zaloguj się</h2>
+
+          <p style="margin-bottom: 15px; font-size: 11px; color: var(--text-light);">
+            Podaj email - wyślemy Ci link do logowania. Bez hasła.
+          </p>
+
+          <form>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="twoj@email.pl">
+            </div>
+
+            <div class="form-actions">
+              <button type="submit">Wyślij link</button>
+            </div>
+          </form>
+
+          <p style="margin-top: 20px; font-size: 10px; color: var(--text-light);">
+            Nie masz konta? Podaj email - utworzymy je automatycznie przy pierwszym logowaniu.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">o nas</a>
+        <a href="#">zasady</a>
+        <a href="#">api</a>
+        <a href="#">kontakt</a>
+      </div>
+      <div>tabdevs.pl - treści dla polskich developerów</div>
+    </div>
+  </footer>
+</body>
+</html>
