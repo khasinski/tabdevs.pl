@@ -69,6 +69,26 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert new_post.text?
   end
 
+  test "creates link post with description" do
+    login_user(@user)
+
+    assert_difference "Post.count", 1 do
+      post posts_path, params: { post: { title: "Link with desc", url: "https://example.com/article", body: "My thoughts on this article" } }
+    end
+
+    new_post = Post.last
+    assert new_post.link?
+    assert_equal "My thoughts on this article", new_post.body
+  end
+
+  test "shows body on link post page" do
+    post_with_body = create(:post, url: "https://example.com", body: "Description text", author: @user)
+    get post_path(post_with_body)
+
+    assert_response :success
+    assert_includes response.body, "Description text"
+  end
+
   test "detects duplicate URL and redirects" do
     existing = create(:post, url: "https://example.com/dup", score: 10)
     login_user(@user)
@@ -148,10 +168,4 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  private
-
-  def login_user(user)
-    magic_link = user.magic_links.create!(token: SecureRandom.urlsafe_base64(32), expires_at: 1.hour.from_now)
-    get auth_callback_path(token: magic_link.token)
-  end
 end

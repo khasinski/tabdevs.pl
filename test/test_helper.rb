@@ -23,13 +23,22 @@ class ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
 
+  # For Capybara system tests
   def login_as(user)
-    # Create a magic link and simulate clicking it
     magic_link = user.magic_links.create!(
       token: SecureRandom.urlsafe_base64(32),
       expires_at: 1.hour.from_now
     )
     visit auth_callback_path(token: magic_link.token)
+  end
+
+  # For integration tests without Capybara
+  def login_user(user)
+    magic_link = user.magic_links.create!(
+      token: SecureRandom.urlsafe_base64(32),
+      expires_at: 1.hour.from_now
+    )
+    get auth_callback_path(token: magic_link.token)
   end
 end
 

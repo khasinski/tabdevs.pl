@@ -66,13 +66,4 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  private
-
-  def login_user(user)
-    magic_link = user.magic_links.create!(
-      token: SecureRandom.urlsafe_base64(32),
-      expires_at: 1.hour.from_now
-    )
-    get auth_callback_path(token: magic_link.token)
-  end
 end
