@@ -120,6 +120,7 @@ pl:
       count_one: "%{count} komentarz"
       count_few: "%{count} komentarze"
       count_many: "%{count} komentarzy"
+      count_other: "%{count} komentarzy"
       placeholder: "Napisz komentarz..."
       submit: "Dodaj komentarz"
       reply: "odpowiedź"
@@ -157,6 +158,7 @@ pl:
       one: "%{count} punkt"
       few: "%{count} punkty"
       many: "%{count} punktów"
+      other: "%{count} punktów"
 
   # Time ago
   time_ago:
@@ -165,12 +167,15 @@ pl:
       one: "%{count} minutę temu"
       few: "%{count} minuty temu"
       many: "%{count} minut temu"
+      other: "%{count} minut temu"
     hours:
       one: "%{count} godzinę temu"
       few: "%{count} godziny temu"
       many: "%{count} godzin temu"
+      other: "%{count} godzin temu"
     yesterday: "wczoraj"
     days:
       one: "%{count} dzień temu"
       few: "%{count} dni temu"
       many: "%{count} dni temu"
+      other: "%{count} dni temu"
