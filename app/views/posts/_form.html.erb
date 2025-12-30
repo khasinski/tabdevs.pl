@@ -9,6 +9,8 @@
     </div>
   <% end %>
 
+  <p class="form-hint"><%= t("views.posts.form_hint") %></p>
+
   <div class="form-group">
     <%= f.label :title, t("views.posts.title") %>
     <%= f.text_field :title, maxlength: 200 %>

@@ -15,15 +15,27 @@ class PostTest < ActiveSupport::TestCase
     assert_not post.valid?
   end
 
-  test "requires url for link posts" do
-    post = build(:post, post_type: :link, url: nil)
+  test "requires body when url is blank" do
+    post = build(:post, url: nil, body: nil)
     assert_not post.valid?
-    assert_includes post.errors[:url], "jest wymagany dla postów typu link"
+    assert_includes post.errors[:body], I18n.t("activerecord.errors.models.post.attributes.body.required_without_url")
   end
 
-  test "text posts don't require url" do
-    post = build(:post, :text)
+  test "allows link post with body" do
+    post = build(:post, url: "https://example.com", body: "Some description")
     assert post.valid?
+    assert_equal "link", post.post_type
+  end
+
+  test "allows link post without body" do
+    post = build(:post, url: "https://example.com", body: nil)
+    assert post.valid?
+  end
+
+  test "text posts require body" do
+    post = build(:post, url: nil, body: "This is a discussion post")
+    assert post.valid?
+    assert_equal "text", post.post_type
   end
 
   test "normalizes url by adding https" do

@@ -50,7 +50,7 @@
   </div>
 </article>
 
-<% if @post.text? && @post.body.present? %>
+<% if @post.body.present? %>
   <div class="post-body">
     <%= markdown(@post.body) %>
   </div>

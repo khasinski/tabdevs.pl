@@ -12,8 +12,7 @@ class Post < ApplicationRecord
   validates :title, presence: true, length: { in: 3..120 }
   validates :body, length: { maximum: 10000 }
   validates :url, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true }
-  validate :url_or_body_present
-  validate :url_required_for_link_type
+  validate :body_required_for_text_posts
 
   before_validation :set_post_type
   before_save :normalize_url
@@ -142,15 +141,9 @@ class Post < ApplicationRecord
     self.normalized_url = url.present? ? self.class.normalize_url_for_comparison(url) : nil
   end
 
-  def url_or_body_present
+  def body_required_for_text_posts
     if url.blank? && body.blank?
-      errors.add(:base, I18n.t("activerecord.errors.models.post.attributes.base.url_or_body_required"))
-    end
-  end
-
-  def url_required_for_link_type
-    if link? && url.blank?
-      errors.add(:url, I18n.t("activerecord.errors.models.post.attributes.url.required_for_link"))
+      errors.add(:body, I18n.t("activerecord.errors.models.post.attributes.body.required_without_url"))
     end
   end
 end

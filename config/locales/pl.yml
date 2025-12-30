@@ -15,10 +15,8 @@ pl:
               format: "może zawierać tylko litery, cyfry, _ i -"
         post:
           attributes:
-            url:
-              required_for_link: "jest wymagany dla postów typu link"
-            base:
-              url_or_body_required: "Post musi mieć URL lub treść"
+            body:
+              required_without_url: "jest wymagana gdy nie podajesz URL"
         comment:
           attributes:
             parent:
@@ -100,13 +98,13 @@ pl:
     posts:
       new_post: "Dodaj nowy post"
       edit_post: "Edytuj post"
-      form_hint: "Możesz dodać link lub tekst (nie oba naraz). Jeśli dodajesz link, pole tekstowe zostanie zignorowane."
+      form_hint: "Zostaw URL puste, aby dodać pytanie do dyskusji. Jeśli nie ma URL, treść pojawi się na górze wątku. Jeśli jest URL, treść jest opcjonalna."
       title: "Tytuł"
       url: "URL (opcjonalne)"
-      url_hint: "Zostaw puste, aby dodać post tekstowy."
+      url_hint: "Zostaw puste, aby dodać post do dyskusji."
       body: "Treść (opcjonalne)"
       body_placeholder: "Treść posta (markdown wspierany)..."
-      body_hint: "Używane tylko gdy nie podasz URL. Możesz używać Markdown."
+      body_hint: "Wymagane gdy nie podasz URL. Możesz używać Markdown."
       tag: "Tag (opcjonalne)"
       tag_placeholder: "-- wybierz --"
       submit_new: "Dodaj post"
