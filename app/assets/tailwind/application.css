@@ -545,6 +545,74 @@ a:hover {
   color: var(--error);
 }
 
+/* Settings page */
+.settings-page {
+  max-width: 500px;
+  padding: 10px 0;
+}
+
+.settings-page h2 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.settings-section {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-section h3 {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.settings-info {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+.settings-danger {
+  border-color: #ffcdd2;
+  background: #fff5f5;
+  padding: 15px;
+  margin: 0 -15px;
+  border-radius: 4px;
+}
+
+.settings-danger h3 {
+  color: var(--error);
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 16px;
+  font-size: 11px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.btn:hover {
+  background: #e0e0e0;
+  text-decoration: none;
+}
+
+.btn-danger {
+  background: #ffebee;
+  border-color: #f44336;
+  color: var(--error);
+}
+
+.btn-danger:hover {
+  background: #ffcdd2;
+}
+
 /* Notifications */
 .notifications-list {
   list-style: none;

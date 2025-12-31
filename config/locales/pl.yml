@@ -54,6 +54,7 @@ pl:
     settings:
       updated: "Ustawienia zostały zapisane"
       password_updated: "Hasło zostało ustawione"
+      account_deleted: "Twoje konto zostało usunięte"
 
   # Views
   views:
@@ -145,6 +146,13 @@ pl:
       password_hint: "Minimum 8 znaków"
       password_confirmation: "Powtórz hasło"
       set_password: "Ustaw hasło"
+      data_section: "Twoje dane (RODO)"
+      data_info: "Zgodnie z RODO masz prawo do eksportu swoich danych w formacie maszynowym."
+      export_data: "Eksportuj moje dane"
+      danger_zone: "Strefa niebezpieczna"
+      delete_warning: "Usunięcie konta jest nieodwracalne. Twoje posty i komentarze zostaną zanonimizowane."
+      delete_account: "Usuń moje konto"
+      delete_confirm: "Czy na pewno chcesz usunąć swoje konto? Ta operacja jest nieodwracalna."
     notifications:
       title: "Powiadomienia"
       mark_all_read: "Oznacz wszystkie jako przeczytane"

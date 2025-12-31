@@ -66,4 +66,32 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
+  test "exports user data as JSON" do
+    create(:post, author: @user, title: "My post")
+    create(:comment, author: @user, body: "My comment")
+
+    get settings_export_path
+    assert_response :success
+    assert_equal "application/json", response.content_type
+
+    data = JSON.parse(response.body)
+    assert_equal @user.username, data["user"]["username"]
+    assert_equal 1, data["posts"].size
+    assert_equal 1, data["comments"].size
+  end
+
+  test "deletes account and anonymizes content" do
+    post = create(:post, author: @user)
+    comment = create(:comment, author: @user)
+
+    delete settings_destroy_path
+
+    assert_redirected_to root_path
+    assert_nil User.find_by(id: @user.id)
+
+    deleted_user = User.find_by(email: "deleted@tabdevs.pl")
+    assert_equal deleted_user.id, post.reload.author_id
+    assert_equal deleted_user.id, comment.reload.author_id
+  end
+
 end

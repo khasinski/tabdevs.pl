@@ -59,4 +59,20 @@
       </div>
     <% end %>
   </section>
+
+  <section class="settings-section">
+    <h3><%= t("views.settings.data_section") %></h3>
+    <p class="settings-info"><%= t("views.settings.data_info") %></p>
+    <div class="form-actions">
+      <%= link_to t("views.settings.export_data"), settings_export_path, class: "btn" %>
+    </div>
+  </section>
+
+  <section class="settings-section settings-danger">
+    <h3><%= t("views.settings.danger_zone") %></h3>
+    <p class="settings-info"><%= t("views.settings.delete_warning") %></p>
+    <div class="form-actions">
+      <%= button_to t("views.settings.delete_account"), settings_destroy_path, method: :delete, class: "btn btn-danger", data: { turbo_confirm: t("views.settings.delete_confirm") } %>
+    </div>
+  </section>
 </div>

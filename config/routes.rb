@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get "settings", to: "settings#edit", as: :settings
   patch "settings", to: "settings#update"
   patch "settings/password", to: "settings#update_password", as: :settings_password
+  get "settings/export", to: "settings#export_data", as: :settings_export
+  delete "settings", to: "settings#destroy", as: :settings_destroy
 
   # Posts
   resources :posts do
