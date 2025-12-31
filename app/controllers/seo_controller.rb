@@ -1,6 +1,6 @@
 class SeoController < ApplicationController
   def sitemap
-    @posts = Post.where(removed_at: nil).order(created_at: :desc).limit(1000)
+    @posts = Post.visible.order(created_at: :desc).limit(1000)
     @users = User.where(status: :active).order(created_at: :desc).limit(500)
 
     respond_to do |format|
@@ -9,7 +9,7 @@ class SeoController < ApplicationController
   end
 
   def feed
-    @posts = Post.where(removed_at: nil).order(created_at: :desc).limit(50)
+    @posts = Post.visible.order(created_at: :desc).limit(50)
 
     respond_to do |format|
       format.rss { render layout: false }
