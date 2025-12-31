@@ -66,6 +66,7 @@ group :test do
   gem "selenium-webdriver"
   gem "factory_bot_rails"
   gem "faker"
+  gem "minitest", "~> 5.25"
 end
 
 group :development do

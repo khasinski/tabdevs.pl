@@ -5,6 +5,8 @@
     <description>Najlepsze artykuly, tutoriale i dyskusje ze swiata IT dla polskich programistow</description>
     <link>https://tabdevs.pl</link>
     <atom:link href="https://tabdevs.pl/feed.rss" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
+    <atom:link href="https://pubsubhubbub.superfeedr.com/" rel="hub"/>
     <language>pl</language>
     <lastBuildDate><%= @posts.first&.created_at&.rfc2822 || Time.current.rfc2822 %></lastBuildDate>
     <ttl>60</ttl>

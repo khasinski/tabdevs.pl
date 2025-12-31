@@ -17,6 +17,7 @@ class Post < ApplicationRecord
   before_validation :set_post_type
   before_save :normalize_url
   before_save :set_normalized_url
+  after_create_commit :ping_search_engines
 
   scope :visible, -> { where(status: :active) }
   scope :by_new, -> { visible.order(created_at: :desc) }
@@ -145,5 +146,9 @@ class Post < ApplicationRecord
     if url.blank? && body.blank?
       errors.add(:body, I18n.t("activerecord.errors.models.post.attributes.body.required_without_url"))
     end
+  end
+
+  def ping_search_engines
+    PingSearchEnginesJob.perform_later(id) unless by_bot?
   end
 end
