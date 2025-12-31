@@ -608,6 +608,87 @@ a:hover {
   margin: 0 6px;
 }
 
+/* Static pages */
+.static-page {
+  max-width: 700px;
+  padding: 20px 0;
+}
+
+.static-page h1 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.static-page h2 {
+  font-size: 13px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  color: var(--text);
+}
+
+.static-page p {
+  font-size: 11px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.static-page ul {
+  margin: 10px 0 10px 20px;
+  font-size: 11px;
+}
+
+.static-page li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.static-page section {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.static-page section:last-child {
+  border-bottom: none;
+}
+
+.static-page .last-updated {
+  font-size: 10px;
+  color: var(--text-light);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.static-page a {
+  color: var(--accent);
+}
+
+.static-page a:hover {
+  text-decoration: underline;
+}
+
+/* FAQ specific */
+.faq-section h2 {
+  color: var(--accent-dark);
+}
+
+/* Contact specific */
+.contact-section {
+  margin-bottom: 25px;
+}
+
+.contact-email {
+  font-size: 14px;
+  margin: 15px 0;
+}
+
+.email-link {
+  color: var(--accent);
+  font-weight: bold;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .container {
@@ -629,5 +710,9 @@ a:hover {
 
   .feed-rank {
     min-width: 20px;
+  }
+
+  .static-page {
+    padding: 10px 0;
   }
 }

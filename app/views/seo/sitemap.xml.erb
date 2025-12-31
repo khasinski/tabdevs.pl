@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <%# Homepage %>
+  <url>
+    <loc>https://tabdevs.pl/</loc>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <%# New posts %>
+  <url>
+    <loc>https://tabdevs.pl/new</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <%# Static pages %>
+  <url>
+    <loc>https://tabdevs.pl/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://tabdevs.pl/regulamin</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://tabdevs.pl/prywatnosc</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://tabdevs.pl/kontakt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <%# Posts %>
+  <% @posts.each do |post| %>
+  <url>
+    <loc>https://tabdevs.pl<%= post_path(post) %></loc>
+    <lastmod><%= post.updated_at.strftime("%Y-%m-%d") %></lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <% end %>
+
+  <%# Users %>
+  <% @users.each do |user| %>
+  <url>
+    <loc>https://tabdevs.pl<%= user_path(user.username) %></loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <% end %>
+</urlset>

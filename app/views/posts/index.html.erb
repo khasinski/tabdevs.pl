@@ -1,3 +1,37 @@
+<% if @sort == "new" %>
+  <% content_for(:title) { "Najnowsze posty | tabdevs.pl" } %>
+  <% content_for(:description) { "Najnowsze artykuly i dyskusje dla polskich programistow. Swiezy content ze swiata IT, codziennie aktualizowany." } %>
+<% else %>
+  <% content_for(:title) { "tabdevs.pl - Agregator tresci dla polskich programistow" } %>
+  <% content_for(:description) { "Najpopularniejsze artykuly, tutoriale i dyskusje ze swiata IT. Spolecznosc polskich programistow." } %>
+<% end %>
+
+<% content_for(:structured_data) do %>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "<%= @sort == "new" ? "Najnowsze posty" : "Top posty" %> - tabdevs.pl",
+  "url": "https://tabdevs.pl<%= @sort == "new" ? "/new" : "/" %>",
+  "description": "Agregator tresci technicznych dla polskich programistow",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": <%= @posts.size %>,
+    "itemListElement": [
+      <% @posts.each_with_index do |post, index| %>
+      {
+        "@type": "ListItem",
+        "position": <%= index + 1 %>,
+        "url": "https://tabdevs.pl<%= post_path(post) %>",
+        "name": "<%= j post.title %>"
+      }<%= index < @posts.size - 1 ? "," : "" %>
+      <% end %>
+    ]
+  }
+}
+</script>
+<% end %>
+
 <ol class="feed">
   <% @posts.each_with_index do |post, index| %>
     <%= render partial: "posts/feed_item", locals: { post: post, rank: @pagy.offset + index + 1 } %>

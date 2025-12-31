@@ -1,3 +1,20 @@
+<% content_for(:title) { "#{@user.username} - Profil uzytkownika | tabdevs.pl" } %>
+<% content_for(:description) { "Profil #{@user.username} na tabdevs.pl. Karma: #{@user.karma}. #{@posts.count} postow, #{@comments.count} komentarzy." } %>
+
+<% content_for(:structured_data) do %>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "<%= @user.username %>",
+    "url": "https://tabdevs.pl<%= user_path(@user.username) %>"
+  }
+}
+</script>
+<% end %>
+
 <div class="user-profile">
   <h2 style="font-size: 13px; font-weight: bold; margin-bottom: 10px;"><%= @user.username %></h2>
 

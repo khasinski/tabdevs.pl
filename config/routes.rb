@@ -52,6 +52,16 @@ Rails.application.routes.draw do
   get "new", to: "posts#index", defaults: { sort: "new" }, as: :new_posts
   get "top", to: "posts#index", defaults: { sort: "top" }, as: :top_posts
 
+  # Static pages
+  get "faq", to: "pages#faq", as: :faq
+  get "regulamin", to: "pages#terms", as: :terms
+  get "prywatnosc", to: "pages#privacy", as: :privacy
+  get "kontakt", to: "pages#contact", as: :contact
+
+  # SEO
+  get "sitemap.xml", to: "seo#sitemap", defaults: { format: :xml }
+  get "feed.rss", to: "seo#feed", defaults: { format: :rss }
+
   # Root
   root "posts#index"
 end

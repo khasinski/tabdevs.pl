@@ -1,3 +1,38 @@
+<% content_for(:title) { "#{@post.title} | tabdevs.pl" } %>
+<% content_for(:description) { @post.body.present? ? truncate(strip_tags(@post.body), length: 160) : "Dyskusja na tabdevs.pl - #{@post.comments_count} komentarzy, #{@post.score} punktow" } %>
+<% content_for(:og_type) { "article" } %>
+<% content_for(:og_title) { @post.title } %>
+
+<% content_for(:structured_data) do %>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DiscussionForumPosting",
+  "headline": "<%= j @post.title %>",
+  "url": "https://tabdevs.pl<%= post_path(@post) %>",
+  "datePublished": "<%= @post.created_at.iso8601 %>",
+  "dateModified": "<%= @post.updated_at.iso8601 %>",
+  "author": {
+    "@type": "Person",
+    "name": "<%= @post.author&.username || 'anonim' %>"
+  },
+  "interactionStatistic": [
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "https://schema.org/CommentAction",
+      "userInteractionCount": <%= @post.comments_count %>
+    },
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "https://schema.org/LikeAction",
+      "userInteractionCount": <%= @post.score %>
+    }
+  ]<% if @post.body.present? %>,
+  "articleBody": "<%= j truncate(strip_tags(@post.body), length: 500) %>"<% end %>
+}
+</script>
+<% end %>
+
 <article class="post-header">
   <div class="post-title-row">
     <div class="post-vote">

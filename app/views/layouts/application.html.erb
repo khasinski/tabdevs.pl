@@ -1,19 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
   <head>
-    <title><%= content_for(:title) || "tabdevs.pl" %></title>
+    <meta charset="UTF-8">
+    <title><%= content_for(:title) || "tabdevs.pl - Agregator tresci dla polskich programistow" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="<%= content_for(:description) || "tabdevs.pl to agregator tresci technicznych dla polskich programistow. Najlepsze artykuly, tutoriale i dyskusje ze swiata IT." %>">
+    <meta name="keywords" content="programowanie, developer, programista, IT, technologie, artykuly, tutoriale, polska, community">
+    <meta name="author" content="tabdevs.pl">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="<%= request.original_url.split('?').first %>">
+
+    <%# Open Graph %>
+    <meta property="og:type" content="<%= content_for(:og_type) || "website" %>">
+    <meta property="og:site_name" content="tabdevs.pl">
+    <meta property="og:title" content="<%= content_for(:og_title) || content_for(:title) || "tabdevs.pl - Agregator tresci dla polskich programistow" %>">
+    <meta property="og:description" content="<%= content_for(:og_description) || content_for(:description) || "Agregator tresci technicznych dla polskich programistow. Najlepsze artykuly, tutoriale i dyskusje ze swiata IT." %>">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:image" content="<%= content_for(:og_image) || "#{request.base_url}/og-image.png" %>">
+    <meta property="og:locale" content="pl_PL">
+
+    <%# Twitter Card %>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= content_for(:og_title) || content_for(:title) || "tabdevs.pl" %>">
+    <meta name="twitter:description" content="<%= content_for(:og_description) || content_for(:description) || "Agregator tresci dla polskich programistow" %>">
+    <meta name="twitter:image" content="<%= content_for(:og_image) || "#{request.base_url}/og-image.png" %>">
+
+    <%# Mobile %>
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="tabdevs.pl">
     <meta name="application-name" content="tabdevs.pl">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ff6600">
+    <meta name="msapplication-TileColor" content="#ff6600">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <%# Structured Data %>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "tabdevs.pl",
+      "alternateName": "Tab Devs",
+      "url": "https://tabdevs.pl",
+      "description": "Agregator tresci technicznych dla polskich programistow",
+      "inLanguage": "pl-PL",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://tabdevs.pl/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <%= yield :structured_data %>
 
     <%= yield :head %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="alternate" type="application/rss+xml" title="tabdevs.pl RSS" href="/feed.rss">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -79,10 +129,10 @@
     <footer class="footer">
       <div class="container">
         <div class="footer-links">
-          <%= link_to t("views.footer.faq"), "#" %> |
-          <%= link_to t("views.footer.terms"), "#" %> |
-          <%= link_to t("views.footer.privacy"), "#" %> |
-          <%= link_to t("views.footer.contact"), "#" %>
+          <%= link_to t("views.footer.faq"), faq_path %> |
+          <%= link_to t("views.footer.terms"), terms_path %> |
+          <%= link_to t("views.footer.privacy"), privacy_path %> |
+          <%= link_to t("views.footer.contact"), contact_path %>
         </div>
         <div>tabdevs.pl &copy; <%= Time.current.year %></div>
       </div>

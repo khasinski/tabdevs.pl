@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tabdevs.pl - Agregator dla programistow</title>
+    <description>Najlepsze artykuly, tutoriale i dyskusje ze swiata IT dla polskich programistow</description>
+    <link>https://tabdevs.pl</link>
+    <atom:link href="https://tabdevs.pl/feed.rss" rel="self" type="application/rss+xml"/>
+    <language>pl</language>
+    <lastBuildDate><%= @posts.first&.created_at&.rfc2822 || Time.current.rfc2822 %></lastBuildDate>
+    <ttl>60</ttl>
+
+    <% @posts.each do |post| %>
+    <item>
+      <title><%= post.title %></title>
+      <link><%= post.url.presence || "https://tabdevs.pl#{post_path(post)}" %></link>
+      <guid isPermaLink="true">https://tabdevs.pl<%= post_path(post) %></guid>
+      <pubDate><%= post.created_at.rfc2822 %></pubDate>
+      <description><![CDATA[
+        <%= post.body.present? ? truncate(strip_tags(post.body), length: 300) : "#{post.score} punktow | #{post.comments_count} komentarzy" %>
+        <br><br>
+        <a href="https://tabdevs.pl<%= post_path(post) %>">Dyskusja na tabdevs.pl</a>
+      ]]></description>
+      <author><%= post.author&.username || "anonim" %></author>
+    </item>
+    <% end %>
+  </channel>
+</rss>

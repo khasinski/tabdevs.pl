@@ -1,0 +1,32 @@
+<% content_for(:title) { "Kontakt | tabdevs.pl" } %>
+<% content_for(:description) { "Skontaktuj sie z zespolem tabdevs.pl - agregatora tresci dla polskich programistow." } %>
+
+<article class="static-page">
+  <h1>Kontakt</h1>
+
+  <section class="contact-section">
+    <h2>Napisz do nas</h2>
+    <p>Masz pytanie, sugestie lub chcesz zglosic problem? Skontaktuj sie z nami:</p>
+    <p class="contact-email"><%= mail_to "kontakt@tabdevs.pl", "kontakt@tabdevs.pl", class: "email-link" %></p>
+  </section>
+
+  <section class="contact-section">
+    <h2>Zglaszanie bledow</h2>
+    <p>Znalazles blad w serwisie? Daj nam znac! Opisz:</p>
+    <ul>
+      <li>Co probowal(a)s zrobic</li>
+      <li>Co sie stalo (blad, nieoczekiwane zachowanie)</li>
+      <li>Jakiej przegladarki uzywasz</li>
+    </ul>
+  </section>
+
+  <section class="contact-section">
+    <h2>Wspolpraca</h2>
+    <p>Jezeli chcesz wspolpracowac z tabdevs.pl (np. promowac wydarzenie IT, napisac gosciny post), skontaktuj sie z nami mailowo.</p>
+  </section>
+
+  <section class="contact-section">
+    <h2>Open Source</h2>
+    <p>tabdevs.pl jest projektem open source. Kod zrodlowy znajdziesz na GitHubie. Pull requesty mile widziane!</p>
+  </section>
+</article>

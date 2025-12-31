@@ -1,1 +1,27 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+# tabdevs.pl robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tabdevs.pl/sitemap.xml
+
+# Disallow admin/internal paths
+Disallow: /rails/
+Disallow: /up
+Disallow: /auth/
+
+# Allow all crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Crawl-delay for polite bots
+User-agent: *
+Crawl-delay: 1
