@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many :bans, dependent: :destroy
   has_many :moderated_items, class_name: "ModerationItem", foreign_key: :moderator_id
   has_many :moderated_bans, class_name: "Ban", foreign_key: :moderator_id
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarked_posts, through: :bookmarks, source: :post
+  has_many :flags, dependent: :destroy
 
   enum :role, { user: 0, moderator: 1, admin: 2 }
   enum :status, { active: 0, suspended: 1, banned: 2 }
@@ -17,6 +20,7 @@ class User < ApplicationRecord
             format: { with: /\A[a-zA-Z0-9_-]+\z/, message: "może zawierać tylko litery, cyfry, _ i -" }
   validates :email, presence: true, uniqueness: true,
             format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, length: { minimum: 8 }, confirmation: true, if: :password_present?
 
   before_validation :normalize_email
 
@@ -44,8 +48,20 @@ class User < ApplicationRecord
     password_digest.present?
   end
 
+  def terms_accepted?
+    terms_accepted_at.present? && privacy_accepted_at.present?
+  end
+
   def voted_for?(votable)
     votes.exists?(votable: votable)
+  end
+
+  def bookmarked?(post)
+    bookmarks.exists?(post: post)
+  end
+
+  def flagged?(item)
+    flags.exists?(flaggable: item)
   end
 
   def can_downvote?
@@ -91,5 +107,9 @@ class User < ApplicationRecord
 
   def normalize_email
     self.email = email.to_s.downcase.strip
+  end
+
+  def password_present?
+    password.present?
   end
 end
