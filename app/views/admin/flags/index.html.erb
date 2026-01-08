@@ -1,0 +1,57 @@
+<div class="admin-page">
+  <h1>Zgloszenia</h1>
+
+  <nav class="admin-nav">
+    <%= link_to "Dashboard", admin_dashboard_path, class: "admin-nav-link" %>
+    <%= link_to "Uzytkownicy", admin_users_path, class: "admin-nav-link" %>
+    <%= link_to "Moderacja", admin_moderation_index_path, class: "admin-nav-link" %>
+    <%= link_to "Zgloszenia", admin_flags_path, class: "admin-nav-link active" %>
+  </nav>
+
+  <% if @flags.any? %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Tresc</th>
+          <th>Powod</th>
+          <th>Zglosil</th>
+          <th>Data</th>
+          <th>Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @flags.each do |flag| %>
+          <tr>
+            <td>
+              <% if flag.flaggable.is_a?(Post) %>
+                <strong>Post:</strong> <%= link_to truncate(flag.flaggable.title, length: 50), post_path(flag.flaggable) %>
+                <br><small>autor: <%= flag.flaggable.author&.username %></small>
+              <% elsif flag.flaggable.is_a?(Comment) %>
+                <strong>Komentarz:</strong> <%= truncate(flag.flaggable.body, length: 50) %>
+                <br><small>autor: <%= flag.flaggable.author&.username %></small>
+              <% end %>
+              <% if flag.description.present? %>
+                <br><small style="color: var(--text-muted);"><em>"<%= flag.description %>"</em></small>
+              <% end %>
+            </td>
+            <td>
+              <span class="status-badge"><%= t("views.flags.reasons.#{flag.reason}") %></span>
+            </td>
+            <td>
+              <%= link_to flag.user.username, admin_user_path(flag.user) %>
+            </td>
+            <td>
+              <%= flag.created_at.strftime("%d.%m.%Y %H:%M") %>
+            </td>
+            <td>
+              <%= button_to "Ukryj tresc", resolve_admin_flag_path(flag, hide_content: "1"), method: :post, class: "admin-btn admin-btn-small admin-btn-danger", data: { turbo_confirm: "Na pewno ukryc te tresc?" } %>
+              <%= button_to "Odrzuc", dismiss_admin_flag_path(flag), method: :post, class: "admin-btn admin-btn-small" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="empty-message">Brak oczekujacych zgloszen.</p>
+  <% end %>
+</div>

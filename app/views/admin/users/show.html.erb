@@ -1,0 +1,172 @@
+<% content_for(:title) { "#{@user.username} | Panel admina" } %>
+
+<div class="admin-page">
+  <h1>Użytkownik: <%= @user.username %></h1>
+
+  <div class="admin-nav">
+    <%= link_to "Dashboard", admin_dashboard_path, class: "admin-nav-link" %>
+    <%= link_to "Użytkownicy", admin_users_path, class: "admin-nav-link" %>
+    <%= link_to "Moderacja", admin_moderation_index_path, class: "admin-nav-link" %>
+  </div>
+
+  <div class="admin-user-details">
+    <div class="user-info-card">
+      <h2>Informacje</h2>
+      <dl>
+        <dt>ID</dt>
+        <dd><%= @user.id %></dd>
+        <dt>Username</dt>
+        <dd><%= @user.username %></dd>
+        <dt>Email</dt>
+        <dd><%= @user.email %></dd>
+        <dt>Rola</dt>
+        <dd><span class="role-badge role-<%= @user.role %>"><%= @user.role %></span></dd>
+        <dt>Status</dt>
+        <dd><span class="status-badge status-<%= @user.status %>"><%= @user.status %></span></dd>
+        <dt>Karma</dt>
+        <dd><%= @user.karma %></dd>
+        <dt>Data rejestracji</dt>
+        <dd><%= @user.created_at.strftime("%Y-%m-%d %H:%M") %></dd>
+        <dt>Posty</dt>
+        <dd><%= @user.posts.count %></dd>
+        <dt>Komentarze</dt>
+        <dd><%= @user.comments.count %></dd>
+      </dl>
+    </div>
+
+    <div class="user-actions-card">
+      <h2>Zmień rolę</h2>
+      <%= form_with url: update_role_admin_user_path(@user), method: :patch, class: "role-form" do |f| %>
+        <div class="form-group">
+          <%= f.select :role, [["User", "user"], ["Moderator", "moderator"], ["Admin", "admin"]], { selected: @user.role }, class: "role-select" %>
+          <%= f.submit "Zmień rolę", class: "admin-btn" %>
+        </div>
+      <% end %>
+
+      <h2>Zarządzanie banem</h2>
+      <% if @user.banned? && @user.active_ban %>
+        <div class="ban-info">
+          <p><strong>Aktywny ban:</strong></p>
+          <p>Powód: <%= @user.active_ban.reason %></p>
+          <p>Wygasa: <%= @user.active_ban.permanent? ? "Permanentny" : @user.active_ban.expires_at.strftime("%Y-%m-%d %H:%M") %></p>
+          <p>Nadany przez: <%= @user.active_ban.moderator&.username %></p>
+        </div>
+        <%= button_to "Usuń ban", unban_admin_user_path(@user), method: :post, class: "admin-btn admin-btn-success" %>
+      <% else %>
+        <%= form_with url: ban_admin_user_path(@user), method: :post, class: "ban-form" do |f| %>
+          <div class="form-group">
+            <%= f.label :reason, "Powód bana" %>
+            <%= f.text_field :reason, placeholder: "Naruszenie regulaminu", class: "ban-reason-input" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :duration, "Czas trwania" %>
+            <%= f.select :duration, [["1 dzień", "1d"], ["7 dni", "7d"], ["30 dni", "30d"], ["Permanentny", "permanent"]], {}, class: "ban-duration-select" %>
+          </div>
+          <div class="form-group">
+            <%= f.submit "Zbanuj użytkownika", class: "admin-btn admin-btn-danger" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @bans.any? %>
+    <div class="admin-section">
+      <h2>Historia banów</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Powód</th>
+            <th>Wygasa</th>
+            <th>Status</th>
+            <th>Moderator</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @bans.each do |ban| %>
+            <tr>
+              <td><%= ban.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+              <td><%= ban.reason %></td>
+              <td><%= ban.permanent? ? "Permanentny" : ban.expires_at.strftime("%Y-%m-%d %H:%M") %></td>
+              <td><%= ban.active? ? "Aktywny" : "Wygasły" %></td>
+              <td><%= ban.moderator&.username %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
+  <div class="admin-section">
+    <h2>Ostatnie posty</h2>
+    <% if @recent_posts.any? %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Tytuł</th>
+            <th>Status</th>
+            <th>Score</th>
+            <th>Data</th>
+            <th>Akcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_posts.each do |post| %>
+            <tr>
+              <td><%= link_to truncate(post.title, length: 50), post_path(post) %></td>
+              <td><span class="status-badge status-<%= post.status %>"><%= post.status %></span></td>
+              <td><%= post.score %></td>
+              <td><%= post.created_at.strftime("%Y-%m-%d") %></td>
+              <td>
+                <% if post.active? %>
+                  <%= button_to "Ukryj", admin_hide_post_path(post), method: :post, class: "admin-btn admin-btn-small admin-btn-danger" %>
+                <% else %>
+                  <%= button_to "Przywróć", admin_unhide_post_path(post), method: :post, class: "admin-btn admin-btn-small" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>Brak postów</p>
+    <% end %>
+  </div>
+
+  <div class="admin-section">
+    <h2>Ostatnie komentarze</h2>
+    <% if @recent_comments.any? %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Treść</th>
+            <th>Post</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Akcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_comments.each do |comment| %>
+            <tr>
+              <td><%= truncate(comment.body, length: 80) %></td>
+              <td><%= link_to truncate(comment.post.title, length: 30), post_path(comment.post) %></td>
+              <td><span class="status-badge status-<%= comment.status %>"><%= comment.status %></span></td>
+              <td><%= comment.created_at.strftime("%Y-%m-%d") %></td>
+              <td>
+                <% if comment.active? %>
+                  <%= button_to "Ukryj", admin_hide_comment_path(comment), method: :post, class: "admin-btn admin-btn-small admin-btn-danger" %>
+                <% else %>
+                  <%= button_to "Przywróć", admin_unhide_comment_path(comment), method: :post, class: "admin-btn admin-btn-small" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>Brak komentarzy</p>
+    <% end %>
+  </div>
+</div>

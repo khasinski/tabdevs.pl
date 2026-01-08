@@ -1,0 +1,47 @@
+<% content_for(:title) { "Moderacja | Panel admina" } %>
+
+<div class="admin-page">
+  <h1>Kolejka moderacji</h1>
+
+  <div class="admin-nav">
+    <%= link_to "Dashboard", admin_dashboard_path, class: "admin-nav-link" %>
+    <%= link_to "Użytkownicy", admin_users_path, class: "admin-nav-link" %>
+    <%= link_to "Moderacja", admin_moderation_index_path, class: "admin-nav-link active" %>
+  </div>
+
+  <% if @items.any? %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Typ</th>
+          <th>Treść</th>
+          <th>Powód</th>
+          <th>Data</th>
+          <th>Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+          <tr>
+            <td><%= item.moderatable_type %></td>
+            <td>
+              <% if item.moderatable.is_a?(Post) %>
+                <%= link_to truncate(item.moderatable.title, length: 50), post_path(item.moderatable) %>
+              <% elsif item.moderatable.is_a?(Comment) %>
+                <%= truncate(item.moderatable.body, length: 80) %>
+              <% end %>
+            </td>
+            <td><%= item.reason %></td>
+            <td><%= item.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+            <td>
+              <%= button_to "Zatwierdź", approve_admin_moderation_path(item), method: :post, class: "admin-btn admin-btn-small admin-btn-success" %>
+              <%= button_to "Odrzuć", reject_admin_moderation_path(item), method: :post, class: "admin-btn admin-btn-small admin-btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="empty-message">Brak elementów do moderacji.</p>
+  <% end %>
+</div>

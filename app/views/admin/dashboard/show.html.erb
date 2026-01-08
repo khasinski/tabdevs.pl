@@ -1,0 +1,97 @@
+<% content_for(:title) { "Panel admina | tabdevs.pl" } %>
+
+<div class="admin-page">
+  <h1>Panel administracyjny</h1>
+
+  <div class="admin-nav">
+    <%= link_to "Dashboard", admin_dashboard_path, class: "admin-nav-link active" %>
+    <%= link_to "Użytkownicy", admin_users_path, class: "admin-nav-link" %>
+    <%= link_to "Moderacja (#{@stats[:pending_moderation]})", admin_moderation_index_path, class: "admin-nav-link" %>
+    <%= link_to "Zgłoszenia (#{@stats[:pending_flags]})", admin_flags_path, class: "admin-nav-link" %>
+  </div>
+
+  <div class="admin-stats">
+    <div class="stat-box">
+      <div class="stat-number"><%= @stats[:users] %></div>
+      <div class="stat-label">Użytkowników</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number"><%= @stats[:posts] %></div>
+      <div class="stat-label">Postów</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number"><%= @stats[:comments] %></div>
+      <div class="stat-label">Komentarzy</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number"><%= @stats[:pending_moderation] %></div>
+      <div class="stat-label">Do moderacji</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number"><%= @stats[:pending_flags] %></div>
+      <div class="stat-label">Zgłoszeń</div>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <h2>Ostatni użytkownicy</h2>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Rola</th>
+          <th>Karma</th>
+          <th>Data rejestracji</th>
+          <th>Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recent_users.each do |user| %>
+          <tr>
+            <td><%= link_to user.username, admin_user_path(user) %></td>
+            <td><%= user.email %></td>
+            <td><span class="role-badge role-<%= user.role %>"><%= user.role %></span></td>
+            <td><%= user.karma %></td>
+            <td><%= user.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+            <td><%= link_to "Szczegóły", admin_user_path(user) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="admin-section">
+    <h2>Ostatnie posty</h2>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Tytuł</th>
+          <th>Autor</th>
+          <th>Status</th>
+          <th>Score</th>
+          <th>Data</th>
+          <th>Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recent_posts.each do |post| %>
+          <tr class="<%= 'hidden-row' unless post.active? %>">
+            <td><%= link_to truncate(post.title, length: 50), post_path(post) %></td>
+            <td><%= post.author&.username || "[usunięty]" %></td>
+            <td><span class="status-badge status-<%= post.status %>"><%= post.status %></span></td>
+            <td><%= post.score %></td>
+            <td><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+            <td>
+              <% if post.active? %>
+                <%= button_to "Ukryj", admin_hide_post_path(post), method: :post, class: "admin-btn admin-btn-danger" %>
+              <% else %>
+                <%= button_to "Przywróć", admin_unhide_post_path(post), method: :post, class: "admin-btn" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
