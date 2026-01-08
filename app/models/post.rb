@@ -1,9 +1,13 @@
 class Post < ApplicationRecord
+  include Editable
+  include Votable
+
   belongs_to :author, class_name: "User"
   has_many :comments, dependent: :destroy
-  has_many :votes, as: :votable, dependent: :destroy
   has_many :moderation_items, as: :moderatable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :flags, as: :flaggable, dependent: :destroy
 
   enum :post_type, { link: 0, text: 1 }
   enum :tag, { ask: 0, show: 1, case_study: 2, news: 3 }, prefix: true
@@ -24,24 +28,6 @@ class Post < ApplicationRecord
   scope :by_top, -> { visible.order(Arel.sql("score / POWER(EXTRACT(EPOCH FROM (NOW() - created_at)) / 3600 + 2, 1.5) DESC")) }
   scope :recent, -> { order(created_at: :desc) }
 
-  def editable?
-    created_at > SiteSetting.get(:edit_grace_period_minutes, 15).to_i.minutes.ago
-  end
-
-  def can_be_edited_by?(user)
-    return false unless user
-    return true if user.admin? || user.moderator?
-    author == user && editable?
-  end
-
-  def edited?
-    edited_at.present?
-  end
-
-  def mark_as_edited!
-    update_column(:edited_at, Time.current) unless edited?
-  end
-
   def domain
     return nil unless url.present?
     URI.parse(url).host&.sub(/\Awww\./, "")
@@ -57,30 +43,6 @@ class Post < ApplicationRecord
 
   def update_comments_count!
     update_column(:comments_count, visible_comments_count)
-  end
-
-  def upvote!(user)
-    vote_with_value!(user, 1)
-  end
-
-  def downvote!(user)
-    return false unless user.can_downvote?
-    vote_with_value!(user, -1)
-  end
-
-  def remove_vote!(user)
-    vote = votes.find_by(user: user)
-    return false unless vote
-
-    transaction do
-      decrement!(:score, vote.value)
-      vote.destroy!
-    end
-    true
-  end
-
-  def user_vote(user)
-    votes.find_by(user: user)&.value
   end
 
   def self.find_duplicate(url)
@@ -108,21 +70,6 @@ class Post < ApplicationRecord
   end
 
   private
-
-  def vote_with_value!(user, value)
-    existing = votes.find_by(user: user)
-
-    transaction do
-      if existing
-        decrement!(:score, existing.value)
-        existing.update!(value: value)
-      else
-        votes.create!(user: user, value: value)
-      end
-      increment!(:score, value)
-    end
-    true
-  end
 
   def set_post_type
     if url.present?
