@@ -50,63 +50,6 @@ class Comment < ApplicationRecord
   end
 
   def create_notification
-    # Notify post author if this is a direct comment on the post
-    if parent.nil? && post.author != author
-      notification = Notification.create!(
-        user: post.author,
-        notification_type: :post_comment,
-        notifiable: self,
-        actor: author
-      )
-      send_notification_email(notification)
-    # Notify parent comment author if this is a reply to a comment
-    elsif parent.present? && parent.author != author
-      notification = Notification.create!(
-        user: parent.author,
-        notification_type: :comment_reply,
-        notifiable: self,
-        actor: author
-      )
-      send_notification_email(notification)
-    end
-
-    # Handle @mentions
-    create_mention_notifications
-  end
-
-  def create_mention_notifications
-    mentioned_usernames = body.scan(/@([a-zA-Z0-9_-]+)/).flatten.uniq
-    return if mentioned_usernames.empty?
-
-    mentioned_users = User.where(username: mentioned_usernames)
-    already_notified = [ author.id ]
-    already_notified << post.author.id if parent.nil?
-    already_notified << parent.author.id if parent.present?
-
-    mentioned_users.each do |user|
-      next if already_notified.include?(user.id)
-      already_notified << user.id
-
-      notification = Notification.create!(
-        user: user,
-        notification_type: :mention,
-        notifiable: self,
-        actor: author
-      )
-      send_notification_email(notification)
-    end
-  end
-
-  def send_notification_email(notification)
-    return unless notification.user.email_notifications?
-
-    case notification.notification_type
-    when "comment_reply"
-      NotificationMailer.comment_reply(notification).deliver_later
-    when "post_comment"
-      NotificationMailer.post_comment(notification).deliver_later
-    when "mention"
-      NotificationMailer.mention(notification).deliver_later
-    end
+    NotificationService.notify_on_comment(self)
   end
 end
