@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :upvote, :downvote, :remove_vote]
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote, :remove_vote]
-  before_action :authorize_edit!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy, :upvote, :downvote, :remove_vote ]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy, :upvote, :downvote, :remove_vote ]
+  before_action :authorize_edit!, only: [ :edit, :update, :destroy ]
 
   def index
     @sort = params[:sort] || "top"
@@ -9,17 +9,32 @@ class PostsController < ApplicationController
     posts = Post.visible.includes(:author)
 
     @posts = case @sort
-             when "new"
+    when "new"
                posts.by_new
-             else
+    else
                posts.by_top
-             end
+    end
 
     @pagy, @posts = pagy(:offset, @posts, limit: 20)
   end
 
+  def search
+    @query = params[:q].to_s.strip
+
+    if @query.present?
+      @posts = Post.visible
+                   .includes(:author)
+                   .where("title ILIKE :q OR body ILIKE :q", q: "%#{@query}%")
+                   .order(created_at: :desc)
+      @pagy, @posts = pagy(:offset, @posts, limit: 20)
+    else
+      @posts = Post.none
+      @pagy = nil
+    end
+  end
+
   def show
-    @comments = @post.comments.visible.top_level.includes(:author, replies: [:author, replies: [:author]])
+    @comments = @post.comments.visible.top_level.includes(:author, replies: [ :author, replies: [ :author ] ])
   end
 
   def new
@@ -42,7 +57,11 @@ class PostsController < ApplicationController
     if @post.url.present?
       duplicate = Post.find_duplicate(@post.url)
       if duplicate
-        duplicate.upvote!(current_user) rescue nil
+        begin
+          duplicate.upvote!(current_user)
+        rescue ActiveRecord::RecordInvalid => e
+          Rails.logger.warn("Failed to upvote duplicate post #{duplicate.id}: #{e.message}")
+        end
         flash[:notice] = t("flash.posts.duplicate")
         return redirect_to duplicate
       end
