@@ -78,6 +78,7 @@ class NotificationService
   end
 
   def send_email(notification)
+    return if notification.user.bot?
     return unless notification.user.email_notifications?
 
     case notification.notification_type
