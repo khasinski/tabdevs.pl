@@ -20,6 +20,7 @@ module Votable
 
     transaction do
       decrement!(:score, vote.value)
+      update_author_karma(-vote.value, user)
       vote.destroy!
     end
     true
@@ -36,13 +37,23 @@ module Votable
 
     transaction do
       if existing
-        decrement!(:score, existing.value)
+        old_value = existing.value
+        decrement!(:score, old_value)
+        update_author_karma(-old_value, user)
         existing.update!(value: value)
       else
         votes.create!(user: user, value: value)
       end
       increment!(:score, value)
+      update_author_karma(value, user)
     end
     true
+  end
+
+  def update_author_karma(change, voter)
+    return if author == voter
+    return if change.zero?
+
+    author.increment!(:karma, change)
   end
 end
