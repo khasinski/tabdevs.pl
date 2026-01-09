@@ -1,0 +1,15 @@
+<% content_for(:title) { t("views.bookmarks.title") } %>
+
+<div class="static-page">
+  <h1><%= t("views.bookmarks.title") %></h1>
+
+  <% if @bookmarks.any? %>
+    <ol class="feed">
+      <% @bookmarks.each_with_index do |bookmark, index| %>
+        <%= render "posts/feed_item", post: bookmark.post, rank: index + 1 %>
+      <% end %>
+    </ol>
+  <% else %>
+    <p class="empty-message"><%= t("views.bookmarks.empty") %></p>
+  <% end %>
+</div>

@@ -1,3 +1,7 @@
 <%= turbo_stream.replace "vote_#{dom_id(@post)}" do %>
   <span class="vote-btn active">&#9650;</span>
 <% end %>
+
+<%= turbo_stream.replace "score_#{dom_id(@post)}" do %>
+  <span id="score_<%= dom_id(@post) %>"><%= pluralize_points(@post.score) %></span>
+<% end %>

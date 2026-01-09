@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "bookmark_#{post.id}" do %>
+  <% if bookmarked %>
+    <%= button_to post_bookmark_path(post), method: :delete, class: "bookmark-btn bookmarked", title: t("views.bookmarks.remove") do %>
+      ★
+    <% end %>
+  <% else %>
+    <%= button_to post_bookmark_path(post), method: :post, class: "bookmark-btn", title: t("views.bookmarks.add") do %>
+      ☆
+    <% end %>
+  <% end %>
+<% end %>

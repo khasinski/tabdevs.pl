@@ -72,7 +72,7 @@ class Rack::Attack
         "Content-Type" => "text/html",
         "Retry-After" => retry_after.to_s
       },
-      ["<html><body><h1>429 Too Many Requests</h1><p>Zbyt wiele żądań. Spróbuj ponownie za #{retry_after} sekund.</p></body></html>"]
+      [ "<html><body><h1>429 Too Many Requests</h1><p>Zbyt wiele żądań. Spróbuj ponownie za #{retry_after} sekund.</p></body></html>" ]
     ]
   end
 

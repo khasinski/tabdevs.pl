@@ -1,0 +1,17 @@
+<p>Czesc <%= @user.username %>,</p>
+
+<p><strong><%= @actor.username %></strong> wspominal(a) o Tobie w komentarzu do "<%= link_to @post.title, post_url(@post, anchor: "comment_#{@comment.id}") %>":</p>
+
+<blockquote style="border-left: 3px solid #611f69; padding-left: 15px; margin: 15px 0; color: #666;">
+  <%= simple_format(@comment.body) %>
+</blockquote>
+
+<p>
+  <%= link_to "Zobacz komentarz", post_url(@post, anchor: "comment_#{@comment.id}") %>
+</p>
+
+<hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+
+<p style="font-size: 12px; color: #999;">
+  Mozesz wylaczyc powiadomienia email w <%= link_to "ustawieniach", settings_url %>.
+</p>

@@ -24,16 +24,16 @@ class AddCommentsCountToPosts < ActiveRecord::Migration[8.1]
     end
 
     # Add missing performance indexes (only those that don't exist)
-    add_index :posts, [:author_id, :created_at], if_not_exists: true
-    add_index :comments, [:post_id, :status, :parent_id], if_not_exists: true
-    add_index :comments, [:author_id, :created_at], if_not_exists: true
+    add_index :posts, [ :author_id, :created_at ], if_not_exists: true
+    add_index :comments, [ :post_id, :status, :parent_id ], if_not_exists: true
+    add_index :comments, [ :author_id, :created_at ], if_not_exists: true
   end
 
   def down
     remove_column :posts, :comments_count
     remove_column :posts, :normalized_url
-    remove_index :posts, [:author_id, :created_at], if_exists: true
-    remove_index :comments, [:post_id, :status, :parent_id], if_exists: true
-    remove_index :comments, [:author_id, :created_at], if_exists: true
+    remove_index :posts, [ :author_id, :created_at ], if_exists: true
+    remove_index :comments, [ :post_id, :status, :parent_id ], if_exists: true
+    remove_index :comments, [ :author_id, :created_at ], if_exists: true
   end
 end

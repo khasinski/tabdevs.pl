@@ -93,5 +93,4 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     assert_equal deleted_user.id, post.reload.author_id
     assert_equal deleted_user.id, comment.reload.author_id
   end
-
 end

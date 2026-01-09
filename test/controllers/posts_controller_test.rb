@@ -167,5 +167,4 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       delete remove_vote_post_path(@post)
     end
   end
-
 end

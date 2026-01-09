@@ -9,6 +9,6 @@ class CreateMagicLinks < ActiveRecord::Migration[8.1]
       t.timestamps
     end
     add_index :magic_links, :token, unique: true
-    add_index :magic_links, [:user_id, :expires_at]
+    add_index :magic_links, [ :user_id, :expires_at ]
   end
 end

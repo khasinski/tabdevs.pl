@@ -2,10 +2,20 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8">
-    <title><%= content_for(:title) || "tabdevs.pl - Agregator tresci dla polskich programistow" %></title>
+    <% if cookies[:analytics_consent] == "true" %>
+      <!-- Google tag (gtag.js) - loaded after consent -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WJRKYW0EZE" nonce="<%= content_security_policy_nonce %>"></script>
+      <script nonce="<%= content_security_policy_nonce %>">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WJRKYW0EZE', { 'anonymize_ip': true });
+      </script>
+    <% end %>
+    <title><%= content_for(:title) || "tabdevs.pl - Agregator treści dla polskich programistów" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="<%= content_for(:description) || "tabdevs.pl to agregator tresci technicznych dla polskich programistow. Najlepsze artykuly, tutoriale i dyskusje ze swiata IT." %>">
-    <meta name="keywords" content="programowanie, developer, programista, IT, technologie, artykuly, tutoriale, polska, community">
+    <meta name="description" content="<%= content_for(:description) || "tabdevs.pl to agregator treści technicznych dla polskich programistów. Najlepsze artykuły, tutoriale i dyskusje ze świata IT." %>">
+    <meta name="keywords" content="programowanie, developer, programista, IT, technologie, artykuły, tutoriale, polska, community">
     <meta name="author" content="tabdevs.pl">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
@@ -14,8 +24,8 @@
     <%# Open Graph %>
     <meta property="og:type" content="<%= content_for(:og_type) || "website" %>">
     <meta property="og:site_name" content="tabdevs.pl">
-    <meta property="og:title" content="<%= content_for(:og_title) || content_for(:title) || "tabdevs.pl - Agregator tresci dla polskich programistow" %>">
-    <meta property="og:description" content="<%= content_for(:og_description) || content_for(:description) || "Agregator tresci technicznych dla polskich programistow. Najlepsze artykuly, tutoriale i dyskusje ze swiata IT." %>">
+    <meta property="og:title" content="<%= content_for(:og_title) || content_for(:title) || "tabdevs.pl - Agregator treści dla polskich programistów" %>">
+    <meta property="og:description" content="<%= content_for(:og_description) || content_for(:description) || "Agregator treści technicznych dla polskich programistów. Najlepsze artykuły, tutoriale i dyskusje ze świata IT." %>">
     <meta property="og:url" content="<%= request.original_url %>">
     <meta property="og:image" content="<%= content_for(:og_image) || "#{request.base_url}/og-image.png" %>">
     <meta property="og:locale" content="pl_PL">
@@ -23,7 +33,7 @@
     <%# Twitter Card %>
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<%= content_for(:og_title) || content_for(:title) || "tabdevs.pl" %>">
-    <meta name="twitter:description" content="<%= content_for(:og_description) || content_for(:description) || "Agregator tresci dla polskich programistow" %>">
+    <meta name="twitter:description" content="<%= content_for(:og_description) || content_for(:description) || "Agregator treści dla polskich programistów" %>">
     <meta name="twitter:image" content="<%= content_for(:og_image) || "#{request.base_url}/og-image.png" %>">
 
     <%# Mobile %>
@@ -39,14 +49,14 @@
     <%= csp_meta_tag %>
 
     <%# Structured Data %>
-    <script type="application/ld+json">
+    <script type="application/ld+json" nonce="<%= content_security_policy_nonce %>">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "tabdevs.pl",
       "alternateName": "Tab Devs",
       "url": "https://tabdevs.pl",
-      "description": "Agregator tresci technicznych dla polskich programistow",
+      "description": "Agregator treści technicznych dla polskich programistów",
       "inLanguage": "pl-PL",
       "potentialAction": {
         "@type": "SearchAction",
@@ -68,6 +78,15 @@
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script nonce="<%= content_security_policy_nonce %>">
+      (function() {
+        var theme = localStorage.getItem('theme');
+        if (!theme) {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
   </head>
 
   <body>
@@ -85,14 +104,26 @@
             <%= link_to t("views.header.new"), new_posts_path %>
             <span class="nav-separator">|</span>
             <%= link_to t("views.header.add"), new_post_path %>
+            <span class="nav-separator">|</span>
+            <%= link_to "szukaj", search_path %>
           </nav>
 
-          <div class="header-right">
+          <div class="header-right" data-controller="theme">
+            <button type="button" class="theme-toggle" data-action="click->theme#toggle" title="Przełącz motyw">
+              <span data-theme-target="icon"></span>
+            </button>
+            <span class="nav-separator">|</span>
             <% if logged_in? %>
               <%= link_to current_user.username, user_path(current_user.username) %>
               <span class="header-karma">(<%= current_user.karma %>)</span>
               <span class="nav-separator">|</span>
+              <%= link_to t("views.header.bookmarks"), bookmarks_path %>
+              <span class="nav-separator">|</span>
               <%= link_to t("views.header.settings"), settings_path %>
+              <% if current_user.admin? %>
+                <span class="nav-separator">|</span>
+                <%= link_to "admin", admin_dashboard_path %>
+              <% end %>
               <span class="nav-separator">|</span>
               <% if unread_notifications_count > 0 %>
                 <%= link_to notifications_path do %>
@@ -129,6 +160,16 @@
 
     <footer class="footer">
       <div class="container">
+        <% unless newsletter_subscribed? %>
+          <div class="newsletter-section">
+            <strong><%= t("views.newsletter.title") %></strong>
+            <span class="newsletter-description"><%= t("views.newsletter.description") %></span>
+            <%= form_with url: newsletter_path, method: :post, class: "newsletter-form", data: { turbo: false } do |f| %>
+              <%= f.email_field :email, placeholder: t("views.newsletter.email_placeholder"), required: true, class: "newsletter-input" %>
+              <%= f.submit t("views.newsletter.subscribe"), class: "newsletter-submit" %>
+            <% end %>
+          </div>
+        <% end %>
         <div class="footer-links">
           <%= link_to t("views.footer.faq"), faq_path %> |
           <%= link_to t("views.footer.terms"), terms_path %> |
@@ -138,5 +179,17 @@
         <div>tabdevs.pl &copy; <%= Time.current.year %></div>
       </div>
     </footer>
+
+    <% unless cookies[:cookie_consent_given] %>
+      <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-banner-content">
+          <p><%= t("views.cookies.message") %> <%= link_to t("views.footer.privacy"), privacy_path %>.</p>
+          <div class="cookie-banner-actions">
+            <%= button_to t("views.cookies.accept_all"), consent_path(consent: "all"), method: :post, class: "btn btn-primary", form: { data: { turbo: false } } %>
+            <%= button_to t("views.cookies.accept_necessary"), consent_path(consent: "necessary"), method: :post, class: "btn", form: { data: { turbo: false } } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </body>
 </html>

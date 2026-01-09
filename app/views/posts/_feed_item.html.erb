@@ -12,7 +12,7 @@
           <% end %>
         <% end %>
       <% else %>
-        <%= link_to "&#9650;".html_safe, login_path, class: "vote-btn" %>
+        <%= link_to "&#9650;".html_safe, login_path, class: "vote-btn", data: { turbo_frame: "_top" } %>
       <% end %>
     <% end %>
   </div>
@@ -27,7 +27,7 @@
       <% end %>
 
       <% if post.tag.present? %>
-        <span class="feed-tag"><%= post.tag %></span>
+        <span class="feed-tag"><%= t("views.posts.tags.#{post.tag}") %></span>
       <% end %>
 
       <% if post.author&.bot? %>
@@ -36,10 +36,13 @@
     </div>
 
     <div class="feed-meta">
-      <%= pluralize_points(post.score) %>
+      <span id="score_<%= dom_id(post) %>"><%= pluralize_points(post.score) %></span>
       <%= t("views.posts.by") %> <%= link_to post.author&.username || t("views.common.deleted_user"), post.author ? user_path(post.author) : "#" %>
       <%= time_ago_in_words_pl(post.created_at) %>
       | <%= link_to pluralize_comments(post.comments_count), post_path(post) %>
+      <% if logged_in? %>
+        | <%= render "posts/bookmark_button", post: post, bookmarked: current_user.bookmarked?(post) %>
+      <% end %>
     </div>
   </div>
 </li>

@@ -2,7 +2,7 @@
 <% content_for(:description) { "Profil #{@user.username} na tabdevs.pl. Karma: #{@user.karma}. #{@posts.count} postow, #{@comments.count} komentarzy." } %>
 
 <% content_for(:structured_data) do %>
-<script type="application/ld+json">
+<script type="application/ld+json" nonce="<%= content_security_policy_nonce %>">
 {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
@@ -25,6 +25,29 @@
       <p><span class="feed-bot">bot</span></p>
     <% end %>
   </div>
+
+  <% if @user.bio.present? %>
+    <div class="user-bio" style="font-size: 11px; margin-bottom: 15px; padding: 10px; background: var(--bg-alt); border-radius: 4px;">
+      <%= simple_format(@user.bio) %>
+    </div>
+  <% end %>
+
+  <% if @user.website.present? || @user.github_username.present? || @user.twitter_username.present? || @user.linkedin_url.present? %>
+    <div class="user-links" style="font-size: 11px; margin-bottom: 15px; display: flex; gap: 12px; flex-wrap: wrap;">
+      <% if @user.website.present? %>
+        <%= link_to @user.website.sub(%r{^https?://}, ''), @user.website, target: "_blank", rel: "noopener noreferrer" %>
+      <% end %>
+      <% if @user.github_username.present? %>
+        <%= link_to "GitHub", "https://github.com/#{@user.github_username}", target: "_blank", rel: "noopener noreferrer" %>
+      <% end %>
+      <% if @user.twitter_username.present? %>
+        <%= link_to "Twitter", "https://twitter.com/#{@user.twitter_username}", target: "_blank", rel: "noopener noreferrer" %>
+      <% end %>
+      <% if @user.linkedin_url.present? %>
+        <%= link_to "LinkedIn", @user.linkedin_url, target: "_blank", rel: "noopener noreferrer" %>
+      <% end %>
+    </div>
+  <% end %>
 
   <% if @posts.any? %>
     <h3 style="font-size: 11px; font-weight: bold; margin: 20px 0 10px; border-top: 1px solid var(--border); padding-top: 15px;">

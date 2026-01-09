@@ -7,7 +7,7 @@
 <% end %>
 
 <% content_for(:structured_data) do %>
-<script type="application/ld+json">
+<script type="application/ld+json" nonce="<%= content_security_policy_nonce %>">
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -23,7 +23,7 @@
         "@type": "ListItem",
         "position": <%= index + 1 %>,
         "url": "https://tabdevs.pl<%= post_path(post) %>",
-        "name": "<%= j post.title %>"
+        "name": <%= post.title.to_json.html_safe %>
       }<%= index < @posts.size - 1 ? "," : "" %>
       <% end %>
     ]

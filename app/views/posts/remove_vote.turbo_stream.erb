@@ -3,3 +3,7 @@
     &#9650;
   <% end %>
 <% end %>
+
+<%= turbo_stream.replace "score_#{dom_id(@post)}" do %>
+  <span id="score_<%= dom_id(@post) %>"><%= pluralize_points(@post.score) %></span>
+<% end %>

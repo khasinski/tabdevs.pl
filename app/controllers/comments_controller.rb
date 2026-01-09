@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: [:create]
-  before_action :set_comment, only: [:edit, :update, :destroy, :upvote, :downvote, :remove_vote]
-  before_action :authorize_edit!, only: [:edit, :update, :destroy]
+  before_action :set_post, only: [ :create ]
+  before_action :set_comment, only: [ :edit, :update, :destroy, :upvote, :downvote, :remove_vote ]
+  before_action :authorize_edit!, only: [ :edit, :update, :destroy ]
 
   def create
     unless current_user.can_comment?

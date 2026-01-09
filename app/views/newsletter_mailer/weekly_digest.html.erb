@@ -1,0 +1,25 @@
+<h2>Tygodniowy przeglad tabdevs.pl</h2>
+
+<p>Oto najpopularniejsze posty z ostatniego tygodnia:</p>
+
+<ol>
+  <% @posts.each do |post| %>
+    <li>
+      <strong><%= link_to post.title, post_url(post) %></strong>
+      <% if post.url.present? %>
+        (<%= post.domain %>)
+      <% end %>
+      <br>
+      <small><%= post.score %> punktow | <%= post.comments_count %> komentarzy</small>
+    </li>
+  <% end %>
+</ol>
+
+<hr>
+
+<p>
+  <small>
+    Otrzymujesz te wiadomosc, poniewaz zapisales sie do newslettera tabdevs.pl.<br>
+    <%= link_to "Wypisz sie z newslettera", @unsubscribe_url %>
+  </small>
+</p>

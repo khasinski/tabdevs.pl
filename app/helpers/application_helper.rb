@@ -1,9 +1,24 @@
 module ApplicationHelper
   include Pagy::Method
 
+  # Custom Redcarpet renderer with Rouge syntax highlighting
+  class SyntaxHighlightingRenderer < Redcarpet::Render::HTML
+    def block_code(code, language)
+      language = language&.strip&.downcase
+      language = "plaintext" if language.blank?
+
+      lexer = Rouge::Lexer.find(language) || Rouge::Lexers::PlainText.new
+      formatter = Rouge::Formatters::HTML.new
+      highlighted = formatter.format(lexer.lex(code))
+
+      %(<pre class="highlight"><code class="language-#{language}">#{highlighted}</code></pre>)
+    end
+  end
+
   def markdown(text)
     return "" if text.blank?
-    renderer = Redcarpet::Render::HTML.new(
+
+    renderer = SyntaxHighlightingRenderer.new(
       hard_wrap: true,
       link_attributes: { target: "_blank", rel: "noopener noreferrer" }
     )
@@ -13,7 +28,13 @@ module ApplicationHelper
       no_intra_emphasis: true,
       strikethrough: true
     )
-    sanitize(markdown.render(text), tags: %w[p br strong em a code pre ul ol li blockquote])
+
+    # Allow span with class for syntax highlighting
+    sanitize(
+      markdown.render(text),
+      tags: %w[p br strong em a code pre ul ol li blockquote span del],
+      attributes: %w[href target rel class]
+    )
   end
 
   def time_ago_in_words_pl(time)
@@ -61,10 +82,16 @@ module ApplicationHelper
   def pluralize_comments(count)
     return t("views.comments.count_zero") if count == 0
     key = case pluralize_form(count)
-          when :one then "views.comments.count_one"
-          when :few then "views.comments.count_few"
-          else "views.comments.count_many"
-          end
+    when :one then "views.comments.count_one"
+    when :few then "views.comments.count_few"
+    else "views.comments.count_many"
+    end
     t(key, count: count)
+  end
+
+  def newsletter_subscribed?
+    return false unless defined?(current_user) && current_user.present?
+
+    NewsletterSubscription.active.exists?(email: current_user.email)
   end
 end

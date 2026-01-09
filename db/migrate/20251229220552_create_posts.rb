@@ -13,7 +13,7 @@ class CreatePosts < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    add_index :posts, [:status, :created_at]
+    add_index :posts, [ :status, :created_at ]
     add_index :posts, :url
   end
 end

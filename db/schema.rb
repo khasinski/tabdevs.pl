@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_30_144707) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_07_234553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,6 +25,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_144707) do
     t.index ["moderator_id"], name: "index_bans_on_moderator_id"
     t.index ["user_id", "expires_at"], name: "index_bans_on_user_id_and_expires_at"
     t.index ["user_id"], name: "index_bans_on_user_id"
+  end
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "post_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["post_id"], name: "index_bookmarks_on_post_id"
+    t.index ["user_id", "post_id"], name: "index_bookmarks_on_user_id_and_post_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -44,6 +54,22 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_144707) do
     t.index ["post_id", "status", "parent_id"], name: "index_comments_on_post_id_and_status_and_parent_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["status"], name: "index_comments_on_status"
+  end
+
+  create_table "flags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.bigint "flaggable_id", null: false
+    t.string "flaggable_type", null: false
+    t.integer "reason", null: false
+    t.datetime "resolved_at"
+    t.bigint "resolved_by_id"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["flaggable_type", "flaggable_id"], name: "index_flags_on_flaggable"
+    t.index ["resolved_by_id"], name: "index_flags_on_resolved_by_id"
+    t.index ["user_id", "flaggable_type", "flaggable_id"], name: "index_flags_on_user_and_flaggable", unique: true
+    t.index ["user_id"], name: "index_flags_on_user_id"
   end
 
   create_table "magic_links", force: :cascade do |t|
@@ -70,6 +96,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_144707) do
     t.index ["moderatable_type", "moderatable_id"], name: "index_moderation_items_on_moderatable"
     t.index ["moderator_id"], name: "index_moderation_items_on_moderator_id"
     t.index ["status"], name: "index_moderation_items_on_status"
+  end
+
+  create_table "newsletter_subscriptions", force: :cascade do |t|
+    t.datetime "confirmed_at"
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "token"
+    t.datetime "unsubscribed_at"
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_newsletter_subscriptions_on_email", unique: true
+    t.index ["token"], name: "index_newsletter_subscriptions_on_token", unique: true
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -127,14 +164,22 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_144707) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.text "bio"
     t.datetime "created_at", null: false
     t.string "email", null: false
+    t.boolean "email_notifications", default: true, null: false
+    t.string "github_username"
     t.integer "karma", default: 0, null: false
+    t.string "linkedin_url"
     t.string "password_digest"
+    t.datetime "privacy_accepted_at"
     t.integer "role", default: 0, null: false
     t.integer "status", default: 0, null: false
+    t.datetime "terms_accepted_at"
+    t.string "twitter_username"
     t.datetime "updated_at", null: false
     t.string "username", null: false
+    t.string "website"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
@@ -154,9 +199,13 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_144707) do
 
   add_foreign_key "bans", "users"
   add_foreign_key "bans", "users", column: "moderator_id"
+  add_foreign_key "bookmarks", "posts"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "flags", "users"
+  add_foreign_key "flags", "users", column: "resolved_by_id"
   add_foreign_key "magic_links", "users"
   add_foreign_key "moderation_items", "users", column: "moderator_id"
   add_foreign_key "notifications", "users"

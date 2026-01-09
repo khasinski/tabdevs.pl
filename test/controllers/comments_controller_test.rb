@@ -114,5 +114,4 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_equal I18n.t("flash.votes.downvote_karma"), flash[:alert]
   end
-
 end

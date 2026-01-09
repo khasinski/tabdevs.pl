@@ -1,0 +1,45 @@
+<% content_for(:title) { t("views.flags.title") } %>
+
+<div class="static-page">
+  <h1><%= t("views.flags.title") %></h1>
+
+  <p class="settings-info"><%= t("views.flags.description") %></p>
+
+  <div style="background: var(--bg-alt); padding: 10px; border-radius: 4px; margin: 15px 0; font-size: 11px;">
+    <% if @flaggable.is_a?(Post) %>
+      <strong><%= @flaggable.title %></strong>
+      <br><span style="color: var(--text-light);"><%= t("views.posts.by") %> <%= @flaggable.author&.username %></span>
+    <% else %>
+      <strong><%= truncate(@flaggable.body, length: 100) %></strong>
+      <br><span style="color: var(--text-light);"><%= t("views.posts.by") %> <%= @flaggable.author&.username %></span>
+    <% end %>
+  </div>
+
+  <%= form_with model: @flag, url: @flaggable.is_a?(Post) ? post_flag_path(@flaggable) : comment_flag_path(@flaggable), class: "submit-form" do |f| %>
+    <% if @flag.errors.any? %>
+      <div class="flash flash-alert" style="margin-bottom: 15px;">
+        <ul style="margin: 0; padding-left: 15px;">
+          <% @flag.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :reason, t("views.flags.reason") %>
+      <%= f.select :reason, Flag.reasons.keys.map { |r| [t("views.flags.reasons.#{r}"), r] }, include_blank: t("views.flags.select_reason") %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, t("views.flags.details") %>
+      <%= f.text_area :description, rows: 3, placeholder: t("views.flags.details_placeholder") %>
+      <small><%= t("views.flags.details_hint") %></small>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit t("views.flags.submit") %>
+      <%= link_to t("views.common.cancel"), :back, style: "margin-left: 10px;" %>
+    </div>
+  <% end %>
+</div>

@@ -9,8 +9,6 @@
     </div>
   <% end %>
 
-  <p class="form-hint"><%= t("views.posts.form_hint") %></p>
-
   <div class="form-group">
     <%= f.label :title, t("views.posts.title") %>
     <%= f.text_field :title, maxlength: 200 %>
@@ -30,7 +28,7 @@
 
   <div class="form-group">
     <%= f.label :tag, t("views.posts.tag") %>
-    <%= f.select :tag, Post.tags.keys.map { |t| [t, t] }, include_blank: t("views.posts.tag_placeholder") %>
+    <%= f.select :tag, Post.tags.keys.map { |tag| [t("views.posts.tags.#{tag}"), tag] }, include_blank: t("views.posts.tag_placeholder") %>
   </div>
 
   <div class="form-actions">

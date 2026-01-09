@@ -27,6 +27,32 @@
         <p class="form-hint"><%= t("views.settings.email_hint") %></p>
       </div>
 
+      <div class="form-group">
+        <%= f.label :bio, t("views.settings.bio") %>
+        <%= f.text_area :bio, rows: 3, maxlength: 500, placeholder: t("views.settings.bio_placeholder") %>
+        <p class="form-hint"><%= t("views.settings.bio_hint") %></p>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :website, t("views.settings.website") %>
+        <%= f.url_field :website, placeholder: "https://..." %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :github_username, t("views.settings.github") %>
+        <%= f.text_field :github_username, placeholder: "username" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :twitter_username, t("views.settings.twitter") %>
+        <%= f.text_field :twitter_username, placeholder: "username" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :linkedin_url, t("views.settings.linkedin") %>
+        <%= f.url_field :linkedin_url, placeholder: "https://linkedin.com/in/..." %>
+      </div>
+
       <div class="form-actions">
         <%= f.submit t("views.common.save") %>
       </div>
@@ -56,6 +82,35 @@
 
       <div class="form-actions">
         <%= f.submit t("views.settings.set_password") %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="settings-section">
+    <h3><%= t("views.settings.notifications_section") %></h3>
+    <%= form_with model: @user, url: settings_path, method: :patch, local: true do |f| %>
+      <div class="checkbox-group">
+        <%= f.check_box :email_notifications, id: "email_notifications" %>
+        <%= f.label :email_notifications, t("views.settings.email_notifications_label") %>
+      </div>
+      <p class="settings-info"><%= t("views.settings.email_notifications_hint") %></p>
+      <div class="form-actions">
+        <%= f.submit t("views.common.save") %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="settings-section">
+    <h3><%= t("views.settings.newsletter_section") %></h3>
+    <% if @newsletter_subscription&.confirmed? && !@newsletter_subscription&.unsubscribed? %>
+      <p class="settings-info"><%= t("views.settings.newsletter_subscribed") %></p>
+      <div class="form-actions">
+        <%= button_to t("views.settings.newsletter_unsubscribe"), settings_newsletter_path, method: :delete, class: "btn", data: { turbo_confirm: t("views.settings.newsletter_unsubscribe_confirm") } %>
+      </div>
+    <% else %>
+      <p class="settings-info"><%= t("views.settings.newsletter_not_subscribed") %></p>
+      <div class="form-actions">
+        <%= button_to t("views.settings.newsletter_subscribe"), settings_newsletter_path, method: :post, class: "btn btn-primary" %>
       </div>
     <% end %>
   </section>

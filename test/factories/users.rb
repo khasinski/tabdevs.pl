@@ -5,6 +5,8 @@ FactoryBot.define do
     karma { 10 }
     role { :user }
     status { :active }
+    terms_accepted_at { Time.current }
+    privacy_accepted_at { Time.current }
 
     trait :admin do
       role { :admin }

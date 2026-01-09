@@ -297,6 +297,7 @@ GEM
     resend (1.0.0)
       httparty (>= 0.21.0)
     rexml (3.4.4)
+    rouge (4.7.0)
     rubocop (1.82.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -436,6 +437,7 @@ DEPENDENCIES
   rails (~> 8.1.1)
   redcarpet
   resend
+  rouge
   rubocop-rails-omakase
   ruby-openai
   selenium-webdriver

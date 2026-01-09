@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  before_action :redirect_if_logged_in, only: [:new, :create, :password, :password_auth]
+  before_action :redirect_if_logged_in, only: [ :new, :create, :password, :password_auth, :sent ]
+  before_action :authenticate_user!, only: [ :accept_terms, :submit_terms ]
 
   def new
   end
@@ -23,7 +24,7 @@ class SessionsController < ApplicationController
     end
 
     magic_link = user.magic_links.create!
-    AuthMailer.magic_link(user, magic_link)
+    AuthMailer.magic_link(user, magic_link).deliver_later
 
     redirect_to auth_sent_path, notice: t("flash.auth.magic_link_sent", email: email)
   end
@@ -60,6 +61,23 @@ class SessionsController < ApplicationController
     redirect_to root_path, notice: t("flash.auth.logout_success")
   end
 
+  def accept_terms
+    redirect_to root_path if current_user.terms_accepted?
+  end
+
+  def submit_terms
+    if params[:accept_terms] == "1" && params[:accept_privacy] == "1"
+      current_user.update!(
+        terms_accepted_at: Time.current,
+        privacy_accepted_at: Time.current
+      )
+      redirect_to root_path, notice: t("flash.auth.login_success")
+    else
+      flash.now[:error] = t("flash.auth.must_accept_terms")
+      render :accept_terms, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def redirect_if_logged_in
@@ -68,7 +86,12 @@ class SessionsController < ApplicationController
 
   def login_user(user)
     session[:user_id] = user.id
-    redirect_to root_path, notice: t("flash.auth.login_success")
+
+    if user.terms_accepted?
+      redirect_to root_path, notice: t("flash.auth.login_success")
+    else
+      redirect_to accept_terms_path
+    end
   end
 
   def rate_limited?(email)

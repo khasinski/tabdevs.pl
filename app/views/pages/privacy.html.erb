@@ -1,23 +1,23 @@
-<% content_for(:title) { "Polityka prywatnosci | tabdevs.pl" } %>
-<% content_for(:description) { "Polityka prywatnosci serwisu tabdevs.pl - informacje o przetwarzaniu danych osobowych." } %>
+<% content_for(:title) { "Polityka prywatności | tabdevs.pl" } %>
+<% content_for(:description) { "Polityka prywatności serwisu tabdevs.pl - informacje o przetwarzaniu danych osobowych." } %>
 
 <article class="static-page">
-  <h1>Polityka prywatnosci</h1>
-  <p class="last-updated">Ostatnia aktualizacja: 1 stycznia 2025</p>
+  <h1>Polityka prywatności</h1>
+  <p class="last-updated">Ostatnia aktualizacja: 1 stycznia 2026</p>
 
   <section>
     <h2>1. Administrator danych</h2>
-    <p>Administratorem danych osobowych jest wlasciciel serwisu tabdevs.pl. Kontakt: <%= mail_to "kontakt@tabdevs.pl" %></p>
+    <p>Administratorem danych osobowych jest właściciel serwisu tabdevs.pl.</p>
   </section>
 
   <section>
     <h2>2. Jakie dane zbieramy</h2>
-    <p>Zbieramy nastepujace dane:</p>
+    <p>Zbieramy następujące dane:</p>
     <ul>
       <li><strong>Adres email</strong> - wymagany do rejestracji i logowania</li>
-      <li><strong>Nazwa uzytkownika</strong> - publiczna nazwa wyswietlana w Serwisie</li>
-      <li><strong>Tresci</strong> - posty i komentarze dodawane przez uzytkownika</li>
-      <li><strong>Dane techniczne</strong> - adres IP, informacje o przegladarce (w logach serwera)</li>
+      <li><strong>Nazwa użytkownika</strong> - publiczna nazwa wyświetlana w Serwisie</li>
+      <li><strong>Treści</strong> - posty i komentarze dodawane przez użytkownika</li>
+      <li><strong>Dane techniczne</strong> - adres IP, informacje o przeglądarce (w logach serwera, przechowywane 30 dni)</li>
     </ul>
   </section>
 
@@ -25,10 +25,10 @@
     <h2>3. Cel przetwarzania danych</h2>
     <p>Dane przetwarzamy w celu:</p>
     <ul>
-      <li>Swiadczenia uslug Serwisu (logowanie, publikacja tresci)</li>
-      <li>Komunikacji z uzytkownikami</li>
-      <li>Zapewnienia bezpieczenstwa Serwisu</li>
-      <li>Analizy statystycznej (anonimowej)</li>
+      <li>Świadczenia usług Serwisu (logowanie, publikacja treści)</li>
+      <li>Komunikacji z użytkownikami (wysyłka linków logowania)</li>
+      <li>Zapewnienia bezpieczeństwa Serwisu</li>
+      <li>Analizy statystycznej (tylko za zgodą - patrz sekcja 7)</li>
     </ul>
   </section>
 
@@ -36,43 +36,83 @@
     <h2>4. Podstawa prawna</h2>
     <p>Dane przetwarzamy na podstawie:</p>
     <ul>
-      <li>Zgody uzytkownika (art. 6 ust. 1 lit. a RODO)</li>
-      <li>Wykonania umowy/uslugi (art. 6 ust. 1 lit. b RODO)</li>
-      <li>Prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO)</li>
+      <li>Zgody użytkownika (art. 6 ust. 1 lit. a RODO) - dla analityki</li>
+      <li>Wykonania umowy/usługi (art. 6 ust. 1 lit. b RODO) - dla funkcjonowania Serwisu</li>
+      <li>Prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO) - dla bezpieczeństwa</li>
     </ul>
   </section>
 
   <section>
     <h2>5. Okres przechowywania</h2>
-    <p>Dane przechowujemy przez czas korzystania z Serwisu. Po usunieciu konta dane sa usuwane, z wyjatkiem danych niezbednych do realizacji obowiazkow prawnych.</p>
+    <ul>
+      <li><strong>Dane konta</strong> - przez czas korzystania z Serwisu</li>
+      <li><strong>Logi serwera</strong> - 30 dni</li>
+      <li><strong>Linki magiczne (logowanie)</strong> - 24 godziny</li>
+      <li><strong>Dane analityczne (GA4)</strong> - 14 miesięcy (jeśli wyrażono zgodę)</li>
+    </ul>
+    <p>Po usunięciu konta dane są usuwane lub anonimizowane, z wyjątkiem danych niezbędnych do realizacji obowiązków prawnych.</p>
   </section>
 
   <section>
-    <h2>6. Prawa uzytkownika</h2>
+    <h2>6. Prawa użytkownika</h2>
     <p>Masz prawo do:</p>
     <ul>
-      <li><strong>Dostepu do swoich danych</strong> - w <%= link_to "ustawieniach", settings_path %> mozesz eksportowac swoje dane</li>
-      <li><strong>Sprostowania danych</strong> - mozesz zmienic nazwe uzytkownika w ustawieniach</li>
-      <li><strong>Usuniecia danych</strong> ("prawo do bycia zapomnianym") - mozesz usunac konto w ustawieniach</li>
+      <li><strong>Dostępu do swoich danych</strong> - w <%= link_to "ustawieniach", settings_path %> możesz eksportować swoje dane</li>
+      <li><strong>Sprostowania danych</strong> - możesz zmienić nazwę użytkownika w ustawieniach</li>
+      <li><strong>Usunięcia danych</strong> ("prawo do bycia zapomnianym") - możesz usunąć konto w ustawieniach</li>
       <li><strong>Przenoszenia danych</strong> - eksport danych w formacie JSON</li>
-      <li><strong>Sprzeciwu wobec przetwarzania</strong> - napisz do nas</li>
+      <li><strong>Cofnięcia zgody</strong> - możesz wyczyścić cookies przeglądarki, aby cofnąć zgodę na analitykę</li>
+      <li><strong>Sprzeciwu wobec przetwarzania</strong> - skontaktuj się z nami</li>
       <li><strong>Wniesienia skargi</strong> do organu nadzorczego (UODO)</li>
     </ul>
-    <p>Aby skorzystac z tych praw, przejdz do <%= link_to "ustawien konta", settings_path %> lub skontaktuj sie z nami.</p>
+    <p>Aby skorzystać z tych praw, przejdź do <%= link_to "ustawień konta", settings_path %> lub <%= link_to "skontaktuj się z nami", contact_path %>.</p>
   </section>
 
   <section>
-    <h2>7. Pliki cookies</h2>
-    <p>Serwis wykorzystuje pliki cookies niezbedne do dzialania (sesja logowania). Nie stosujemy cookies reklamowych ani sledzacych.</p>
+    <h2>7. Pliki cookies i analityka</h2>
+    <p>Serwis wykorzystuje następujące pliki cookies:</p>
+
+    <h3>Cookies niezbędne (zawsze aktywne)</h3>
+    <ul>
+      <li><strong>_session_id</strong> - sesja logowania, wygasa po zamknięciu przeglądarki</li>
+      <li><strong>cookie_consent_given</strong> - informacja o wyborze cookies, 1 rok</li>
+      <li><strong>analytics_consent</strong> - zgoda na analitykę, 1 rok</li>
+    </ul>
+
+    <h3>Cookies analityczne (tylko za zgodą)</h3>
+    <p>Jeśli wyrazisz zgodę, używamy Google Analytics 4 do analizy ruchu:</p>
+    <ul>
+      <li><strong>_ga</strong> - identyfikator użytkownika Google Analytics, 2 lata</li>
+      <li><strong>_ga_*</strong> - stan sesji, 2 lata</li>
+    </ul>
+    <p>Google Analytics zbiera anonimowe dane o odwiedzinach (strony, czas, urządzenie). Adresy IP są anonimizowane. Dane mogą być przekazywane do USA na podstawie standardowych klauzul umownych.</p>
+    <p>Możesz zmienić swój wybór dotyczący cookies czyszcząc cookies przeglądarki - banner pojawi się ponownie.</p>
   </section>
 
   <section>
-    <h2>8. Bezpieczenstwo</h2>
-    <p>Stosujemy odpowiednie srodki techniczne i organizacyjne w celu ochrony danych, w tym szyfrowanie polaczenia (HTTPS).</p>
+    <h2>8. Podmioty przetwarzające dane</h2>
+    <p>Korzystamy z usług następujących podmiotów:</p>
+    <ul>
+      <li><strong>Resend</strong> (Delaware, USA) - wysyłka emaili (linki logowania). Polityka prywatności: <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">resend.com/legal/privacy-policy</a></li>
+      <li><strong>Google LLC</strong> (USA) - analityka (tylko za zgodą). Polityka prywatności: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+    </ul>
+    <p>Transfer danych do USA odbywa się na podstawie standardowych klauzul umownych zgodnie z art. 46 ust. 2 lit. c RODO.</p>
   </section>
 
   <section>
-    <h2>9. Kontakt</h2>
-    <p>W sprawach dotyczacych danych osobowych: <%= mail_to "kontakt@tabdevs.pl" %></p>
+    <h2>9. Bezpieczeństwo</h2>
+    <p>Stosujemy odpowiednie środki techniczne i organizacyjne w celu ochrony danych:</p>
+    <ul>
+      <li>Szyfrowanie połączenia (HTTPS/TLS)</li>
+      <li>Logowanie bez hasła (magic links) - brak ryzyka wycieku haseł</li>
+      <li>Filtrowanie wrażliwych danych w logach</li>
+      <li>Regularne aktualizacje oprogramowania</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>10. Kontakt</h2>
+    <p>W sprawach dotyczących danych osobowych <%= link_to "skontaktuj się z nami", contact_path %>.</p>
+    <p>Odpowiadamy na zgłoszenia w ciągu 30 dni zgodnie z wymogami RODO.</p>
   </section>
 </article>

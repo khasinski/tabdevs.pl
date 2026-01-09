@@ -52,5 +52,4 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to notifications_path
     assert @user.notifications.unread.count.zero?
   end
-
 end

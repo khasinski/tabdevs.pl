@@ -1,0 +1,29 @@
+<div class="auth-form">
+  <h2><%= t("views.auth.accept_terms_title") %></h2>
+
+  <p class="auth-hint">
+    <%= t("views.auth.accept_terms_hint") %>
+  </p>
+
+  <%= form_with url: accept_terms_path, method: :post, local: true do |f| %>
+    <div class="terms-checkboxes">
+      <div class="checkbox-group">
+        <%= check_box_tag :accept_terms, "1", false, id: "accept_terms", required: true %>
+        <%= label_tag :accept_terms do %>
+          <%= t("views.auth.accept_terms_label") %> <%= link_to t("views.footer.terms"), terms_path, target: "_blank" %>
+        <% end %>
+      </div>
+
+      <div class="checkbox-group">
+        <%= check_box_tag :accept_privacy, "1", false, id: "accept_privacy", required: true %>
+        <%= label_tag :accept_privacy do %>
+          <%= t("views.auth.accept_privacy_label") %> <%= link_to t("views.footer.privacy"), privacy_path, target: "_blank" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit t("views.auth.continue") %>
+    </div>
+  <% end %>
+</div>

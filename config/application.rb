@@ -44,7 +44,7 @@ module TabdevsPl
 
     # Set default locale to Polish
     config.i18n.default_locale = :pl
-    config.i18n.available_locales = [:pl, :en]
+    config.i18n.available_locales = [ :pl, :en ]
     config.i18n.fallbacks = true
   end
 end

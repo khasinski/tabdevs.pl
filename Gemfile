@@ -32,7 +32,7 @@ gem "solid_cable"
 gem "bootsnap", require: false
 
 # Load environment variables from .env
-gem "dotenv-rails", groups: [:development, :test]
+gem "dotenv-rails", groups: [ :development, :test ]
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
@@ -44,6 +44,7 @@ gem "image_processing", "~> 1.2"
 gem "resend"                    # Email via Resend API
 gem "ruby-openai"               # OpenAI API for AI curator
 gem "redcarpet"                 # Markdown rendering
+gem "rouge"                     # Syntax highlighting for code blocks
 gem "pagy"                      # Fast pagination
 gem "rack-attack"               # Rate limiting
 

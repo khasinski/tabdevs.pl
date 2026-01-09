@@ -6,11 +6,17 @@
   <%= turbo_stream.prepend "comments_list" do %>
     <%= render partial: "comments/comment", locals: { comment: @comment } %>
   <% end %>
+
+  <%= turbo_stream.replace "new_comment" do %>
+    <%= form_with model: [@comment.post, Comment.new], id: "new_comment", class: "reply-form" do |f| %>
+      <%= f.text_area :body, placeholder: t("views.comments.placeholder"), rows: 3 %>
+      <%= f.submit t("views.comments.submit") %>
+    <% end %>
+  <% end %>
 <% end %>
 
-<%= turbo_stream.replace "new_comment" do %>
-  <%= form_with model: [@comment.post, Comment.new], id: "new_comment" do |f| %>
-    <%= f.text_area :body, placeholder: "Napisz komentarz..." %>
-    <%= f.submit "Dodaj komentarz" %>
-  <% end %>
+<%= turbo_stream.replace "comments_header" do %>
+  <div class="comments-header" id="comments_header">
+    <%= pluralize_comments(@comment.post.reload.comments_count) %>
+  </div>
 <% end %>

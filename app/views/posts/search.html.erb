@@ -1,0 +1,38 @@
+<% content_for(:title) { @query.present? ? "Szukaj: #{@query} | tabdevs.pl" : "Szukaj | tabdevs.pl" } %>
+
+<div class="search-page">
+  <h1>Szukaj</h1>
+
+  <%= form_with url: search_path, method: :get, class: "search-form" do |f| %>
+    <div class="search-input-wrapper">
+      <%= f.text_field :q, value: @query, placeholder: "Szukaj postow...", class: "search-input", autofocus: true %>
+      <%= f.submit "Szukaj", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @query.present? %>
+    <p class="search-results-info">
+      <% if @posts.any? %>
+        Znaleziono <%= @pagy.count %> <%= t("views.posts.results", count: @pagy.count) %> dla "<strong><%= @query %></strong>"
+      <% else %>
+        Brak wynikow dla "<strong><%= @query %></strong>"
+      <% end %>
+    </p>
+
+    <% if @posts.any? %>
+      <ol class="feed">
+        <% @posts.each_with_index do |post, index| %>
+          <%= render partial: "posts/feed_item", locals: { post: post, rank: @pagy.offset + index + 1 } %>
+        <% end %>
+      </ol>
+
+      <% if @pagy && @pagy.pages > 1 %>
+        <div class="pagination">
+          <% if @pagy.next %>
+            <%= link_to t("views.common.more"), search_path(q: @query, page: @pagy.next) %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
