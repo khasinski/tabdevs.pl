@@ -74,6 +74,12 @@ pl:
       login: "zaloguj"
       logout: "wyloguj"
       settings: "ustawienia"
+      bookmarks: "zapisane"
+    bookmarks:
+      title: "Zapisane posty"
+      empty: "Nie masz jeszcze zapisanych postów. Kliknij gwiazdkę przy poście, aby go zapisać."
+      add: "zapisz"
+      remove: "usuń z zapisanych"
     footer:
       faq: "FAQ"
       terms: "Regulamin"
