@@ -97,8 +97,8 @@
 
 <% if logged_in? %>
   <div class="comment-form">
-    <%= form_with model: [@post, Comment.new], id: "new_comment" do |f| %>
-      <%= f.text_area :body, placeholder: t("views.comments.placeholder") %>
+    <%= form_with model: [@post, Comment.new], id: "new_comment", class: "reply-form" do |f| %>
+      <%= f.text_area :body, placeholder: t("views.comments.placeholder"), rows: 3 %>
       <%= f.submit t("views.comments.submit") %>
     <% end %>
   </div>
