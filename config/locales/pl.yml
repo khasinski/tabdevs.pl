@@ -24,12 +24,6 @@ pl:
 
   # Flash messages
   flash:
-    bookmarks:
-      created: "Post zapisany"
-      destroyed: "Post usuniety z zapisanych"
-    flags:
-      created: "Dziękujemy za zgłoszenie. Moderatorzy sprawdza tę treść."
-      already_flagged: "Już zgłosiłeś tę treść"
     auth:
       login_required: "Musisz być zalogowany"
       no_permission: "Brak uprawnień"
@@ -61,21 +55,6 @@ pl:
       updated: "Ustawienia zostały zapisane"
       password_updated: "Hasło zostało ustawione"
       account_deleted: "Twoje konto zostało usunięte"
-      newsletter_subscribed: "Zapisano do newslettera"
-      newsletter_unsubscribed: "Wypisano z newslettera"
-      newsletter_resubscribed: "Ponownie zapisano do newslettera"
-      newsletter_already_subscribed: "Jestes juz zapisany do newslettera"
-      newsletter_confirmation_resent: "Wyslano email z potwierdzeniem"
-      newsletter_not_subscribed: "Nie jestes zapisany do newslettera"
-    newsletter:
-      invalid_email: "Podaj poprawny adres email"
-      subscribed: "Sprawdź email, aby potwierdzić subskrypcję"
-      already_subscribed: "Ten email jest już zapisany do newslettera"
-      confirmation_resent: "Wysłaliśmy ponownie email z potwierdzeniem"
-      resubscribed: "Ponownie zapisano do newslettera. Sprawdź email, aby potwierdzić."
-      confirmed: "Subskrypcja potwierdzona! Dziękujemy za zapisanie się."
-      unsubscribed: "Wypisano z newslettera"
-      invalid_token: "Link jest nieprawidłowy lub wygasł"
 
   # Views
   views:
@@ -92,37 +71,14 @@ pl:
       top: "top"
       new: "nowe"
       add: "dodaj"
-      bookmarks: "zapisane"
       login: "zaloguj"
       logout: "wyloguj"
       settings: "ustawienia"
-    bookmarks:
-      title: "Zapisane posty"
-      empty: "Nie masz jeszcze zapisanych postow. Kliknij gwiazdke przy poscie, aby go zapisac."
-      add: "zapisz"
-      remove: "usun z zapisanych"
-    flags:
-      title: "Zglos tresc"
-      description: "Jesli ta tresc narusza regulamin lub jest nieodpowiednia, mozesz ja zglosic do moderacji."
-      reason: "Powod zgloszenia"
-      select_reason: "-- Wybierz powod --"
-      details: "Dodatkowe informacje"
-      details_placeholder: "Opcjonalnie opisz problem..."
-      details_hint: "Wymagane jesli wybrales 'Inne'"
-      submit: "Wyslij zgloszenie"
-      flag: "zglos"
-      reasons:
-        spam: "Spam"
-        offensive: "Obrazliwa tresc"
-        off_topic: "Nie na temat"
-        duplicate: "Duplikat"
-        misinformation: "Dezinformacja"
-        other: "Inne"
     footer:
-      faq: "faq"
-      terms: "regulamin"
-      privacy: "prywatność"
-      contact: "kontakt"
+      faq: "FAQ"
+      terms: "Regulamin"
+      privacy: "Polityka prywatności"
+      contact: "Kontakt"
     auth:
       login_title: "Zaloguj się"
       login_hint: "Podaj email - wyślemy Ci link do logowania. Bez hasła."
@@ -140,16 +96,10 @@ pl:
       login_button: "Zaloguj"
       use_magic_link: "Zaloguj się przez email (bez hasła)"
       use_password: "Masz hasło? Zaloguj się hasłem"
-      accept_terms_title: "Akceptacja regulaminu"
-      accept_terms_hint: "Aby kontynuować, musisz zaakceptować regulamin i politykę prywatności."
-      accept_terms_label: "Akceptuję"
-      accept_privacy_label: "Akceptuję"
-      continue: "Kontynuuj"
-      must_accept_terms: "Musisz zaakceptować regulamin i politykę prywatności"
     posts:
       new_post: "Dodaj nowy post"
       edit_post: "Edytuj post"
-      form_hint: "Link do artykułu? Podaj URL. Chcesz zadać pytanie? Zostaw pole URL puste i napisz treść."
+      form_hint: "Zostaw URL puste, aby dodać pytanie do dyskusji. Jeśli nie ma URL, treść pojawi się na górze wątku. Jeśli jest URL, treść jest opcjonalna."
       title: "Tytuł"
       url: "URL (opcjonalne)"
       url_hint: "Zostaw puste, aby dodać post do dyskusji."
@@ -158,11 +108,6 @@ pl:
       body_hint: "Wymagane gdy nie podasz URL. Możesz używać Markdown."
       tag: "Tag (opcjonalne)"
       tag_placeholder: "-- wybierz --"
-      tags:
-        ask: "Zapytaj TD"
-        show: "Pokaż TD"
-        case_study: "Case study"
-        news: "Newsy"
       submit_new: "Dodaj post"
       submit_edit: "Zapisz zmiany"
       no_posts: "Brak postów do wyświetlenia."
@@ -171,7 +116,6 @@ pl:
       confirm_delete: "Na pewno chcesz usunąć ten post?"
       login_to_comment: "Zaloguj się"
       login_to_comment_suffix: ", aby dodać komentarz."
-      discussion: "Dyskusja"
     comments:
       count_zero: "brak komentarzy"
       count_one: "%{count} komentarz"
@@ -180,7 +124,7 @@ pl:
       count_other: "%{count} komentarzy"
       placeholder: "Napisz komentarz..."
       submit: "Dodaj komentarz"
-      reply: "odpowiedz"
+      reply: "odpowiedź"
       reply_placeholder: "Napisz odpowiedź..."
       reply_submit: "Odpowiedź"
       confirm_delete: "Na pewno chcesz usunąć ten komentarz?"
@@ -195,16 +139,6 @@ pl:
       profile: "Profil"
       username_hint: "3-30 znaków. Litery, cyfry, _ i -"
       email_hint: "Email nie może być zmieniony"
-      bio: "O mnie"
-      bio_placeholder: "Kilka slow o sobie..."
-      bio_hint: "Maksymalnie 500 znakow"
-      website: "Strona www"
-      github: "GitHub"
-      twitter: "Twitter/X"
-      linkedin: "LinkedIn"
-      notifications_section: "Powiadomienia"
-      email_notifications_label: "Otrzymuj powiadomienia email o odpowiedziach i wzmiankach"
-      email_notifications_hint: "Bedziesz otrzymywac email gdy ktos odpowie na Twoj komentarz, skomentuje Twoj post lub wspomni o Tobie (@username)."
       password_section: "Hasło"
       has_password: "Masz ustawione hasło. Możesz je zmienić poniżej."
       no_password: "Nie masz jeszcze ustawionego hasła. Ustaw je, aby móc logować się hasłem."
@@ -215,12 +149,6 @@ pl:
       data_section: "Twoje dane (RODO)"
       data_info: "Zgodnie z RODO masz prawo do eksportu swoich danych w formacie maszynowym."
       export_data: "Eksportuj moje dane"
-      newsletter_section: "Newsletter"
-      newsletter_subscribed: "Jestes zapisany do cotygodniowego newslettera."
-      newsletter_not_subscribed: "Nie jestes zapisany do newslettera. Zapisz sie, aby otrzymywac cotygodniowy przeglad najlepszych postow."
-      newsletter_subscribe: "Zapisz sie"
-      newsletter_unsubscribe: "Wypisz sie"
-      newsletter_unsubscribe_confirm: "Czy na pewno chcesz wypisac sie z newslettera?"
       danger_zone: "Strefa niebezpieczna"
       delete_warning: "Usunięcie konta jest nieodwracalne. Twoje posty i komentarze zostaną zanonimizowane."
       delete_account: "Usuń moje konto"
@@ -239,15 +167,6 @@ pl:
       few: "%{count} punkty"
       many: "%{count} punktów"
       other: "%{count} punktów"
-    cookies:
-      message: "Używamy cookies do działania serwisu. Opcjonalnie używamy Google Analytics do statystyk. Więcej w"
-      accept_all: "Akceptuję wszystkie"
-      accept_necessary: "Tylko niezbędne"
-    newsletter:
-      title: "Newsletter"
-      description: "Otrzymuj cotygodniowy przegląd najciekawszych postów."
-      email_placeholder: "twoj@email.pl"
-      subscribe: "Zapisz się"
 
   # Time ago
   time_ago:
@@ -268,18 +187,3 @@ pl:
       few: "%{count} dni temu"
       many: "%{count} dni temu"
       other: "%{count} dni temu"
-
-  # Mailers
-  mailers:
-    newsletter:
-      confirmation:
-        subject: "Potwierdź subskrypcję newslettera tabdevs.pl"
-      weekly_digest:
-        subject: "Tygodniowy przegląd tabdevs.pl - %{date}"
-    notification:
-      comment_reply:
-        subject: "%{username} odpowiedzial(a) na Twoj komentarz"
-      post_comment:
-        subject: "Nowy komentarz do: %{title}"
-      mention:
-        subject: "%{username} wspominal(a) o Tobie"

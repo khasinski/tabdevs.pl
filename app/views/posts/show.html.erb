@@ -4,7 +4,7 @@
 <% content_for(:og_title) { @post.title } %>
 
 <% content_for(:structured_data) do %>
-<script type="application/ld+json" nonce="<%= content_security_policy_nonce %>">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "DiscussionForumPosting",
@@ -46,7 +46,7 @@
             <% end %>
           <% end %>
         <% else %>
-          <%= link_to "&#9650;".html_safe, login_path, class: "vote-btn", data: { turbo_frame: "_top" } %>
+          <%= link_to "&#9650;".html_safe, login_path, class: "vote-btn" %>
         <% end %>
       <% end %>
     </div>
@@ -60,7 +60,7 @@
       <% end %>
 
       <% if @post.tag.present? %>
-        <span class="feed-tag"><%= t("views.posts.tags.#{@post.tag}") %></span>
+        <span class="feed-tag"><%= @post.tag %></span>
       <% end %>
 
       <% if @post.author&.bot? %>
@@ -70,7 +70,7 @@
   </div>
 
   <div class="post-meta">
-    <span id="score_<%= dom_id(@post) %>"><%= pluralize_points(@post.score) %></span>
+    <%= pluralize_points(@post.score) %>
     <%= t("views.posts.by") %> <%= link_to @post.author&.username || t("views.common.deleted_user"), @post.author ? user_path(@post.author) : "#" %>
     <%= time_ago_in_words_pl(@post.created_at) %>
     <% if @post.edited? %>
@@ -82,13 +82,6 @@
     <% if logged_in? && (current_user == @post.author || current_user.admin? || current_user.moderator?) %>
       | <%= link_to t("views.common.delete"), post_path(@post), data: { turbo_method: :delete, turbo_confirm: t("views.posts.confirm_delete") } %>
     <% end %>
-    | <a href="#comments_list"><%= pluralize_comments(@post.comments_count) %></a>
-    <% if logged_in? %>
-      | <%= render "posts/bookmark_button", post: @post, bookmarked: current_user.bookmarked?(@post) %>
-      <% unless current_user.flagged?(@post) || current_user == @post.author %>
-        | <%= link_to t("views.flags.flag"), new_post_flag_path(@post) %>
-      <% end %>
-    <% end %>
   </div>
 </article>
 
@@ -98,14 +91,14 @@
   </div>
 <% end %>
 
-<div class="comments-header" id="comments_header">
-  <%= t("views.posts.discussion") %>
+<div class="comments-header">
+  <%= pluralize_comments(@post.comments_count) %>
 </div>
 
 <% if logged_in? %>
   <div class="comment-form">
-    <%= form_with model: [@post, Comment.new], id: "new_comment", class: "reply-form" do |f| %>
-      <%= f.text_area :body, placeholder: t("views.comments.placeholder"), rows: 3 %>
+    <%= form_with model: [@post, Comment.new], id: "new_comment" do |f| %>
+      <%= f.text_area :body, placeholder: t("views.comments.placeholder") %>
       <%= f.submit t("views.comments.submit") %>
     <% end %>
   </div>
