@@ -1,27 +1,11 @@
 class NewsletterController < ApplicationController
   def create
-    email = params[:email].to_s.downcase.strip
+    result = NewsletterSubscriptionService.new(params[:email]).subscribe
 
-    if email.blank? || !email.match?(URI::MailTo::EMAIL_REGEXP)
-      return redirect_back fallback_location: root_path, alert: t("flash.newsletter.invalid_email")
-    end
-
-    subscription = NewsletterSubscription.find_by(email: email)
-
-    if subscription
-      if subscription.unsubscribed?
-        subscription.resubscribe!
-        redirect_back fallback_location: root_path, notice: t("flash.newsletter.resubscribed")
-      elsif subscription.confirmed?
-        redirect_back fallback_location: root_path, notice: t("flash.newsletter.already_subscribed")
-      else
-        NewsletterMailer.confirmation(subscription).deliver_later
-        redirect_back fallback_location: root_path, notice: t("flash.newsletter.confirmation_resent")
-      end
+    if result.success
+      redirect_back fallback_location: root_path, notice: t("flash.newsletter.#{result.message_key}")
     else
-      subscription = NewsletterSubscription.create!(email: email)
-      NewsletterMailer.confirmation(subscription).deliver_later
-      redirect_back fallback_location: root_path, notice: t("flash.newsletter.subscribed")
+      redirect_back fallback_location: root_path, alert: t("flash.newsletter.#{result.message_key}")
     end
   end
 

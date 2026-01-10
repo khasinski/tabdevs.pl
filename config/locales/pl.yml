@@ -75,6 +75,22 @@ pl:
       updated: "Ustawienia zostały zapisane"
       password_updated: "Hasło zostało ustawione"
       account_deleted: "Twoje konto zostało usunięte"
+      newsletter_subscribed: "Zapisano do newslettera"
+      newsletter_resubscribed: "Ponownie zapisano do newslettera"
+      newsletter_already_subscribed: "Jesteś już zapisany do newslettera"
+      newsletter_confirmation_resent: "Wysłano ponownie email z potwierdzeniem"
+      newsletter_unsubscribed: "Wypisano z newslettera"
+      newsletter_not_subscribed: "Nie jesteś zapisany do newslettera"
+    newsletter:
+      invalid_email: "Podaj poprawny adres email"
+      subscribed: "Zapisano do newslettera"
+      subscribed_pending: "Sprawdź email i potwierdź subskrypcję"
+      resubscribed: "Ponownie zapisano do newslettera"
+      already_subscribed: "Ten email jest już zapisany do newslettera"
+      confirmation_resent: "Wysłano ponownie email z potwierdzeniem"
+      confirmed: "Subskrypcja potwierdzona"
+      unsubscribed: "Wypisano z newslettera"
+      invalid_token: "Nieprawidłowy lub wygasły link"
 
   # Views
   views:

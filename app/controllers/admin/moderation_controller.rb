@@ -24,30 +24,27 @@ module Admin
     end
 
     def hide_post
-      @post = Post.find(params[:id])
-      @post.update!(status: :hidden)
-      flash[:notice] = t("admin.flash.post_hidden")
-      redirect_back fallback_location: admin_dashboard_path
+      toggle_status(Post, :hidden, "admin.flash.post_hidden")
     end
 
     def unhide_post
-      @post = Post.find(params[:id])
-      @post.update!(status: :active)
-      flash[:notice] = t("admin.flash.post_restored")
-      redirect_back fallback_location: admin_dashboard_path
+      toggle_status(Post, :active, "admin.flash.post_restored")
     end
 
     def hide_comment
-      @comment = Comment.find(params[:id])
-      @comment.update!(status: :hidden)
-      flash[:notice] = t("admin.flash.comment_hidden")
-      redirect_back fallback_location: admin_dashboard_path
+      toggle_status(Comment, :hidden, "admin.flash.comment_hidden")
     end
 
     def unhide_comment
-      @comment = Comment.find(params[:id])
-      @comment.update!(status: :active)
-      flash[:notice] = t("admin.flash.comment_restored")
+      toggle_status(Comment, :active, "admin.flash.comment_restored")
+    end
+
+    private
+
+    def toggle_status(model, status, flash_key)
+      record = model.find(params[:id])
+      record.update!(status: status)
+      flash[:notice] = t(flash_key)
       redirect_back fallback_location: admin_dashboard_path
     end
   end

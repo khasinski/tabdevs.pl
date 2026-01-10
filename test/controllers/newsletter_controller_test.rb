@@ -12,7 +12,7 @@ class NewsletterControllerTest < ActionDispatch::IntegrationTest
     assert_equal "new@example.com", subscription.email
     assert_not subscription.confirmed?
     assert_redirected_to root_path
-    assert_equal I18n.t("flash.newsletter.subscribed"), flash[:notice]
+    assert_equal I18n.t("flash.newsletter.subscribed_pending"), flash[:notice]
   end
 
   test "sends confirmation email" do

@@ -2,6 +2,13 @@ module Admin
   class UsersController < BaseController
     before_action :set_user, only: [:show, :update_role, :ban, :unban]
 
+    BAN_DURATIONS = {
+      "1d" => 1.day,
+      "7d" => 7.days,
+      "30d" => 30.days,
+      "permanent" => nil
+    }.freeze
+
     def index
       @users = User.order(created_at: :desc)
       @pagy, @users = pagy(:offset, @users, limit: 50)
@@ -27,21 +34,11 @@ module Admin
     end
 
     def ban
-      expires_at = case params[:duration]
-      when "1d" then 1.day.from_now
-      when "7d" then 7.days.from_now
-      when "30d" then 30.days.from_now
-      when "permanent" then nil
-      else 1.day.from_now
-      end
-
-      ban_type = %w[soft hard].include?(params[:ban_type]) ? params[:ban_type] : :soft
-
       @user.bans.create!(
         moderator: current_user,
         reason: params[:reason].presence || "Naruszenie regulaminu",
-        ban_type: ban_type,
-        expires_at: expires_at
+        ban_type: ban_type_param,
+        expires_at: ban_expires_at
       )
 
       @user.update!(status: :banned)
@@ -60,6 +57,15 @@ module Admin
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def ban_expires_at
+      duration = BAN_DURATIONS.fetch(params[:duration], 1.day)
+      duration&.from_now
+    end
+
+    def ban_type_param
+      %w[soft hard].include?(params[:ban_type]) ? params[:ban_type] : :soft
     end
   end
 end

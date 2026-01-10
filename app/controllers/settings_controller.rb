@@ -49,33 +49,17 @@ class SettingsController < ApplicationController
   end
 
   def subscribe_newsletter
-    subscription = NewsletterSubscription.find_by(email: current_user.email)
-
-    if subscription
-      if subscription.unsubscribed?
-        subscription.resubscribe!
-        redirect_to settings_path, notice: t("flash.settings.newsletter_resubscribed")
-      elsif subscription.confirmed?
-        redirect_to settings_path, notice: t("flash.settings.newsletter_already_subscribed")
-      else
-        NewsletterMailer.confirmation(subscription).deliver_later
-        redirect_to settings_path, notice: t("flash.settings.newsletter_confirmation_resent")
-      end
-    else
-      subscription = NewsletterSubscription.create!(email: current_user.email)
-      subscription.confirm!
-      redirect_to settings_path, notice: t("flash.settings.newsletter_subscribed")
-    end
+    result = NewsletterSubscriptionService.new(current_user.email, auto_confirm: true).subscribe
+    redirect_to settings_path, notice: t("flash.settings.newsletter_#{result.message_key}")
   end
 
   def unsubscribe_newsletter
-    subscription = NewsletterSubscription.find_by(email: current_user.email)
+    result = NewsletterSubscriptionService.new(current_user.email).unsubscribe
 
-    if subscription&.confirmed? && !subscription.unsubscribed?
-      subscription.unsubscribe!
-      redirect_to settings_path, notice: t("flash.settings.newsletter_unsubscribed")
+    if result.success
+      redirect_to settings_path, notice: t("flash.settings.newsletter_#{result.message_key}")
     else
-      redirect_to settings_path, alert: t("flash.settings.newsletter_not_subscribed")
+      redirect_to settings_path, alert: t("flash.settings.newsletter_#{result.message_key}")
     end
   end
 
