@@ -1,6 +1,6 @@
 module Admin
   class FlagsController < BaseController
-    before_action :set_flag, only: [:resolve, :dismiss]
+    before_action :set_flag, only: [ :resolve, :dismiss ]
 
     def index
       @flags = Flag.pending.includes(:user, :flaggable).order(created_at: :desc)

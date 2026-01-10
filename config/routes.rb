@@ -89,14 +89,14 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/", to: redirect("/admin/dashboard")
     get "dashboard", to: "dashboard#show"
-    resources :users, only: [:index, :show] do
+    resources :users, only: [ :index, :show ] do
       member do
         patch :update_role
         post :ban
         post :unban
       end
     end
-    resources :moderation, only: [:index] do
+    resources :moderation, only: [ :index ] do
       member do
         post :approve
         post :reject
@@ -106,7 +106,7 @@ Rails.application.routes.draw do
     post "posts/:id/unhide", to: "moderation#unhide_post", as: :unhide_post
     post "comments/:id/hide", to: "moderation#hide_comment", as: :hide_comment
     post "comments/:id/unhide", to: "moderation#unhide_comment", as: :unhide_comment
-    resources :flags, only: [:index] do
+    resources :flags, only: [ :index ] do
       member do
         post :resolve
         post :dismiss

@@ -62,7 +62,7 @@ class NotificationService
   end
 
   def build_already_notified_list
-    list = [@comment.author.id]
+    list = [ @comment.author.id ]
     list << @comment.post.author.id if @comment.parent.nil?
     list << @comment.parent.author.id if @comment.parent.present?
     list
