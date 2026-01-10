@@ -1,8 +1,10 @@
 class UserDeletionService
-  DELETED_USER_USERNAME = "usuniety".freeze
-
   def self.deleted_user_email
     "deleted@#{ENV.fetch('APP_HOST', 'tabdevs.pl')}"
+  end
+
+  def self.deleted_user_username
+    ENV.fetch("DELETED_USER_USERNAME", "deleted")
   end
 
   def initialize(user)
@@ -37,7 +39,7 @@ class UserDeletionService
 
   def find_or_create_deleted_user
     User.find_or_create_by!(email: self.class.deleted_user_email) do |u|
-      u.username = DELETED_USER_USERNAME
+      u.username = self.class.deleted_user_username
       u.role = :user
       u.status = :active
     end
