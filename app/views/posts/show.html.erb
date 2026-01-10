@@ -75,7 +75,7 @@
 
   <div class="post-meta">
     <%= pluralize_points(@post.score) %>
-    <%= t("views.posts.by") %> <%= link_to @post.author&.username || t("views.common.deleted_user"), @post.author ? user_path(@post.author) : "#" %>
+    <%= t("views.posts.by") %> <%= link_to display_username(@post.author), deleted_user?(@post.author) ? "#" : user_path(@post.author) %>
     <%= time_ago_in_words_pl(@post.created_at) %>
     <% if @post.edited? %>
       <span class="edited"><%= t("views.posts.edited") %></span>

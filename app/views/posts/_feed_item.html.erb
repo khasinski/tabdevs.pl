@@ -37,7 +37,7 @@
 
     <div class="feed-meta">
       <span id="score_<%= dom_id(post) %>"><%= pluralize_points(post.score) %></span>
-      <%= t("views.posts.by") %> <%= link_to post.author&.username || t("views.common.deleted_user"), post.author ? user_path(post.author) : "#" %>
+      <%= t("views.posts.by") %> <%= link_to display_username(post.author), deleted_user?(post.author) ? "#" : user_path(post.author) %>
       <%= time_ago_in_words_pl(post.created_at) %>
       | <%= link_to pluralize_comments(post.comments_count), post_path(post) %>
       <% if logged_in? %>

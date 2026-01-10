@@ -4,9 +4,8 @@ class UserDeletionServiceTest < ActiveSupport::TestCase
   setup do
     @user = create(:user, username: "todelete", email: "delete@example.com")
     @deleted_user_email = UserDeletionService.deleted_user_email
-    @deleted_user_username = UserDeletionService.deleted_user_username
     @deleted_user = User.create!(
-      username: @deleted_user_username,
+      username: UserDeletionService::DELETED_USERNAME,
       email: @deleted_user_email,
       role: :user,
       status: :active,
@@ -31,7 +30,7 @@ class UserDeletionServiceTest < ActiveSupport::TestCase
     UserDeletionService.new(@user).delete!
 
     post.reload
-    assert_equal @deleted_user_username, post.author.username
+    assert_equal "deleted", post.author.username
     assert_equal @deleted_user_email, post.author.email
   end
 
@@ -41,7 +40,7 @@ class UserDeletionServiceTest < ActiveSupport::TestCase
     UserDeletionService.new(@user).delete!
 
     comment.reload
-    assert_equal @deleted_user_username, comment.author.username
+    assert_equal "deleted", comment.author.username
   end
 
   test "creates deleted user if not exists" do
@@ -53,7 +52,7 @@ class UserDeletionServiceTest < ActiveSupport::TestCase
 
     deleted_user = User.find_by(email: @deleted_user_email)
     assert_not_nil deleted_user
-    assert_equal @deleted_user_username, deleted_user.username
+    assert_equal "deleted", deleted_user.username
   end
 
   test "reuses existing deleted user" do

@@ -10,7 +10,7 @@
       <li class="notification-item <%= 'unread' unless notification.read? %>">
         <% case notification.notification_type %>
         <% when "comment_reply" %>
-          <%= link_to notification.actor&.username || t("views.common.deleted_user"), notification.actor ? user_path(notification.actor) : "#" %>
+          <%= link_to display_username(notification.actor), deleted_user?(notification.actor) ? "#" : user_path(notification.actor) %>
           <%= t("views.notifications.replied_to_comment") %>
           <% if notification.notifiable.is_a?(Comment) && notification.notifiable.post %>
             <%= link_to notification.notifiable.post.title, post_path(notification.notifiable.post, anchor: dom_id(notification.notifiable)) %>
@@ -18,7 +18,7 @@
             <%= t("views.common.deleted_post") %>
           <% end %>
         <% when "post_comment" %>
-          <%= link_to notification.actor&.username || t("views.common.deleted_user"), notification.actor ? user_path(notification.actor) : "#" %>
+          <%= link_to display_username(notification.actor), deleted_user?(notification.actor) ? "#" : user_path(notification.actor) %>
           <%= t("views.notifications.commented_on_post") %>
           <% if notification.notifiable.is_a?(Comment) && notification.notifiable.post %>
             <%= link_to notification.notifiable.post.title, post_path(notification.notifiable.post, anchor: dom_id(notification.notifiable)) %>
@@ -26,7 +26,7 @@
             <%= t("views.common.deleted_post") %>
           <% end %>
         <% when "mention" %>
-          <%= link_to notification.actor&.username || t("views.common.deleted_user"), notification.actor ? user_path(notification.actor) : "#" %>
+          <%= link_to display_username(notification.actor), deleted_user?(notification.actor) ? "#" : user_path(notification.actor) %>
           <%= t("views.notifications.mentioned") %>
         <% else %>
           <%= t("views.notifications.new_notification") %>

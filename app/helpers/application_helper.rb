@@ -13,6 +13,15 @@ module ApplicationHelper
     "https://#{app_host}"
   end
 
+  def display_username(user)
+    return t("views.common.deleted_user") if user.nil? || user.username == "deleted"
+    user.username
+  end
+
+  def deleted_user?(user)
+    user.nil? || user.username == "deleted"
+  end
+
   # Custom Redcarpet renderer with Rouge syntax highlighting
   class SyntaxHighlightingRenderer < Redcarpet::Render::HTML
     def block_code(code, language)

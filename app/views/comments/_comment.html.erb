@@ -14,7 +14,7 @@
       <% end %>
     <% end %>
 
-    <%= link_to comment.author&.username || t("views.common.deleted_user"), comment.author ? user_path(comment.author) : "#", class: "comment-author" %>
+    <%= link_to display_username(comment.author), deleted_user?(comment.author) ? "#" : user_path(comment.author), class: "comment-author" %>
     <% if comment.author&.bot? %>
       <span class="feed-bot">bot</span>
     <% end %>
