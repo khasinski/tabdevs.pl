@@ -1,9 +1,9 @@
 <% if @sort == "new" %>
   <% content_for(:title) { "Najnowsze posty | tabdevs.pl" } %>
-  <% content_for(:description) { "Najnowsze artykuly i dyskusje dla polskich programistow. Swiezy content ze swiata IT, codziennie aktualizowany." } %>
+  <% content_for(:description) { "Najnowsze artykuły i dyskusje dla polskich programistów. Świeży content ze świata IT, codziennie aktualizowany." } %>
 <% else %>
-  <% content_for(:title) { "tabdevs.pl - Agregator tresci dla polskich programistow" } %>
-  <% content_for(:description) { "Najpopularniejsze artykuly, tutoriale i dyskusje ze swiata IT. Spolecznosc polskich programistow." } %>
+  <% content_for(:title) { "tabdevs.pl - Agregator treści dla polskich programistów" } %>
+  <% content_for(:description) { "Najpopularniejsze artykuły, tutoriale i dyskusje ze świata IT. Społeczność polskich programistów." } %>
 <% end %>
 
 <% content_for(:structured_data) do %>
@@ -13,7 +13,7 @@
   "@type": "CollectionPage",
   "name": "<%= @sort == "new" ? "Najnowsze posty" : "Top posty" %> - tabdevs.pl",
   "url": "https://tabdevs.pl<%= @sort == "new" ? "/new" : "/" %>",
-  "description": "Agregator tresci technicznych dla polskich programistow",
+  "description": "Agregator treści technicznych dla polskich programistów",
   "mainEntity": {
     "@type": "ItemList",
     "numberOfItems": <%= @posts.size %>,

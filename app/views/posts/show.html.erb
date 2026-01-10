@@ -4,12 +4,16 @@
 <% content_for(:og_title) { @post.title } %>
 
 <% content_for(:structured_data) do %>
-<script type="application/ld+json">
+<script type="application/ld+json" nonce="<%= content_security_policy_nonce %>">
 {
   "@context": "https://schema.org",
   "@type": "DiscussionForumPosting",
   "headline": "<%= j @post.title %>",
   "url": "https://tabdevs.pl<%= post_path(@post) %>",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://tabdevs.pl<%= post_path(@post) %>"
+  },
   "datePublished": "<%= @post.created_at.iso8601 %>",
   "dateModified": "<%= @post.updated_at.iso8601 %>",
   "author": {
