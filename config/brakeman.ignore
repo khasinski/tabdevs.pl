@@ -1,0 +1,10 @@
+{
+  "ignored_warnings": [
+    {
+      "fingerprint": "88ff1ced908e48d993cd52ecf3508e2dabeb8c47b4cafe52087b1c2da44085c9",
+      "note": "URL is validated by URI parser and displayed with noopener/noreferrer. User-submitted URLs are expected behavior for a link aggregator."
+    }
+  ],
+  "updated": "2026-01-10",
+  "brakeman_version": "7.1.2"
+}

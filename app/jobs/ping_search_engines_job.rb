@@ -22,7 +22,7 @@ class PingSearchEnginesJob < ApplicationJob
   private
 
   def ping_websub_hubs
-    feed_url = "https://tabdevs.pl/feed.rss"
+    feed_url = "https://#{app_host}/feed.rss"
 
     WEBSUB_HUBS.each do |hub|
       uri = URI.parse(hub)
@@ -39,9 +39,8 @@ class PingSearchEnginesJob < ApplicationJob
   end
 
   def ping_indexnow(post)
-    host = "tabdevs.pl"
     key = indexnow_key
-    post_url = "https://#{host}/posts/#{post.id}"
+    post_url = "https://#{app_host}/posts/#{post.id}"
 
     INDEXNOW_ENDPOINTS.each do |endpoint|
       begin
@@ -59,6 +58,10 @@ class PingSearchEnginesJob < ApplicationJob
   end
 
   def default_key
-    Digest::SHA256.hexdigest("tabdevs.pl-indexnow")[0..31]
+    Digest::SHA256.hexdigest("#{app_host}-indexnow")[0..31]
+  end
+
+  def app_host
+    ENV.fetch("APP_HOST", "tabdevs.pl")
   end
 end

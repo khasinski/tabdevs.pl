@@ -89,7 +89,7 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_nil User.find_by(id: @user.id)
 
-    deleted_user = User.find_by(email: "deleted@tabdevs.pl")
+    deleted_user = User.find_by(email: UserDeletionService.deleted_user_email)
     assert_equal deleted_user.id, post.reload.author_id
     assert_equal deleted_user.id, comment.reload.author_id
   end

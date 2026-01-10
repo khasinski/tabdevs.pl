@@ -1,6 +1,18 @@
 module ApplicationHelper
   include Pagy::Method
 
+  def app_host
+    ENV.fetch("APP_HOST", "tabdevs.pl")
+  end
+
+  def app_name
+    ENV.fetch("APP_NAME", "tabdevs.pl")
+  end
+
+  def app_url
+    "https://#{app_host}"
+  end
+
   # Custom Redcarpet renderer with Rouge syntax highlighting
   class SyntaxHighlightingRenderer < Redcarpet::Render::HTML
     def block_code(code, language)

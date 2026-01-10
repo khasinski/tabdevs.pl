@@ -3,9 +3,10 @@ require "test_helper"
 class UserDeletionServiceTest < ActiveSupport::TestCase
   setup do
     @user = create(:user, username: "todelete", email: "delete@example.com")
+    @deleted_user_email = UserDeletionService.deleted_user_email
     @deleted_user = User.create!(
       username: "usuniety",
-      email: "deleted@tabdevs.pl",
+      email: @deleted_user_email,
       role: :user,
       status: :active,
       terms_accepted_at: Time.current,
@@ -30,7 +31,7 @@ class UserDeletionServiceTest < ActiveSupport::TestCase
 
     post.reload
     assert_equal "usuniety", post.author.username
-    assert_equal "deleted@tabdevs.pl", post.author.email
+    assert_equal @deleted_user_email, post.author.email
   end
 
   test "anonymizes user comments" do
@@ -45,11 +46,11 @@ class UserDeletionServiceTest < ActiveSupport::TestCase
   test "creates deleted user if not exists" do
     @deleted_user.destroy!
     user_to_delete = create(:user)
-    assert_not User.exists?(email: "deleted@tabdevs.pl")
+    assert_not User.exists?(email: @deleted_user_email)
 
     UserDeletionService.new(user_to_delete).delete!
 
-    deleted_user = User.find_by(email: "deleted@tabdevs.pl")
+    deleted_user = User.find_by(email: @deleted_user_email)
     assert_not_nil deleted_user
     assert_equal "usuniety", deleted_user.username
   end
