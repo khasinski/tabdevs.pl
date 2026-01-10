@@ -1,5 +1,1 @@
-<%= turbo_stream.replace "vote_#{dom_id(@comment)}" do %>
-  <%= button_to upvote_comment_path(@comment), method: :post, class: "vote-btn", form: { data: { turbo_frame: "vote_#{dom_id(@comment)}" } } do %>
-    &#9650;
-  <% end %>
-<% end %>
+<%= render "shared/vote", votable: @comment, state: :none, upvote_path: upvote_comment_path(@comment) %>

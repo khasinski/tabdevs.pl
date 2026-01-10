@@ -3,11 +3,7 @@
 <div class="admin-page">
   <h1>Użytkownik: <%= @user.username %></h1>
 
-  <div class="admin-nav">
-    <%= link_to "Dashboard", admin_dashboard_path, class: "admin-nav-link" %>
-    <%= link_to "Użytkownicy", admin_users_path, class: "admin-nav-link" %>
-    <%= link_to "Moderacja", admin_moderation_index_path, class: "admin-nav-link" %>
-  </div>
+  <%= render "admin/nav", current_page: "users" %>
 
   <div class="admin-user-details">
     <div class="user-info-card">

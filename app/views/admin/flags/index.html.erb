@@ -1,12 +1,9 @@
-<div class="admin-page">
-  <h1>Zgloszenia</h1>
+<% content_for(:title) { "Zgłoszenia | Panel admina" } %>
 
-  <nav class="admin-nav">
-    <%= link_to "Dashboard", admin_dashboard_path, class: "admin-nav-link" %>
-    <%= link_to "Uzytkownicy", admin_users_path, class: "admin-nav-link" %>
-    <%= link_to "Moderacja", admin_moderation_index_path, class: "admin-nav-link" %>
-    <%= link_to "Zgloszenia", admin_flags_path, class: "admin-nav-link active" %>
-  </nav>
+<div class="admin-page">
+  <h1>Zgłoszenia</h1>
+
+  <%= render "admin/nav", current_page: "flags" %>
 
   <% if @flags.any? %>
     <table class="admin-table">

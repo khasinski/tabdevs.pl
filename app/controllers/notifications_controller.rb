@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @notifications = current_user.notifications.recent.includes(:notifiable)
+    @notifications = current_user.notifications.recent.includes(:notifiable, :actor)
     @pagy, @notifications = pagy(:offset, @notifications, limit: 20)
   end
 

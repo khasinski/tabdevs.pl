@@ -1,9 +1,1 @@
-<%= turbo_stream.replace "vote_#{dom_id(@post)}" do %>
-  <%= button_to upvote_post_path(@post), method: :post, class: "vote-btn", form: { data: { turbo_frame: "vote_#{dom_id(@post)}" } } do %>
-    &#9650;
-  <% end %>
-<% end %>
-
-<%= turbo_stream.replace "score_#{dom_id(@post)}" do %>
-  <span id="score_<%= dom_id(@post) %>"><%= pluralize_points(@post.score) %></span>
-<% end %>
+<%= render "shared/vote", votable: @post, state: :none, upvote_path: upvote_post_path(@post) %>

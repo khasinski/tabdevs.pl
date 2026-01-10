@@ -3,11 +3,7 @@
 <div class="admin-page">
   <h1>Kolejka moderacji</h1>
 
-  <div class="admin-nav">
-    <%= link_to "Dashboard", admin_dashboard_path, class: "admin-nav-link" %>
-    <%= link_to "Użytkownicy", admin_users_path, class: "admin-nav-link" %>
-    <%= link_to "Moderacja", admin_moderation_index_path, class: "admin-nav-link active" %>
-  </div>
+  <%= render "admin/nav", current_page: "moderation" %>
 
   <% if @items.any? %>
     <table class="admin-table">

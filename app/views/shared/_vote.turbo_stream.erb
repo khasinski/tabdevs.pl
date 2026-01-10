@@ -1,0 +1,19 @@
+<%# locals: (votable:, state:, upvote_path:) %>
+<%= turbo_stream.replace "vote_#{dom_id(votable)}" do %>
+  <% case state %>
+  <% when :upvoted %>
+    <span class="vote-btn active">&#9650;</span>
+  <% when :downvoted %>
+    <span class="vote-btn active" style="transform: rotate(180deg);">&#9650;</span>
+  <% when :none %>
+    <%= button_to upvote_path, method: :post, class: "vote-btn", form: { data: { turbo_frame: "vote_#{dom_id(votable)}" } } do %>
+      &#9650;
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if votable.is_a?(Post) %>
+  <%= turbo_stream.replace "score_#{dom_id(votable)}" do %>
+    <span id="score_<%= dom_id(votable) %>"><%= pluralize_points(votable.score) %></span>
+  <% end %>
+<% end %>

@@ -1,5 +1,5 @@
-<% content_for(:title) { "#{@user.username} - Profil uzytkownika | tabdevs.pl" } %>
-<% content_for(:description) { "Profil #{@user.username} na tabdevs.pl. Karma: #{@user.karma}. #{@posts.count} postow, #{@comments.count} komentarzy." } %>
+<% content_for(:title) { "#{@user.username} - Profil użytkownika | tabdevs.pl" } %>
+<% content_for(:description) { "Profil #{@user.username} na tabdevs.pl. Karma: #{@user.karma}. #{@posts.count} postów, #{@comments.count} komentarzy." } %>
 
 <% content_for(:structured_data) do %>
 <script type="application/ld+json" nonce="<%= content_security_policy_nonce %>">
@@ -16,9 +16,9 @@
 <% end %>
 
 <div class="user-profile">
-  <h2 style="font-size: 13px; font-weight: bold; margin-bottom: 10px;"><%= @user.username %></h2>
+  <h2 class="user-profile-header"><%= @user.username %></h2>
 
-  <div style="font-size: 11px; color: var(--text-light); margin-bottom: 15px;">
+  <div class="user-profile-meta">
     <p><%= t("views.users.karma") %>: <strong><%= @user.karma %></strong></p>
     <p><%= t("views.users.joined") %>: <%= @user.created_at.strftime("%d.%m.%Y") %></p>
     <% if @user.bot? %>
@@ -27,13 +27,13 @@
   </div>
 
   <% if @user.bio.present? %>
-    <div class="user-bio" style="font-size: 11px; margin-bottom: 15px; padding: 10px; background: var(--bg-alt); border-radius: 4px;">
+    <div class="user-profile-bio">
       <%= simple_format(@user.bio) %>
     </div>
   <% end %>
 
   <% if @user.website.present? || @user.github_username.present? || @user.twitter_username.present? || @user.linkedin_url.present? %>
-    <div class="user-links" style="font-size: 11px; margin-bottom: 15px; display: flex; gap: 12px; flex-wrap: wrap;">
+    <div class="user-profile-links">
       <% if @user.website.present? %>
         <%= link_to @user.website.sub(%r{^https?://}, ''), @user.website, target: "_blank", rel: "noopener noreferrer" %>
       <% end %>
@@ -50,33 +50,27 @@
   <% end %>
 
   <% if @posts.any? %>
-    <h3 style="font-size: 11px; font-weight: bold; margin: 20px 0 10px; border-top: 1px solid var(--border); padding-top: 15px;">
-      <%= t("views.users.recent_posts") %>
-    </h3>
-    <ul style="list-style: none;">
+    <h3 class="user-profile-section"><%= t("views.users.recent_posts") %></h3>
+    <ul class="user-profile-list">
       <% @posts.each do |post| %>
-        <li style="padding: 4px 0; font-size: 11px;">
+        <li>
           <%= link_to post.title, post_path(post) %>
-          <span style="color: var(--text-light); font-size: 9px;">
-            (<%= pluralize_points(post.score) %>, <%= time_ago_in_words_pl(post.created_at) %>)
-          </span>
+          <span class="meta">(<%= pluralize_points(post.score) %>, <%= time_ago_in_words_pl(post.created_at) %>)</span>
         </li>
       <% end %>
     </ul>
   <% end %>
 
   <% if @comments.any? %>
-    <h3 style="font-size: 11px; font-weight: bold; margin: 20px 0 10px; border-top: 1px solid var(--border); padding-top: 15px;">
-      <%= t("views.users.recent_comments") %>
-    </h3>
-    <ul style="list-style: none;">
+    <h3 class="user-profile-section"><%= t("views.users.recent_comments") %></h3>
+    <ul class="user-profile-list">
       <% @comments.each do |comment| %>
-        <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
-          <div style="font-size: 9px; color: var(--text-light); margin-bottom: 4px;">
+        <li class="user-comment-item">
+          <div class="meta">
             w <%= link_to comment.post&.title || t("views.common.deleted_post"), comment.post ? post_path(comment.post, anchor: dom_id(comment)) : "#" %>
             &middot; <%= time_ago_in_words_pl(comment.created_at) %>
           </div>
-          <div style="font-size: 11px;">
+          <div class="body">
             <%= truncate(comment.body, length: 200) %>
           </div>
         </li>

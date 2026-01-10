@@ -1,4 +1,24 @@
 pl:
+  # Admin panel
+  admin:
+    nav:
+      dashboard: "Dashboard"
+      users: "Użytkownicy"
+      moderation: "Moderacja"
+      flags: "Zgłoszenia"
+    flash:
+      user_role_changed: "Rola użytkownika %{username} zmieniona na %{role}"
+      user_banned: "Użytkownik %{username} został zbanowany"
+      user_unbanned: "Użytkownik %{username} został odbanowany"
+      post_hidden: "Post ukryty"
+      post_restored: "Post przywrócony"
+      comment_hidden: "Komentarz ukryty"
+      comment_restored: "Komentarz przywrócony"
+      moderation_approved: "Zatwierdzono"
+      moderation_rejected: "Odrzucono"
+      flag_resolved: "Zgłoszenie rozpatrzone"
+      flag_dismissed: "Zgłoszenie odrzucone"
+
   # ActiveRecord
   activerecord:
     errors:

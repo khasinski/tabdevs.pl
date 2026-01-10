@@ -1,3 +1,1 @@
-<%= turbo_stream.replace "vote_#{dom_id(@comment)}" do %>
-  <span class="vote-btn active" style="transform: rotate(180deg);">&#9650;</span>
-<% end %>
+<%= render "shared/vote", votable: @comment, state: :downvoted, upvote_path: upvote_comment_path(@comment) %>

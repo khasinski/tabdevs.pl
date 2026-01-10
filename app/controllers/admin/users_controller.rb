@@ -18,9 +18,9 @@ module Admin
 
       if %w[user moderator admin].include?(new_role)
         @user.update!(role: new_role)
-        flash[:notice] = "Rola użytkownika #{@user.username} zmieniona na #{new_role}"
+        flash[:notice] = t("admin.flash.user_role_changed", username: @user.username, role: new_role)
       else
-        flash[:alert] = "Nieprawidłowa rola"
+        flash[:alert] = t("flash.auth.no_permission")
       end
 
       redirect_to admin_user_path(@user)
@@ -35,22 +35,24 @@ module Admin
       else 1.day.from_now
       end
 
+      ban_type = %w[soft hard].include?(params[:ban_type]) ? params[:ban_type] : :soft
+
       @user.bans.create!(
         moderator: current_user,
         reason: params[:reason].presence || "Naruszenie regulaminu",
-        ban_type: params[:ban_type] || :soft,
+        ban_type: ban_type,
         expires_at: expires_at
       )
 
       @user.update!(status: :banned)
-      flash[:notice] = "Użytkownik #{@user.username} został zbanowany"
+      flash[:notice] = t("admin.flash.user_banned", username: @user.username)
       redirect_to admin_user_path(@user)
     end
 
     def unban
       @user.bans.active.update_all(expires_at: Time.current)
       @user.update!(status: :active)
-      flash[:notice] = "Ban użytkownika #{@user.username} został usunięty"
+      flash[:notice] = t("admin.flash.user_unbanned", username: @user.username)
       redirect_to admin_user_path(@user)
     end
 

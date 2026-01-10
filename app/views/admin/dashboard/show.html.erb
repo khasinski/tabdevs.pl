@@ -3,12 +3,7 @@
 <div class="admin-page">
   <h1>Panel administracyjny</h1>
 
-  <div class="admin-nav">
-    <%= link_to "Dashboard", admin_dashboard_path, class: "admin-nav-link active" %>
-    <%= link_to "Użytkownicy", admin_users_path, class: "admin-nav-link" %>
-    <%= link_to "Moderacja (#{@stats[:pending_moderation]})", admin_moderation_index_path, class: "admin-nav-link" %>
-    <%= link_to "Zgłoszenia (#{@stats[:pending_flags]})", admin_flags_path, class: "admin-nav-link" %>
-  </div>
+  <%= render "admin/nav", current_page: "dashboard" %>
 
   <div class="admin-stats">
     <div class="stat-box">

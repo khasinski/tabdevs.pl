@@ -11,17 +11,15 @@ module Admin
 
       if params[:hide_content] == "1" && @flag.flaggable.respond_to?(:status=)
         @flag.flaggable.update!(status: :hidden)
-        flash[:notice] = "Zgłoszenie rozwiązane, treść ukryta"
-      else
-        flash[:notice] = "Zgłoszenie rozwiązane"
       end
 
+      flash[:notice] = t("admin.flash.flag_resolved")
       redirect_to admin_flags_path
     end
 
     def dismiss
       @flag.resolve!(current_user)
-      flash[:notice] = "Zgłoszenie odrzucone"
+      flash[:notice] = t("admin.flash.flag_dismissed")
       redirect_to admin_flags_path
     end
 

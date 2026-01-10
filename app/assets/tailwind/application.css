@@ -785,6 +785,72 @@ a:hover {
   padding: 20px 0;
 }
 
+/* User Profile */
+.user-profile-header {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.user-profile-meta {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-bottom: 15px;
+}
+
+.user-profile-bio {
+  font-size: 11px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: var(--bg-alt);
+  border-radius: 4px;
+}
+
+.user-profile-links {
+  font-size: 11px;
+  margin-bottom: 15px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.user-profile-section {
+  font-size: 11px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 15px;
+}
+
+.user-profile-list {
+  list-style: none;
+}
+
+.user-profile-list li {
+  padding: 4px 0;
+  font-size: 11px;
+}
+
+.user-profile-list .meta {
+  color: var(--text-light);
+  font-size: 9px;
+}
+
+.user-comment-item {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.user-comment-item .meta {
+  font-size: 9px;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+.user-comment-item .body {
+  font-size: 11px;
+}
+
 /* Search */
 .search-page h1 {
   font-size: 14px;

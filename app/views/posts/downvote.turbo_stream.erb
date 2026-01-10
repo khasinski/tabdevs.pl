@@ -1,7 +1,1 @@
-<%= turbo_stream.replace "vote_#{dom_id(@post)}" do %>
-  <span class="vote-btn active" style="transform: rotate(180deg);">&#9650;</span>
-<% end %>
-
-<%= turbo_stream.replace "score_#{dom_id(@post)}" do %>
-  <span id="score_<%= dom_id(@post) %>"><%= pluralize_points(@post.score) %></span>
-<% end %>
+<%= render "shared/vote", votable: @post, state: :downvoted, upvote_path: upvote_post_path(@post) %>

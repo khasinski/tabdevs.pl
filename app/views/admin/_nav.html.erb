@@ -1,0 +1,6 @@
+<nav class="admin-nav">
+  <%= link_to t("admin.nav.dashboard"), admin_dashboard_path, class: "admin-nav-link #{current_page == 'dashboard' ? 'active' : ''}" %>
+  <%= link_to t("admin.nav.users"), admin_users_path, class: "admin-nav-link #{current_page == 'users' ? 'active' : ''}" %>
+  <%= link_to t("admin.nav.moderation"), admin_moderation_index_path, class: "admin-nav-link #{current_page == 'moderation' ? 'active' : ''}" %>
+  <%= link_to t("admin.nav.flags"), admin_flags_path, class: "admin-nav-link #{current_page == 'flags' ? 'active' : ''}" %>
+</nav>
