@@ -59,7 +59,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "tabdevs.polanka.ovh", protocol: "https" }
+  config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "tabdevs.pl"), protocol: "https" }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -72,11 +72,8 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts = [
-    "tabdevs.pl",
-    "www.tabdevs.pl",
-    "tabdevs.polanka.ovh"
-  ]
+  # Configure via APP_HOSTS environment variable (comma-separated list)
+  config.hosts = ENV.fetch("APP_HOSTS", "tabdevs.pl,www.tabdevs.pl").split(",").map(&:strip)
 
   # Skip DNS rebinding protection for the default health check endpoint.
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }

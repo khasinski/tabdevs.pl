@@ -42,7 +42,7 @@ gem "image_processing", "~> 1.2"
 
 # tabdevs.pl dependencies
 gem "resend"                    # Email via Resend API
-gem "ruby-openai"               # OpenAI API for AI curator
+# gem "ruby-openai"               # OpenAI API (unused, for future AI features)
 gem "redcarpet"                 # Markdown rendering
 gem "rouge"                     # Syntax highlighting for code blocks
 gem "pagy"                      # Fast pagination
