@@ -1,5 +1,7 @@
 # tabdevs.pl
 
+**[https://tabdevs.pl](https://tabdevs.pl)**
+
 > **English:** A Hacker News-style link aggregator for Polish developers. The UI and content are in Polish, but the codebase is a standard Rails 8 app that can be easily adapted for any language.
 
 Agregator treści technicznych dla polskich programistów - inspirowany Hacker News.
