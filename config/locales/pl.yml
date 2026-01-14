@@ -107,6 +107,7 @@ pl:
       top: "top"
       new: "nowe"
       add: "dodaj"
+      events: "wydarzenia"
       login: "zaloguj"
       logout: "wyloguj"
       settings: "ustawienia"
@@ -267,6 +268,19 @@ pl:
       few: "%{count} punkty"
       many: "%{count} punktów"
       other: "%{count} punktów"
+    events:
+      title: "Kalendarz wydarzeń IT"
+      all_cities: "Wszystkie miasta"
+      all_types: "Wszystkie typy"
+      clear_filters: "wyczyść filtry"
+      no_events: "Brak nadchodzących wydarzeń."
+      free: "darmowe"
+      types:
+        meetup: "meetup"
+        conference: "konferencja"
+        workshop: "warsztat"
+        hackathon: "hackathon"
+        other: "inne"
 
   # Time ago
   time_ago:

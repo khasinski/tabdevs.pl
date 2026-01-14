@@ -67,6 +67,9 @@ Rails.application.routes.draw do
   # Search
   get "search", to: "posts#search", as: :search
 
+  # Events calendar
+  resources :events, only: [ :index, :show ]
+
   # Static pages
   get "faq", to: "pages#faq", as: :faq
   get "regulamin", to: "pages#terms", as: :terms

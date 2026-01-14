@@ -1621,3 +1621,238 @@ pre.highlight code {
 .bookmark-btn.bookmarked {
   color: var(--accent);
 }
+
+/* Events calendar */
+.events-page {
+  max-width: 800px;
+  padding: 10px 0;
+}
+
+.events-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.events-filters {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.events-filter-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.events-select {
+  padding: 6px 10px;
+  font-size: 11px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-alt);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.events-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.events-clear {
+  font-size: 10px;
+  color: var(--text-light);
+}
+
+.events-empty {
+  color: var(--text-light);
+  font-size: 11px;
+  padding: 20px 0;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.events-day {
+  display: flex;
+  gap: 15px;
+}
+
+.events-date {
+  min-width: 50px;
+  text-align: center;
+  padding: 8px;
+  background: var(--accent-light);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.events-date-day {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.events-date-month {
+  font-size: 10px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.events-date-weekday {
+  font-size: 9px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+.events-day-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+
+.event-header {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.event-type {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.event-type-meetup {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.event-type-conference {
+  background: #fce4ec;
+  color: #c2185b;
+}
+
+.event-type-workshop {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.event-type-hackathon {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.event-type-other {
+  background: var(--tag-bg);
+  color: var(--text-muted);
+}
+
+.event-free {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.event-title {
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.event-title a {
+  color: var(--link);
+}
+
+.event-title a:hover {
+  text-decoration: underline;
+}
+
+.event-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 10px;
+  color: var(--text-light);
+}
+
+.event-online-badge {
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-size: 9px;
+}
+
+[data-theme="dark"] .event-type-meetup {
+  background: #1a237e;
+  color: #90caf9;
+}
+
+[data-theme="dark"] .event-type-conference {
+  background: #4a148c;
+  color: #f48fb1;
+}
+
+[data-theme="dark"] .event-type-workshop {
+  background: #e65100;
+  color: #ffcc80;
+}
+
+[data-theme="dark"] .event-type-hackathon {
+  background: #1b5e20;
+  color: #a5d6a7;
+}
+
+[data-theme="dark"] .event-free {
+  background: #1b5e20;
+  color: #a5d6a7;
+}
+
+@media (max-width: 768px) {
+  .events-day {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .events-date {
+    flex-direction: row;
+    gap: 8px;
+    min-width: auto;
+    padding: 6px 12px;
+  }
+
+  .events-date-day {
+    font-size: 16px;
+  }
+
+  .events-date-month {
+    margin-top: 0;
+  }
+
+  .events-date-weekday {
+    margin-top: 0;
+  }
+}

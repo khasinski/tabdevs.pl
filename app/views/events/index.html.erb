@@ -1,0 +1,77 @@
+<% content_for(:title) { "Kalendarz wydarzeń IT | tabdevs.pl" } %>
+<% content_for(:description) { "Nadchodzące meetupy, konferencje i warsztaty IT w Polsce. Znajdź wydarzenia technologiczne w swoim mieście." } %>
+
+<div class="events-page">
+  <h1 class="events-title"><%= t("views.events.title") %></h1>
+
+  <div class="events-filters">
+    <%= form_with url: events_path, method: :get, class: "events-filter-form", data: { turbo: false } do %>
+      <select name="city" class="events-select" onchange="this.form.submit()">
+        <option value=""><%= t("views.events.all_cities") %></option>
+        <% @cities.each do |city| %>
+          <option value="<%= city %>" <%= "selected" if params[:city] == city %>><%= city %></option>
+        <% end %>
+      </select>
+
+      <select name="type" class="events-select" onchange="this.form.submit()">
+        <option value=""><%= t("views.events.all_types") %></option>
+        <option value="meetup" <%= "selected" if params[:type] == "meetup" %>><%= t("views.events.types.meetup") %></option>
+        <option value="conference" <%= "selected" if params[:type] == "conference" %>><%= t("views.events.types.conference") %></option>
+        <option value="workshop" <%= "selected" if params[:type] == "workshop" %>><%= t("views.events.types.workshop") %></option>
+        <option value="hackathon" <%= "selected" if params[:type] == "hackathon" %>><%= t("views.events.types.hackathon") %></option>
+      </select>
+
+      <% if params[:city].present? || params[:type].present? %>
+        <%= link_to t("views.events.clear_filters"), events_path, class: "events-clear" %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if @grouped_events.empty? %>
+    <p class="events-empty"><%= t("views.events.no_events") %></p>
+  <% else %>
+    <div class="events-list">
+      <% @grouped_events.each do |date, events| %>
+        <div class="events-day">
+          <div class="events-date">
+            <span class="events-date-day"><%= date.day %></span>
+            <span class="events-date-month"><%= t("date.abbr_month_names")[date.month] %></span>
+            <span class="events-date-weekday"><%= t("date.abbr_day_names")[date.wday] %></span>
+          </div>
+
+          <div class="events-day-list">
+            <% events.each do |event| %>
+              <div class="event-card">
+                <div class="event-header">
+                  <span class="event-type event-type-<%= event.event_type %>">
+                    <%= t("views.events.types.#{event.event_type}") %>
+                  </span>
+                  <% if event.free? %>
+                    <span class="event-free"><%= t("views.events.free") %></span>
+                  <% end %>
+                </div>
+
+                <h3 class="event-title">
+                  <%= link_to event.title, event.url, target: "_blank", rel: "noopener" %>
+                </h3>
+
+                <div class="event-meta">
+                  <span class="event-location">
+                    <% if event.online? %>
+                      <span class="event-online-badge">Online</span>
+                    <% else %>
+                      <%= event.location %>
+                    <% end %>
+                  </span>
+                  <% if event.organizer.present? %>
+                    <span class="event-organizer"><%= event.organizer %></span>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
