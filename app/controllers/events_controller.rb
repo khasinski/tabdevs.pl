@@ -11,7 +11,7 @@ class EventsController < ApplicationController
     end
 
     @grouped_events = @events.group_by { |e| e.starts_at.to_date }
-    @cities = Event.upcoming.distinct.pluck(:location).compact.sort
+    @cities = Event.where("starts_at >= ?", Time.current).distinct.pluck(:location).compact.sort
   end
 
   def show
