@@ -30,11 +30,7 @@
         <span class="feed-tag"><%= t("views.posts.tags.#{post.tag}") %></span>
       <% end %>
 
-      <%# Temporarily hidden: bot badge
-      <% if post.author&.bot? %>
-        <span class="feed-bot">bot</span>
-      <% end %>
-      %>
+      <%# Temporarily hidden: bot badge %>
     </div>
 
     <div class="feed-meta">
