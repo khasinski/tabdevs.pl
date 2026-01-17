@@ -5,15 +5,15 @@
   <h1 class="events-title"><%= t("views.events.title") %></h1>
 
   <div class="events-filters">
-    <%= form_with url: events_path, method: :get, class: "events-filter-form", data: { turbo: false } do %>
-      <select name="city" class="events-select" onchange="this.form.submit()">
+    <%= form_with url: events_path, method: :get, class: "events-filter-form", data: { turbo: false, controller: "auto-submit" } do %>
+      <select name="city" class="events-select" data-action="change->auto-submit#submit">
         <option value=""><%= t("views.events.all_cities") %></option>
         <% @cities.each do |city| %>
           <option value="<%= city %>" <%= "selected" if params[:city] == city %>><%= city %></option>
         <% end %>
       </select>
 
-      <select name="type" class="events-select" onchange="this.form.submit()">
+      <select name="type" class="events-select" data-action="change->auto-submit#submit">
         <option value=""><%= t("views.events.all_types") %></option>
         <option value="meetup" <%= "selected" if params[:type] == "meetup" %>><%= t("views.events.types.meetup") %></option>
         <option value="conference" <%= "selected" if params[:type] == "conference" %>><%= t("views.events.types.conference") %></option>
