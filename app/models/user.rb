@@ -44,6 +44,10 @@ class User < ApplicationRecord
     username == "tabdevs-bot"
   end
 
+  def to_param
+    username
+  end
+
   def has_password?
     password_digest.present?
   end
