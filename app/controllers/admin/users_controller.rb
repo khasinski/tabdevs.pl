@@ -56,7 +56,7 @@ module Admin
     private
 
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find_by!(username: params[:id])
     end
 
     def ban_expires_at
